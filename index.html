@@ -131,7 +131,7 @@
 </head>
 <body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200">
 
-    <!-- AUDIO BGM BEBAS HAK CIPTA (Reliable Stream URL) -->
+    <!-- AUDIO BGM BEBAS HAK CIPTA -->
     <audio id="bgm-audio" loop>
         <source src="https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" type="audio/ogg">
         <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
@@ -242,7 +242,7 @@
             </div>
         </nav>
 
-        <!-- SUB-GENRE BAR DENGAN ICON PNG YANG BENAR-BENAR SESUAI -->
+        <!-- SUB-GENRE BAR (Buku Terbuka Ber-Icon Khusus Sesuai Request) -->
         <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden">
             <!-- Dimuat otomatis -->
         </div>
@@ -547,20 +547,20 @@
                     ? "bg-pink-950 text-pink-200 border-pink-500 font-semibold"
                     : "taman-card opacity-80 hover:opacity-100 font-light";
 
-                // PEMETAAN ICON PNG YANG BENAR-BENAR AKURAT SESUAI PERMINTAAN
-                let pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3176/3176363.png"; 
-                if (sub === 'Fairytale') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/865/865955.png"; // Peri / Sayap Peri
-                else if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2917/2917995.png"; // Kuil / Petir Dewa Kuno
-                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png"; // Mahkota Emas Kerajaan
-                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png"; // Jejak Hewan Hutan
-                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png"; // Siluet Kota Malam Magis
-                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png"; // Pedang Besi / Senjata
-                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png"; // Hantu / Bulan Sabit Gelap
-                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png"; // Bunga Mawar Merah
-                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png"; // Cangkir Kopi & Hati
-                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png"; // Lilin Menyala
-                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png"; // Cermin / Renungan Jiwa
-                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png"; // Pena Tinta & Kertas
+                // SEMUA MENGGUNAKAN POLA BUKU TERBUKA + PNG KHUSUS SESUAI PERMINTAAN (FAIRYTALE & MITOLOGI DITUKAR, KERAJAAN & GRIMDARK DIPERBARUI)
+                let pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3176/3176363.png"; // Buku Terbuka Standar
+                if (sub === 'Fairytale') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/865/865955.png"; // Peri / Sayap Peri di Buku
+                else if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2917/2917995.png"; // Kuil Dewa / Petir Yunani di Buku
+                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png"; // Mahkota Kerajaan Megah di Buku
+                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png"; // Pedang Tajam / Grimdark Vibez di Buku
+                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png"; // Hewan Hutan di Buku
+                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png"; // Kota Sihir di Buku
+                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png"; // Bulan Gelap di Buku
+                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png"; // Bunga Mawar di Buku
+                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png"; // Cangkir Kopi di Buku
+                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png"; // Lilin di Buku
+                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png"; // Renungan di Buku
+                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png"; // Pena di Buku
 
                 subContainer.innerHTML += `
                     <button onclick="selectSubGenre('${sub}')" 
