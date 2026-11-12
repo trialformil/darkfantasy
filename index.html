@@ -11,36 +11,53 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            /* Background taman bacaan malam fantasy yang magis & unyu */
-            background: linear-gradient(135deg, #0d0918 0%, #171026 50%, #201335 100%);
-            color: #e2e8f0;
+            background: linear-gradient(135deg, rgba(9, 7, 18, 0.92) 0%, rgba(18, 12, 31, 0.88) 50%, rgba(26, 17, 43, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop');
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
             background-attachment: fixed;
+            color: #e2e8f0;
+            overflow-x: hidden;
         }
         .title-font {
             font-family: 'Cinzel', serif;
         }
-        /* Glassmorphism Taman Bacaan Card */
         .taman-card {
-            background: rgba(26, 20, 42, 0.65);
+            background: rgba(22, 17, 36, 0.75);
             backdrop-filter: blur(14px);
-            border: 1px solid rgba(168, 85, 247, 0.25);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
         .taman-card:hover {
-            border-color: rgba(168, 85, 247, 0.5);
-            background: rgba(35, 27, 56, 0.75);
-            transform: translateY(-3px);
+            border-color: rgba(236, 72, 153, 0.5);
+            background: rgba(30, 23, 48, 0.85);
+            transform: translateY(-2px);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .custom-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 11, 26, 0.6);
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.4);
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(236, 72, 153, 0.6);
+        }
     </style>
 </head>
-<body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200 overflow-x-hidden">
+<body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200">
 
-    <!-- HEADER CAROUSEL / BANNER LANGIT MALAM BUWANA MILLENA -->
-    <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden">
-        <!-- Floating Glow Effects -->
+    <!-- HEADER CAROUSEL -->
+    <header class="relative pt-6 pb-4 border-b border-purple-900/40 overflow-hidden bg-black/30 backdrop-blur-md">
         <div class="absolute top-0 left-1/4 w-32 h-32 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute top-4 right-1/4 w-28 h-28 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -49,94 +66,86 @@
             <h1 class="title-font text-xl font-bold tracking-wider text-pink-200 drop-shadow-[0_0_15px_rgba(236,72,153,0.4)] mt-0.5">
                 BUWANA MILLENA
             </h1>
-            <p class="text-[11px] text-purple-200/80 font-light italic mt-0.5">"Taman Bacaan di Bawah Taburan Bintang & Gema Cerita"</p>
+            <p class="text-[11px] text-purple-200/80 font-light italic mt-0.5">"Taman Bacaan di Bawah Kastil Pustaka & Bintang Malam"</p>
         </div>
 
-        <!-- Carousel Banner Lanskap (Bisa digeser kanan-kiri) -->
         <div class="px-4 mt-2">
-            <div id="banner-carousel" class="flex gap-3 overflow-x-auto pb-2 no-scrollbar snap-x snap-mandatory">
-                <!-- Banner 1 -->
+            <div id="banner-carousel" class="flex gap-3 overflow-x-auto pb-2 custom-scroll snap-x snap-mandatory">
                 <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-purple-500/30 shadow-lg">
                     <img src="watermarked_img_17237834058804996001.jpg" class="w-full h-full object-cover opacity-85" alt="Banner 1">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                     <div class="absolute bottom-2.5 left-3 right-3 text-left">
-                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/80 text-pink-300 border border-purple-700/50">Taman Utama</span>
+                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/80 text-pink-300 border border-purple-700/50">Taman Pustaka</span>
                         <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gema Malam Buwana Millena</h3>
                     </div>
                 </div>
-                <!-- Banner 2 -->
                 <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-pink-500/30 shadow-lg">
                     <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 2">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                     <div class="absolute bottom-2.5 left-3 right-3 text-left">
-                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/80 text-pink-300 border border-pink-700/50">Sudut Pustaka</span>
+                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/80 text-pink-300 border border-pink-700/50">Sudut Starlight</span>
                         <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Symphony of Starlight</h3>
                     </div>
                 </div>
-                <!-- Banner 3 -->
                 <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-indigo-500/30 shadow-lg">
                     <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 3">
                     <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                     <div class="absolute bottom-2.5 left-3 right-3 text-left">
-                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-700/50">Arsip Rahasia</span>
-                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Kisah Kerajaan & Mitos</h3>
+                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-700/50">Kastil Mitos</span>
+                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Kisah Kerajaan & Legenda</h3>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Running Text Selamat Datang -->
-        <div class="mt-3 bg-purple-950/40 border-y border-purple-800/30 py-1.5 overflow-hidden whitespace-nowrap">
+        <div class="mt-3 bg-purple-950/50 border-y border-purple-800/30 py-1.5 overflow-hidden whitespace-nowrap backdrop-blur-sm">
             <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] text-pink-200/90 tracking-wider font-light">
-                🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di bangku taman, pilih rak genre dan temukan gema naskah favoritmu • ✨ Silakan jelajahi arsip dengan nuansa magis malam hari •
+                🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di bangku taman, pilih rak genre dan geser naskah ke samping • ✨ Nikmati suasana kastil pustaka di bawah taburan bintang •
             </div>
         </div>
     </header>
 
-    <!-- KONTEN UTAMA TAMAN BACAAN -->
-    <main class="max-w-md mx-auto px-4 mt-4 space-y-4">
+    <!-- KONTEN UTAMA -->
+    <main class="max-w-xl mx-auto px-4 mt-5 space-y-5">
 
-        <!-- Area "Tempat Pengunjung Duduk & Cari Bacaan" -->
-        <div class="taman-card rounded-2xl p-3.5 flex items-center justify-between gap-3 border-purple-500/30">
-            <div class="flex items-center gap-2.5">
+        <div class="taman-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-purple-500/30">
+            <div class="flex items-center gap-2.5 w-full sm:w-auto">
                 <span class="text-xl">🪑</span>
                 <div>
                     <h2 class="text-xs font-medium text-pink-200">Sudut Bangku Taman</h2>
-                    <p class="text-[10px] text-purple-300/70">Cari naskah atau pilih kategori di bawah...</p>
+                    <p class="text-[10px] text-purple-300/70">Pilih rak genre atau ketik pencarian di bawah...</p>
                 </div>
             </div>
-            <!-- Search Bar Mini -->
-            <div class="relative w-44">
-                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul/tema..." 
-                    class="w-full pl-7 pr-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] text-stone-200 placeholder-stone-400 focus:outline-none focus:border-pink-500 transition">
+            <div class="relative w-full sm:w-56">
+                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul / tema..." 
+                    class="w-full pl-7 pr-3 py-1.5 bg-black/50 border border-purple-500/40 rounded-xl text-[11px] text-stone-200 placeholder-stone-400 focus:outline-none focus:border-pink-500 transition">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-purple-300 text-[10px]">🔍</span>
             </div>
         </div>
 
-        <!-- Rak Kategori Utama (Tabs) -->
-        <nav class="sticky top-0 z-20 bg-[#0d0918]/90 backdrop-blur-md py-2 -mx-4 px-4 border-b border-purple-900/30">
-            <div id="genre-tabs" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+        <!-- RAK KATEGORI UTAMA (Mitologi dan Kerajaan Dipisah) -->
+        <nav class="sticky top-0 z-20 bg-[#0d0918]/85 backdrop-blur-md py-2.5 -mx-4 px-4 border-b border-purple-900/40">
+            <div id="genre-tabs" class="flex gap-2 overflow-x-auto pb-1 custom-scroll">
                 <!-- Dimuat otomatis -->
             </div>
         </nav>
 
-        <!-- Pilihan Sub-Genre / Tema Dinamis (Bisa digeser kanan-kiri) -->
-        <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar items-center">
-            <!-- Dimuat otomatis -->
-        </div>
+        <div class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+                <h3 id="current-category-title" class="title-font text-xs font-semibold tracking-wider text-pink-300 uppercase">✦ Koleksi Naskah</h3>
+                <span class="text-[10px] text-purple-400/80 italic">↔ Geser kanan-kiri untuk melihat lebih banyak</span>
+            </div>
 
-        <!-- Daftar Bacaan (Taman Bacaan Card Grid/List dengan 2 Tombol) -->
-        <div id="story-container" class="space-y-4 pt-1">
-            <!-- List buku dimuat otomatis -->
+            <div id="story-container" class="flex gap-4 overflow-x-auto pb-4 pt-1 px-1 custom-scroll snap-x">
+                <!-- List buku menyamping -->
+            </div>
         </div>
     </main>
 
-    <!-- Footer Taman Bacaan -->
-    <footer class="text-center text-purple-400/60 text-[10px] mt-16 tracking-widest uppercase font-light">
-        Buwana Millena Sanctuary • All Echos Reserved
+    <footer class="text-center text-purple-300/60 text-[10px] mt-20 tracking-widest uppercase font-light">
+        Buwana Millena Sanctuary • Kastil Pustaka Malam
     </footer>
 
-    <!-- Style Marquee -->
     <style>
         @keyframes marquee {
             0% { transform: translateX(0%); }
@@ -145,100 +154,119 @@
     </style>
 
     <script>
-        // DATABASE ARSIP TAMAN BACAAN
+        // DATABASE ARSIP (Mitologi dan Kerajaan Dipisah)
         let stories = [
             {
+                id: 1,
                 judul: "The Phantom of the Hollow Echo",
                 genre: "Dark Fantasy",
-                sub: "Urban Fantasy",
                 tema: "Ethereal Night",
                 palette: "#17141f",
-                blurb: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat.",
+                blurb: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat di dalam kabut obsidian.",
+                blurbFull: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat di dalam kabut obsidian. Konon siapa pun yang mendengarnya sampai tuntas tidak akan pernah bisa kembali ke dunia nyata sebelum fajar menyingsing.",
                 cover: "watermarked_img_17237834058804996001.jpg", 
                 linkTelegraph: "https://telegra.ph/contoh-1",
                 linkBlurb: "https://t.me/c/namachannel/1"
             },
             {
+                id: 2,
                 judul: "Shadows of the Iron Bastion",
                 genre: "Dark Fantasy",
-                sub: "Grimdark",
                 tema: "Blood & Steel",
                 palette: "#1f1414",
                 blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir.",
+                blurbFull: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir. Ketika pasukan kegelapan mengepung dinding besi, seorang ksatria harus memilih antara kesetiaan atau keselamatan umat manusia.",
                 cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-grimdark",
                 linkBlurb: "https://t.me/c/namachannel/2"
             },
             {
+                id: 3,
                 judul: "A Waltz Under Starlight",
                 genre: "Romance",
-                sub: "Pure Romance",
                 tema: "Classic Ballroom",
                 palette: "#2b101f",
                 blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.",
+                blurbFull: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian. Di tengah pesta dansa bangsawan yang megah, dua insan berdansa tanpa mengetahui rahasia besar yang masing-masing simpan.",
                 cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-2",
                 linkBlurb: "https://t.me/c/namachannel/3"
             },
             {
-                judul: "Coffee, Cats & Chaos",
-                genre: "Romance",
-                sub: "RomCom",
-                tema: "Café Slice of Life",
-                palette: "#2b2210",
-                blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu.",
-                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-romcom",
-                linkBlurb: "https://t.me/c/namachannel/4"
-            },
-            {
-                judul: "Crown of the Sunken Kingdom",
-                genre: "Fantasy",
-                sub: "Mitologi & Kerajaan",
-                tema: "Ancient Myth",
+                id: 4,
+                judul: "Whispers of the Olympus",
+                genre: "Mitologi",
+                tema: "Ancient Gods",
                 palette: "#10202b",
-                blurb: "Kisah pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur.",
+                blurb: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern.",
+                blurbFull: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern ketika batas antara alam manusia dan kahyangan mulai menipis.",
                 cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-3",
+                linkTelegraph: "https://telegra.ph/contoh-mitologi",
                 linkBlurb: "https://t.me/c/namachannel/5"
             },
             {
+                id: 5,
+                judul: "Crown of the Sunken Kingdom",
+                genre: "Kerajaan",
+                tema: "Royal Court",
+                palette: "#20102b",
+                blurb: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur.",
+                blurbFull: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur kerajaan. Di sana, rahasia istana masa lalu terbongkar perlahan.",
+                cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
+                linkTelegraph: "https://telegra.ph/contoh-kerajaan",
+                linkBlurb: "https://t.me/c/namachannel/6"
+            },
+            {
+                id: 6,
+                judul: "The Glass Slipper's Curse",
+                genre: "Fantasy",
+                tema: "Dark Fairytale",
+                palette: "#20102b",
+                blurb: "Pengerjaan ulang kisah dongeng klasik dengan sentuhan misteri dan rahasia kelam di balik istana.",
+                blurbFull: "Pengerjaan ulang kisah dongeng klasik dengan sentuhan misteri dan rahasia kelam di balik istana. Sepatu kaca bukan lagi simbol keajaiban, melainkan petunjuk dari teka-teki berbahaya.",
+                cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
+                linkTelegraph: "https://telegra.ph/contoh-fairytale",
+                linkBlurb: "https://t.me/c/namachannel/7"
+            },
+            {
+                id: 7,
                 judul: "Catatan Kaki: Menemukan Sunyi",
                 genre: "Sound of Soul",
-                sub: "Refleksi Penulis",
                 tema: "Open My Mind",
                 palette: "#151515",
                 blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.",
+                blurbFull: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis di tengah bisingnya ekspektasi dunia modern. Sebuah catatan jujur dari sudut meja kerja penulis.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-4",
-                linkBlurb: "https://t.me/c/namachannel/6"
+                linkBlurb: "https://t.me/c/namachannel/8"
             }
         ];
 
         let currentGenre = 'Semua';
-        let currentSubGenre = 'Semua';
         let searchQuery = '';
+        let expandedIds = {};
 
         function initApp() {
             renderTabs();
-            renderSubGenres();
             renderStories();
         }
 
         function renderTabs() {
             const tabsContainer = document.getElementById('genre-tabs');
-            const genres = ['Semua', 'Dark Fantasy', 'Romance', 'Fantasy', 'Sound of Soul'];
+            const genres = ['Semua', 'Dark Fantasy', 'Romance', 'Mitologi', 'Kerajaan', 'Fantasy', 'Sound of Soul'];
             tabsContainer.innerHTML = '';
             
             genres.forEach(genre => {
                 const isActive = currentGenre === genre;
                 const activeClass = isActive 
                     ? "bg-purple-900/90 text-pink-100 border-pink-500/60 shadow-[0_0_12px_rgba(236,72,153,0.3)] font-medium" 
-                    : "bg-stone-950/50 text-stone-300 border-purple-950/60 hover:border-purple-800 font-light";
+                    : "bg-stone-950/60 text-stone-300 border-purple-950/60 hover:border-purple-800 font-light";
                 
                 let icon = "✨";
                 if(genre === 'Dark Fantasy') icon = "🗡️";
                 if(genre === 'Romance') icon = "🥀";
+                if(genre === 'Mitologi') icon = "⚡";
+                if(genre === 'Kerajaan') icon = "👑";
                 if(genre === 'Fantasy') icon = "🏰";
                 if(genre === 'Sound of Soul') icon = "🎶";
                 if(genre === 'Semua') icon = "📚";
@@ -252,49 +280,20 @@
             });
         }
 
-        function renderSubGenres() {
-            const subContainer = document.getElementById('subgenre-container');
-            subContainer.innerHTML = '';
-
-            if (currentGenre === 'Semua') {
-                subContainer.style.display = 'none';
-                return;
-            }
-
-            subContainer.style.display = 'flex';
-            let availableSubs = ['Semua', ...new Set(stories.filter(s => s.genre === currentGenre).map(s => s.sub))];
-
-            availableSubs.forEach(sub => {
-                const isActive = currentSubGenre === sub;
-                const activeClass = isActive
-                    ? "bg-pink-950/80 text-pink-200 border-pink-500/60 font-medium shadow-sm"
-                    : "bg-stone-950/40 text-stone-400 border-purple-950/40 hover:border-purple-800 font-light";
-
-                subContainer.innerHTML += `
-                    <button onclick="selectSubGenre('${sub}')" 
-                        class="px-3 py-1 rounded-lg text-[11px] tracking-wide border whitespace-nowrap transition-all ${activeClass}">
-                        ✦ ${sub}
-                    </button>
-                `;
-            });
-        }
-
         function selectGenre(genreName) {
             currentGenre = genreName;
-            currentSubGenre = 'Semua';
+            document.getElementById('current-category-title').innerText = `✦ Koleksi: ${genreName}`;
             renderTabs();
-            renderSubGenres();
-            renderStories();
-        }
-
-        function selectSubGenre(subName) {
-            currentSubGenre = subName;
-            renderSubGenres();
             renderStories();
         }
 
         function handleSearch() {
             searchQuery = document.getElementById('search-input').value.toLowerCase();
+            renderStories();
+        }
+
+        function toggleExpand(id) {
+            expandedIds[id] = !expandedIds[id];
             renderStories();
         }
 
@@ -304,60 +303,65 @@
 
             let filtered = stories.filter(story => {
                 const matchGenre = currentGenre === 'Semua' || story.genre === currentGenre;
-                const matchSub = currentSubGenre === 'Semua' || story.sub === currentSubGenre;
                 const matchSearch = 
                     story.judul.toLowerCase().includes(searchQuery) ||
                     story.genre.toLowerCase().includes(searchQuery) ||
-                    story.sub.toLowerCase().includes(searchQuery) ||
                     story.tema.toLowerCase().includes(searchQuery) ||
-                    story.blurb.toLowerCase().includes(searchQuery);
-                return matchGenre && matchSub && matchSearch;
+                    story.blurbFull.toLowerCase().includes(searchQuery);
+                return matchGenre && matchSearch;
             });
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-16 taman-card rounded-2xl border-purple-900/30">
+                    <div class="text-center py-16 w-full taman-card rounded-2xl border-purple-900/30">
                         <p class="text-purple-300 text-xs tracking-wider font-light">Tiada naskah di sudut taman ini...</p>
                     </div>`;
                 return;
             }
 
             filtered.forEach(story => {
+                const isExpanded = expandedIds[story.id] || false;
+                const activeBlurb = isExpanded ? story.blurbFull : story.blurb;
+                const expandIcon = isExpanded ? '▲ Sembunyikan' : '▼ Selengkapnya';
+
                 container.innerHTML += `
-                    <div class="taman-card rounded-2xl overflow-hidden p-3.5 flex flex-col gap-3">
-                        <!-- Cover Buku Lanskap -->
-                        <div class="relative w-full h-36 rounded-xl overflow-hidden bg-stone-950 border border-purple-500/30 shadow-inner">
-                            <img src="${story.cover}" alt="Cover" class="w-full h-full object-cover opacity-90">
-                            <div class="absolute top-2 left-2 flex gap-1.5">
-                                <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-stone-950/80 backdrop-blur-md text-purple-300 border border-purple-800/50">${story.genre}</span>
-                                <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-pink-950/80 backdrop-blur-md text-pink-200 border border-pink-800/50">${story.sub}</span>
+                    <div class="taman-card rounded-2xl overflow-hidden p-3.5 flex flex-col justify-between shrink-0 w-72 sm:w-80 snap-start">
+                        <div>
+                            <div class="relative w-full h-36 rounded-xl overflow-hidden bg-stone-950 border border-purple-500/30 shadow-inner">
+                                <img src="${story.cover}" alt="Cover" class="w-full h-full object-cover opacity-90">
+                                <div class="absolute top-2 left-2">
+                                    <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-stone-950/80 backdrop-blur-md text-pink-300 border border-purple-800/50">${story.genre}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col gap-1 px-0.5 mt-2.5">
+                                <div class="flex items-center justify-between text-[10px] text-stone-400">
+                                    <span class="text-pink-300/90 font-medium">✦ Tema: ${story.tema}</span>
+                                    <span class="text-purple-400/60 text-[9px]">Palette: ${story.palette}</span>
+                                </div>
+                                
+                                <h2 class="title-font text-sm font-semibold text-stone-100 tracking-wide mt-0.5">${story.judul}</h2>
+                                
+                                <div class="mt-1">
+                                    <p class="text-xs text-stone-300/80 font-light leading-relaxed italic">
+                                        "${activeBlurb}"
+                                    </p>
+                                    <button onclick="toggleExpand(${story.id})" class="text-[10px] text-pink-400 hover:text-pink-300 font-medium mt-1 transition flex items-center gap-1 focus:outline-none">
+                                        ${expandIcon}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Detail Info Buku -->
-                        <div class="flex flex-col gap-1 px-0.5">
-                            <div class="flex items-center justify-between text-[10px] text-stone-400">
-                                <span class="text-pink-300/90 font-medium">✦ Tema: ${story.tema}</span>
-                                <span class="text-purple-400/60 text-[9px]">Palette: ${story.palette}</span>
-                            </div>
-                            
-                            <h2 class="title-font text-sm font-semibold text-stone-100 tracking-wide mt-0.5">${story.judul}</h2>
-                            
-                            <p class="text-xs text-stone-300/80 font-light leading-relaxed mt-1 italic">
-                                "${story.blurb}"
-                            </p>
-                            
-                            <!-- 2 TOMBOL PILIHAN (1. Telegraph, 2. Blurb Channel) -->
-                            <div class="mt-3.5 pt-2.5 border-t border-purple-900/30 grid grid-cols-2 gap-2">
-                                <a href="${story.linkTelegraph}" target="_blank" 
-                                   class="text-[10px] tracking-wider uppercase font-medium bg-purple-950/80 hover:bg-purple-900 text-purple-200 py-2 px-3 rounded-xl border border-purple-700/50 transition text-center shadow-sm flex items-center justify-center gap-1">
-                                   📖 Baca Telegraph
-                                </a>
-                                <a href="${story.linkBlurb}" target="_blank" 
-                                   class="text-[10px] tracking-wider uppercase font-medium bg-pink-950/60 hover:bg-pink-900/80 text-pink-200 py-2 px-3 rounded-xl border border-pink-700/40 transition text-center shadow-sm flex items-center justify-center gap-1">
-                                   💬 Blurb Channel
-                                </a>
-                            </div>
+                        <div class="mt-4 pt-2.5 border-t border-purple-900/30 grid grid-cols-2 gap-2">
+                            <a href="${story.linkTelegraph}" target="_blank" 
+                               class="text-[10px] tracking-wider uppercase font-medium bg-purple-950/80 hover:bg-purple-900 text-purple-200 py-2 px-2 rounded-xl border border-purple-700/50 transition text-center shadow-sm flex items-center justify-center gap-1">
+                               📖 Telegraph
+                            </a>
+                            <a href="${story.linkBlurb}" target="_blank" 
+                               class="text-[10px] tracking-wider uppercase font-medium bg-pink-950/60 hover:bg-pink-900/80 text-pink-200 py-2 px-2 rounded-xl border border-pink-700/40 transition text-center shadow-sm flex items-center justify-center gap-1">
+                               💬 Channel
+                            </a>
                         </div>
                     </div>
                 `;
