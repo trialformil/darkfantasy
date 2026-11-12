@@ -11,20 +11,38 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, rgba(9, 7, 18, 0.92) 0%, rgba(18, 12, 31, 0.88) 50%, rgba(26, 17, 43, 0.9) 100%),
-                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop');
+            /* Background keseluruhan: Taman hijau kastil perpustakaan berpadu ilustrasi ayunan romantis (cewek & cowok membaca buku) */
+            background: linear-gradient(135deg, rgba(8, 16, 12, 0.90) 0%, rgba(18, 12, 32, 0.87) 50%, rgba(10, 8, 22, 0.92) 100%),
+                        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop');
             background-blend-mode: overlay;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: #e2e8f0;
             overflow-x: hidden;
+            position: relative;
         }
+
+        /* Watermark Ilustrasi Ayunan / Suasana Taman di Background (Opsional Artistik) */
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop') no-repeat bottom right;
+            background-size: 400px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .title-font {
             font-family: 'Cinzel', serif;
         }
         .taman-card {
-            background: rgba(22, 17, 36, 0.75);
+            background: rgba(22, 17, 36, 0.78);
             backdrop-filter: blur(14px);
             border: 1px solid rgba(168, 85, 247, 0.3);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -32,7 +50,7 @@
         }
         .taman-card:hover {
             border-color: rgba(236, 72, 153, 0.5);
-            background: rgba(30, 23, 48, 0.85);
+            background: rgba(30, 23, 48, 0.88);
             transform: translateY(-2px);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -56,8 +74,8 @@
 </head>
 <body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200">
 
-    <!-- HEADER DENGAN SLIDER BANNER (TOMBOL PANAH KIRI-KANAN) -->
-    <header class="relative pt-6 pb-4 border-b border-purple-900/40 overflow-hidden bg-black/30 backdrop-blur-md">
+    <!-- HEADER DENGAN SLIDER BANNER BERTEMA PERPUSTAKAAN & KASTIL -->
+    <header class="relative pt-6 pb-4 border-b border-purple-900/40 overflow-hidden bg-black/40 backdrop-blur-md">
         <div class="absolute top-0 left-1/4 w-32 h-32 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute top-4 right-1/4 w-28 h-28 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -66,44 +84,42 @@
             <h1 class="title-font text-xl font-bold tracking-wider text-pink-200 drop-shadow-[0_0_15px_rgba(236,72,153,0.4)] mt-0.5">
                 BUWANA MILLENA
             </h1>
-            <p class="text-[11px] text-purple-200/80 font-light italic mt-0.5">"Taman Bacaan di Bawah Kastil Pustaka & Bintang Malam"</p>
+            <p class="text-[11px] text-purple-200/80 font-light italic mt-0.5">"Taman Ayunan Pustaka di Bawah Bintang Malam"</p>
         </div>
 
-        <!-- Banner Slider Tunggal dengan Tombol Panah -->
+        <!-- Banner Slider Bertema Perpustakaan dengan Tombol Panah -->
         <div class="px-4 mt-2 max-w-lg mx-auto relative">
             <div class="relative w-full h-40 rounded-2xl overflow-hidden border border-purple-500/30 shadow-xl bg-stone-950">
-                <!-- Slide Item Container -->
                 <div id="slider-container" class="w-full h-full relative">
-                    <!-- Slide 1 -->
+                    <!-- Slide 1: Kastil Pustaka -->
                     <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-100">
-                        <img src="watermarked_img_17237834058804996001.jpg" class="w-full h-full object-cover opacity-85" alt="Banner 1">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Kastil Pustaka">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                         <div class="absolute bottom-3 left-4 right-4">
-                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/85 text-pink-300 border border-purple-700/50">Taman Pustaka</span>
-                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gema Malam Buwana Millena</h3>
+                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/85 text-pink-300 border border-purple-700/50">Kastil Pustaka</span>
+                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gerbang Utama Taman Bacaan</h3>
                         </div>
                     </div>
-                    <!-- Slide 2 -->
+                    <!-- Slide 2: Rak Buku Magis -->
                     <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0">
-                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 2">
+                        <img src="https://images.unsplash.com/photo-1507842229443-77783318acd5?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Rak Buku">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                         <div class="absolute bottom-3 left-4 right-4">
-                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-300 border border-pink-700/50">Sudut Starlight</span>
-                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Symphony of Starlight</h3>
+                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-300 border border-pink-700/50">Lorong Rak Buku</span>
+                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Menyimpan Ribuan Gema Cerita</h3>
                         </div>
                     </div>
-                    <!-- Slide 3 -->
+                    <!-- Slide 3: Sudut Baca Cahaya Starlight -->
                     <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 3">
+                        <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Sudut Baca">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                         <div class="absolute bottom-3 left-4 right-4">
-                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/85 text-indigo-300 border border-indigo-700/50">Kastil Mitos</span>
-                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Kisah Kerajaan & Legenda</h3>
+                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/85 text-indigo-300 border border-indigo-700/50">Sudut Starlight</span>
+                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Ruang Baca & Perenungan Jiwa</h3>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tombol Panah Kiri & Kanan -->
                 <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 transition text-xs z-10">❮</button>
                 <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 transition text-xs z-10">❯</button>
             </div>
@@ -111,7 +127,7 @@
 
         <div class="mt-3 bg-purple-950/50 border-y border-purple-800/30 py-1.5 overflow-hidden whitespace-nowrap backdrop-blur-sm">
             <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] text-pink-200/90 tracking-wider font-light">
-                🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di bangku taman, pilih rak genre dan geser naskah ke samping • ✨ Nikmati suasana kastil pustaka di bawah taburan bintang •
+                🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di ayunan taman, pilih rak genre dan sub-genre naskahmu • ✨ Nikmati suasana kastil pustaka di bawah taburan bintang •
             </div>
         </div>
     </header>
@@ -119,15 +135,20 @@
     <!-- KONTEN UTAMA -->
     <main class="max-w-xl mx-auto px-4 mt-5 space-y-4">
 
-        <div class="taman-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-purple-500/30">
-            <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                <span class="text-xl">🪑</span>
+        <!-- Sudut Bangku / Ayunan Taman -->
+        <div class="taman-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-purple-500/30 relative overflow-hidden">
+            <!-- Aksen Ilustrasi Kecil (Cewek & Cowok di Ayunan dengan Buku) -->
+            <div class="absolute right-2 -bottom-2 opacity-15 pointer-events-none text-4xl">
+                🪑📚✨
+            </div>
+            <div class="flex items-center gap-2.5 w-full sm:w-auto relative z-10">
+                <span class="text-xl">🌿🪑</span>
                 <div>
-                    <h2 class="text-xs font-medium text-pink-200">Sudut Bangku Taman</h2>
-                    <p class="text-[10px] text-purple-300/70">Pilih rak genre atau ketik pencarian di bawah...</p>
+                    <h2 class="text-xs font-medium text-pink-200">Ayunan & Sudut Taman Pustaka</h2>
+                    <p class="text-[10px] text-purple-300/70">Duduk santai di ayunan, pandang ke atas & pilih naskah...</p>
                 </div>
             </div>
-            <div class="relative w-full sm:w-56">
+            <div class="relative w-full sm:w-56 z-10">
                 <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul / tema..." 
                     class="w-full pl-7 pr-3 py-1.5 bg-black/50 border border-purple-500/40 rounded-xl text-[11px] text-stone-200 placeholder-stone-400 focus:outline-none focus:border-pink-500 transition">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-purple-300 text-[10px]">🔍</span>
@@ -141,7 +162,7 @@
             </div>
         </nav>
 
-        <!-- SUB-GENRE BAR (Khusus muncul jika memilih Fantasy) -->
+        <!-- SUB-GENRE BAR -->
         <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden">
             <!-- Dimuat otomatis -->
         </div>
@@ -170,7 +191,7 @@
     </style>
 
     <script>
-        // DATABASE ARSIP (Fantasy memiliki sub-genre: Mitologi, Kerajaan, Fairytale)
+        // DATABASE ARSIP
         let stories = [
             {
                 id: 1,
@@ -179,8 +200,8 @@
                 sub: "Urban Fantasy",
                 tema: "Ethereal Night",
                 palette: "#17141f",
-                blurb: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat di dalam kabut obsidian.",
-                blurbFull: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat di dalam kabut obsidian. Konon siapa pun yang mendengarnya sampai tuntas tidak akan pernah bisa kembali ke dunia nyata sebelum fajar menyingsing.",
+                blurb: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat.",
+                blurbFull: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat di dalam kabut obsidian kota besar. Konon siapa pun yang mendengarnya sampai tuntas tidak akan pernah bisa kembali ke dunia nyata.",
                 cover: "watermarked_img_17237834058804996001.jpg", 
                 linkTelegraph: "https://telegra.ph/contoh-1",
                 linkBlurb: "https://t.me/c/namachannel/1"
@@ -192,8 +213,8 @@
                 sub: "Grimdark",
                 tema: "Blood & Steel",
                 palette: "#1f1414",
-                blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir.",
-                blurbFull: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir. Ketika pasukan kegelapan mengepung dinding besi, seorang ksatria harus memilih antara kesetiaan atau keselamatan umat manusia.",
+                blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup.",
+                blurbFull: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir. Ketika pasukan kegelapan mengepung dinding besi, seorang ksatria harus memilih.",
                 cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-grimdark",
                 linkBlurb: "https://t.me/c/namachannel/2"
@@ -206,7 +227,7 @@
                 tema: "Classic Ballroom",
                 palette: "#2b101f",
                 blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.",
-                blurbFull: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian. Di tengah pesta dansa bangsawan yang megah, dua insan berdansa tanpa mengetahui rahasia besar yang masing-masing simpan.",
+                blurbFull: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian. Di tengah pesta dansa bangsawan yang megah, dua insan berdansa tanpa mengetahui rahasia masing-masing.",
                 cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-2",
                 linkBlurb: "https://t.me/c/namachannel/3"
@@ -218,8 +239,8 @@
                 sub: "RomCom",
                 tema: "Café Slice of Life",
                 palette: "#2b2210",
-                blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu.",
-                blurbFull: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu. Kehadiran kucing berbulu abu-abu di kafe tersebut menjadi saksi bisu perdebatan kecil yang berujung manis.",
+                blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang salah pesan menu.",
+                blurbFull: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu. Kehadiran kucing abu-abu menjadi saksi perdebatan kecil yang berujung manis.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-romcom",
                 linkBlurb: "https://t.me/c/namachannel/4"
@@ -244,36 +265,36 @@
                 sub: "Kerajaan",
                 tema: "Royal Court",
                 palette: "#20102b",
-                blurb: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur.",
-                blurbFull: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur kerajaan. Di sana, rahasia istana masa lalu terbongkar perlahan.",
+                blurb: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan.",
+                blurbFull: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur kerajaan. Di sana, rahasia istana masa lalu terbongkar.",
                 cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
                 linkTelegraph: "https://telegra.ph/contoh-kerajaan",
                 linkBlurb: "https://t.me/c/namachannel/6"
             },
             {
                 id: 7,
-                judul: "The Glass Slipper's Curse",
+                judul: "The Wise Owl & The Starlight",
                 genre: "Fantasy",
-                sub: "Fairytale",
-                tema: "Dark Fairytale",
-                palette: "#20102b",
-                blurb: "Pengerjaan ulang kisah dongeng klasik dengan sentuhan misteri dan rahasia kelam di balik istana.",
-                blurbFull: "Pengerjaan ulang kisah dongeng klasik dengan sentuhan misteri dan rahasia kelam di balik istana. Sepatu kaca bukan lagi simbol keajaiban, melainkan petunjuk dari teka-teki berbahaya.",
-                cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-fairytale",
+                sub: "Fabel",
+                tema: "Moral Tale",
+                palette: "#152015",
+                blurb: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan.",
+                blurbFull: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan malam. Sebuah fabel magis yang menyisipkan renungan hangat bagi jiwa.",
+                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
+                linkTelegraph: "https://telegra.ph/contoh-fabel",
                 linkBlurb: "https://t.me/c/namachannel/7"
             },
             {
                 id: 8,
                 judul: "Catatan Kaki: Menemukan Sunyi",
                 genre: "Sound of Soul",
-                sub: "Refleksi Penulis",
+                sub: "Refleksi Diri",
                 tema: "Open My Mind",
                 palette: "#151515",
                 blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.",
                 blurbFull: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis di tengah bisingnya ekspektasi dunia modern. Sebuah catatan jujur dari sudut meja kerja penulis.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-4",
+                linkTelegraph: "https://telegra.ph/contoh-sos",
                 linkBlurb: "https://t.me/c/namachannel/8"
             }
         ];
@@ -306,7 +327,6 @@
             showSlide(currentSlide);
         }
 
-        // Auto slide tiap 5 detik
         setInterval(() => {
             currentSlide++;
             showSlide(currentSlide);
@@ -348,7 +368,13 @@
         function renderSubGenres() {
             const subContainer = document.getElementById('subgenre-container');
             
-            if (currentGenre !== 'Fantasy') {
+            let subList = [];
+            if (currentGenre === 'Dark Fantasy') subList = ['Semua', 'Urban Fantasy', 'Grimdark', 'Dark Paranormal'];
+            if (currentGenre === 'Romance') subList = ['Semua', 'Pure Romance', 'RomCom', 'Slow Burn'];
+            if (currentGenre === 'Fantasy') subList = ['Semua', 'Mitologi', 'Kerajaan', 'Fairytale', 'Fabel'];
+            if (currentGenre === 'Sound of Soul') subList = ['Semua', 'Refleksi Diri', 'Catatan Penulis'];
+
+            if (subList.length === 0) {
                 subContainer.classList.add('hidden');
                 return;
             }
@@ -356,8 +382,7 @@
             subContainer.classList.remove('hidden');
             subContainer.innerHTML = '';
             
-            const subGenres = ['Semua', 'Mitologi', 'Kerajaan', 'Fairytale'];
-            subGenres.forEach(sub => {
+            subList.forEach(sub => {
                 const isActive = currentSubGenre === sub;
                 const activeClass = isActive
                     ? "bg-pink-950 text-pink-200 border-pink-500 font-medium"
@@ -403,7 +428,7 @@
 
             let filtered = stories.filter(story => {
                 const matchGenre = currentGenre === 'Semua' || story.genre === currentGenre;
-                const matchSub = currentGenre !== 'Fantasy' || currentSubGenre === 'Semua' || story.sub === currentSubGenre;
+                const matchSub = currentGenre === 'Semua' || currentSubGenre === 'Semua' || story.sub === currentSubGenre;
                 const matchSearch = 
                     story.judul.toLowerCase().includes(searchQuery) ||
                     story.genre.toLowerCase().includes(searchQuery) ||
@@ -433,7 +458,7 @@
                                 <img src="${story.cover}" alt="Cover" class="w-full h-full object-cover opacity-90">
                                 <div class="absolute top-2 left-2 flex gap-1">
                                     <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-stone-950/80 backdrop-blur-md text-pink-300 border border-purple-800/50">${story.genre}</span>
-                                    ${story.genre === 'Fantasy' ? `<span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-purple-950/80 backdrop-blur-md text-indigo-300 border border-indigo-800/50">${story.sub}</span>` : ''}
+                                    <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-purple-950/80 backdrop-blur-md text-indigo-300 border border-indigo-800/50">${story.sub}</span>
                                 </div>
                             </div>
                             
