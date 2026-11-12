@@ -165,9 +165,9 @@
         <div class="px-4 mt-2 max-w-lg mx-auto relative">
             <div class="relative w-full h-40 rounded-2xl overflow-hidden border border-purple-500/30 shadow-xl bg-stone-950">
                 <div id="slider-container" class="w-full h-full relative">
-                    <!-- Slide 1: Ilustrasi Ayunan Romantis & Buku -->
+                    <!-- Slide 1: GIF Animasi dari GitHub -->
                     <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-100">
-                        <img src="https://github.com/trialformil/darkfantasy/blob/main/gemini_generated_video_8c892a4d.gif" class="w-full h-full object-cover opacity-85" alt="Ayunan Taman Kastil">
+                        <img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/gemini_generated_video_8c892a4d.gif" class="w-full h-full object-cover opacity-85" alt="Ayunan Taman Kastil">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
                         <div class="absolute bottom-3 left-4 right-4">
                             <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-200 border border-pink-700/50">✨ Ayunan Starlight</span>
@@ -242,7 +242,7 @@
             </div>
         </nav>
 
-        <!-- SUB-GENRE BAR (Buku Terbuka Ber-Icon Khusus Sesuai Request) -->
+        <!-- SUB-GENRE BAR -->
         <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden">
             <!-- Dimuat otomatis -->
         </div>
@@ -259,7 +259,7 @@
             </div>
         </div>
 
-        <!-- 🏆 BAGIAN PERINGKAT OTOMATIS (DI BAWAH BACAAN) -->
+        <!-- 🏆 BAGIAN PERINGKAT OTOMATIS -->
         <div id="ranking-section" class="taman-card rounded-2xl p-4 space-y-3 mt-8 shadow-xl">
             <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
                 <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);">
@@ -547,20 +547,19 @@
                     ? "bg-pink-950 text-pink-200 border-pink-500 font-semibold"
                     : "taman-card opacity-80 hover:opacity-100 font-light";
 
-                // SEMUA MENGGUNAKAN POLA BUKU TERBUKA + PNG KHUSUS SESUAI PERMINTAAN (FAIRYTALE & MITOLOGI DITUKAR, KERAJAAN & GRIMDARK DIPERBARUI)
-                let pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3176/3176363.png"; // Buku Terbuka Standar
-                if (sub === 'Fairytale') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/865/865955.png"; // Peri / Sayap Peri di Buku
-                else if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2917/2917995.png"; // Kuil Dewa / Petir Yunani di Buku
-                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png"; // Mahkota Kerajaan Megah di Buku
-                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png"; // Pedang Tajam / Grimdark Vibez di Buku
-                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png"; // Hewan Hutan di Buku
-                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png"; // Kota Sihir di Buku
-                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png"; // Bulan Gelap di Buku
-                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png"; // Bunga Mawar di Buku
-                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png"; // Cangkir Kopi di Buku
-                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png"; // Lilin di Buku
-                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png"; // Renungan di Buku
-                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png"; // Pena di Buku
+                let pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3176/3176363.png";
+                if (sub === 'Fairytale') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/865/865955.png";
+                else if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2917/2917995.png";
+                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png";
+                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png";
+                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png";
+                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png";
+                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png";
+                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png";
+                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png";
+                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png";
+                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png";
+                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png";
 
                 subContainer.innerHTML += `
                     <button onclick="selectSubGenre('${sub}')" 
