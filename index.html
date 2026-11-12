@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul of Sound // Sanctum Library</title>
+    <title>Buwana Millena // Taman Bacaan Mini</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -11,77 +11,132 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #050508;
-            color: #d1d5db;
+            /* Background taman bacaan malam fantasy yang magis & unyu */
+            background: linear-gradient(135deg, #0d0918 0%, #171026 50%, #201335 100%);
+            color: #e2e8f0;
+            background-attachment: fixed;
         }
         .title-font {
             font-family: 'Cinzel', serif;
         }
-        /* Notion-style & Luxury Dark Fantasy Card */
-        .notion-card {
-            background: rgba(15, 13, 22, 0.75);
-            border: 1px solid rgba(147, 51, 234, 0.18);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        /* Glassmorphism Taman Bacaan Card */
+        .taman-card {
+            background: rgba(26, 20, 42, 0.65);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
-        .notion-card:hover {
-            border-color: rgba(147, 51, 234, 0.45);
-            background: rgba(22, 19, 32, 0.85);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(147, 51, 234, 0.12);
+        .taman-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            background: rgba(35, 27, 56, 0.75);
+            transform: translateY(-3px);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="min-h-screen pb-16 selection:bg-purple-900 selection:text-purple-200">
+<body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200 overflow-x-hidden">
 
-    <!-- Header & Running Text Mewah -->
-    <header class="pt-8 pb-4 border-b border-purple-950/40 relative overflow-hidden bg-gradient-to-b from-purple-950/20 to-transparent">
-        <div class="text-center px-4 mb-4">
-            <h1 class="title-font text-xl font-bold tracking-widest text-purple-200 drop-shadow-[0_0_12px_rgba(147,51,234,0.3)]">
-                ✦ SOUL OF SOUND ✦
+    <!-- HEADER CAROUSEL / BANNER LANGIT MALAM BUWANA MILLENA -->
+    <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden">
+        <!-- Floating Glow Effects -->
+        <div class="absolute top-0 left-1/4 w-32 h-32 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-4 right-1/4 w-28 h-28 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="text-center px-4 mb-3 relative z-10">
+            <span class="text-[10px] tracking-widest text-purple-300 uppercase font-light">✦ Sanctuary of Ethereal Oneshots ✦</span>
+            <h1 class="title-font text-xl font-bold tracking-wider text-pink-200 drop-shadow-[0_0_15px_rgba(236,72,153,0.4)] mt-0.5">
+                BUWANA MILLENA
             </h1>
-            <p class="text-[10px] text-stone-400/70 mt-1 tracking-widest uppercase font-light">Sanctuary of Ethereal Oneshots</p>
+            <p class="text-[11px] text-purple-200/80 font-light italic mt-0.5">"Taman Bacaan di Bawah Taburan Bintang & Gema Cerita"</p>
         </div>
 
-        <!-- Running Text (Marquee) Selamat Datang -->
-        <div class="bg-purple-950/30 border-y border-purple-900/20 py-1.5 overflow-hidden whitespace-nowrap">
-            <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] text-purple-300/80 tracking-wider font-light">
-                ✨ Selamat datang di ruang arsip Soul of Sound • Silakan jelajahi rak perpustakaan, temukan gema cerita, dan nikmati setiap alurnya • ✨ Selamat datang di ruang arsip Soul of Sound • Silakan jelajahi rak perpustakaan, temukan gema cerita, dan nikmati setiap alurnya •
+        <!-- Carousel Banner Lanskap (Bisa digeser kanan-kiri) -->
+        <div class="px-4 mt-2">
+            <div id="banner-carousel" class="flex gap-3 overflow-x-auto pb-2 no-scrollbar snap-x snap-mandatory">
+                <!-- Banner 1 -->
+                <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-purple-500/30 shadow-lg">
+                    <img src="watermarked_img_17237834058804996001.jpg" class="w-full h-full object-cover opacity-85" alt="Banner 1">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
+                    <div class="absolute bottom-2.5 left-3 right-3 text-left">
+                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/80 text-pink-300 border border-purple-700/50">Taman Utama</span>
+                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gema Malam Buwana Millena</h3>
+                    </div>
+                </div>
+                <!-- Banner 2 -->
+                <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-pink-500/30 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
+                    <div class="absolute bottom-2.5 left-3 right-3 text-left">
+                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/80 text-pink-300 border border-pink-700/50">Sudut Pustaka</span>
+                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Symphony of Starlight</h3>
+                    </div>
+                </div>
+                <!-- Banner 3 -->
+                <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-indigo-500/30 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 3">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
+                    <div class="absolute bottom-2.5 left-3 right-3 text-left">
+                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-700/50">Arsip Rahasia</span>
+                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Kisah Kerajaan & Mitos</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Running Text Selamat Datang -->
+        <div class="mt-3 bg-purple-950/40 border-y border-purple-800/30 py-1.5 overflow-hidden whitespace-nowrap">
+            <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] text-pink-200/90 tracking-wider font-light">
+                🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di bangku taman, pilih rak genre dan temukan gema naskah favoritmu • ✨ Silakan jelajahi arsip dengan nuansa magis malam hari •
             </div>
         </div>
     </header>
 
-    <!-- Kontainer Utama -->
-    <main class="max-w-md mx-auto px-4 mt-5 space-y-4">
+    <!-- KONTEN UTAMA TAMAN BACAAN -->
+    <main class="max-w-md mx-auto px-4 mt-4 space-y-4">
 
-        <!-- Kotak Pencarian Bebas (Judul / Genre / Tema / Blurb) -->
-        <div class="relative">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-purple-400/60 text-xs">🔍</span>
-            <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul, genre, tema, atau kata kunci..." 
-                class="w-full pl-10 pr-4 py-2.5 bg-stone-950/70 border border-purple-950/50 rounded-xl text-xs text-stone-200 placeholder-stone-500 focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition">
+        <!-- Area "Tempat Pengunjung Duduk & Cari Bacaan" -->
+        <div class="taman-card rounded-2xl p-3.5 flex items-center justify-between gap-3 border-purple-500/30">
+            <div class="flex items-center gap-2.5">
+                <span class="text-xl">🪑</span>
+                <div>
+                    <h2 class="text-xs font-medium text-pink-200">Sudut Bangku Taman</h2>
+                    <p class="text-[10px] text-purple-300/70">Cari naskah atau pilih kategori di bawah...</p>
+                </div>
+            </div>
+            <!-- Search Bar Mini -->
+            <div class="relative w-44">
+                <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul/tema..." 
+                    class="w-full pl-7 pr-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] text-stone-200 placeholder-stone-400 focus:outline-none focus:border-pink-500 transition">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-purple-300 text-[10px]">🔍</span>
+            </div>
         </div>
 
-        <!-- Rak Kategori (Tabs) dengan Tombol SEMUA -->
-        <nav class="sticky top-0 z-10 bg-[#050508]/95 backdrop-blur-md py-2 -mx-4 px-4 border-b border-purple-950/20">
+        <!-- Rak Kategori Utama (Tabs) -->
+        <nav class="sticky top-0 z-20 bg-[#0d0918]/90 backdrop-blur-md py-2 -mx-4 px-4 border-b border-purple-900/30">
             <div id="genre-tabs" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-                <!-- Dimuat otomatis oleh script -->
+                <!-- Dimuat otomatis -->
             </div>
         </nav>
 
-        <!-- Daftar Buku / Arsip Cerita (Notion Gallery Style) -->
-        <div id="story-container" class="space-y-4 pt-2">
+        <!-- Pilihan Sub-Genre / Tema Dinamis (Bisa digeser kanan-kiri) -->
+        <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar items-center">
+            <!-- Dimuat otomatis -->
+        </div>
+
+        <!-- Daftar Bacaan (Taman Bacaan Card Grid/List dengan 2 Tombol) -->
+        <div id="story-container" class="space-y-4 pt-1">
             <!-- List buku dimuat otomatis -->
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="text-center text-stone-600 text-[10px] mt-14 tracking-widest uppercase font-light">
-        Notion-Style Database • Millena Sanctuary
+    <!-- Footer Taman Bacaan -->
+    <footer class="text-center text-purple-400/60 text-[10px] mt-16 tracking-widest uppercase font-light">
+        Buwana Millena Sanctuary • All Echos Reserved
     </footer>
 
-    <!-- Style tambahan untuk animasi running text -->
+    <!-- Style Marquee -->
     <style>
         @keyframes marquee {
             0% { transform: translateX(0%); }
@@ -90,7 +145,7 @@
     </style>
 
     <script>
-        // DATABASE ARSIP CERITA (Bisa ditambah/diedit manual di sini)
+        // DATABASE ARSIP TAMAN BACAAN
         let stories = [
             {
                 judul: "The Phantom of the Hollow Echo",
@@ -100,7 +155,19 @@
                 palette: "#17141f",
                 blurb: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat.",
                 cover: "watermarked_img_17237834058804996001.jpg", 
-                link: "https://telegra.ph/contoh-1"
+                linkTelegraph: "https://telegra.ph/contoh-1",
+                linkBlurb: "https://t.me/c/namachannel/1"
+            },
+            {
+                judul: "Shadows of the Iron Bastion",
+                genre: "Dark Fantasy",
+                sub: "Grimdark",
+                tema: "Blood & Steel",
+                palette: "#1f1414",
+                blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir.",
+                cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
+                linkTelegraph: "https://telegra.ph/contoh-grimdark",
+                linkBlurb: "https://t.me/c/namachannel/2"
             },
             {
                 judul: "A Waltz Under Starlight",
@@ -110,7 +177,19 @@
                 palette: "#2b101f",
                 blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.",
                 cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
-                link: "https://telegra.ph/contoh-2"
+                linkTelegraph: "https://telegra.ph/contoh-2",
+                linkBlurb: "https://t.me/c/namachannel/3"
+            },
+            {
+                judul: "Coffee, Cats & Chaos",
+                genre: "Romance",
+                sub: "RomCom",
+                tema: "Café Slice of Life",
+                palette: "#2b2210",
+                blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu.",
+                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
+                linkTelegraph: "https://telegra.ph/contoh-romcom",
+                linkBlurb: "https://t.me/c/namachannel/4"
             },
             {
                 judul: "Crown of the Sunken Kingdom",
@@ -120,7 +199,8 @@
                 palette: "#10202b",
                 blurb: "Kisah pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur.",
                 cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
-                link: "https://telegra.ph/contoh-3"
+                linkTelegraph: "https://telegra.ph/contoh-3",
+                linkBlurb: "https://t.me/c/namachannel/5"
             },
             {
                 judul: "Catatan Kaki: Menemukan Sunyi",
@@ -130,15 +210,18 @@
                 palette: "#151515",
                 blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
-                link: "https://telegra.ph/contoh-4"
+                linkTelegraph: "https://telegra.ph/contoh-4",
+                linkBlurb: "https://t.me/c/namachannel/6"
             }
         ];
 
-        let currentFilter = 'Semua';
+        let currentGenre = 'Semua';
+        let currentSubGenre = 'Semua';
         let searchQuery = '';
 
         function initApp() {
             renderTabs();
+            renderSubGenres();
             renderStories();
         }
 
@@ -148,10 +231,10 @@
             tabsContainer.innerHTML = '';
             
             genres.forEach(genre => {
-                const isActive = currentFilter === genre;
+                const isActive = currentGenre === genre;
                 const activeClass = isActive 
-                    ? "bg-purple-900/90 text-purple-100 border-purple-600 shadow-[0_0_12px_rgba(147,51,234,0.3)] font-medium" 
-                    : "bg-stone-900/60 text-stone-400 border-stone-800 hover:border-purple-900/40 font-light";
+                    ? "bg-purple-900/90 text-pink-100 border-pink-500/60 shadow-[0_0_12px_rgba(236,72,153,0.3)] font-medium" 
+                    : "bg-stone-950/50 text-stone-300 border-purple-950/60 hover:border-purple-800 font-light";
                 
                 let icon = "✨";
                 if(genre === 'Dark Fantasy') icon = "🗡️";
@@ -161,17 +244,52 @@
                 if(genre === 'Semua') icon = "📚";
 
                 tabsContainer.innerHTML += `
-                    <button onclick="filterGenre('${genre}')" 
-                        class="px-3.5 py-1.5 rounded-lg text-xs tracking-wide border whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 shrink-0 ${activeClass}">
+                    <button onclick="selectGenre('${genre}')" 
+                        class="px-3.5 py-1.5 rounded-xl text-xs tracking-wide border whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 shrink-0 ${activeClass}">
                         <span>${icon}</span> ${genre}
                     </button>
                 `;
             });
         }
 
-        function filterGenre(genreName) {
-            currentFilter = genreName;
+        function renderSubGenres() {
+            const subContainer = document.getElementById('subgenre-container');
+            subContainer.innerHTML = '';
+
+            if (currentGenre === 'Semua') {
+                subContainer.style.display = 'none';
+                return;
+            }
+
+            subContainer.style.display = 'flex';
+            let availableSubs = ['Semua', ...new Set(stories.filter(s => s.genre === currentGenre).map(s => s.sub))];
+
+            availableSubs.forEach(sub => {
+                const isActive = currentSubGenre === sub;
+                const activeClass = isActive
+                    ? "bg-pink-950/80 text-pink-200 border-pink-500/60 font-medium shadow-sm"
+                    : "bg-stone-950/40 text-stone-400 border-purple-950/40 hover:border-purple-800 font-light";
+
+                subContainer.innerHTML += `
+                    <button onclick="selectSubGenre('${sub}')" 
+                        class="px-3 py-1 rounded-lg text-[11px] tracking-wide border whitespace-nowrap transition-all ${activeClass}">
+                        ✦ ${sub}
+                    </button>
+                `;
+            });
+        }
+
+        function selectGenre(genreName) {
+            currentGenre = genreName;
+            currentSubGenre = 'Semua';
             renderTabs();
+            renderSubGenres();
+            renderStories();
+        }
+
+        function selectSubGenre(subName) {
+            currentSubGenre = subName;
+            renderSubGenres();
             renderStories();
         }
 
@@ -184,58 +302,60 @@
             const container = document.getElementById('story-container');
             container.innerHTML = '';
 
-            // Filter berdasarkan Tab Kategori & Kotak Pencarian
             let filtered = stories.filter(story => {
-                const matchCategory = currentFilter === 'Semua' || story.genre === currentFilter;
+                const matchGenre = currentGenre === 'Semua' || story.genre === currentGenre;
+                const matchSub = currentSubGenre === 'Semua' || story.sub === currentSubGenre;
                 const matchSearch = 
                     story.judul.toLowerCase().includes(searchQuery) ||
                     story.genre.toLowerCase().includes(searchQuery) ||
                     story.sub.toLowerCase().includes(searchQuery) ||
                     story.tema.toLowerCase().includes(searchQuery) ||
                     story.blurb.toLowerCase().includes(searchQuery);
-                return matchCategory && matchSearch;
+                return matchGenre && matchSub && matchSearch;
             });
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-16 bg-stone-950/40 rounded-xl border border-purple-950/30">
-                        <p class="text-stone-400 text-xs tracking-wider font-light">Tiada naskah yang cocok dengan pencarianmu...</p>
+                    <div class="text-center py-16 taman-card rounded-2xl border-purple-900/30">
+                        <p class="text-purple-300 text-xs tracking-wider font-light">Tiada naskah di sudut taman ini...</p>
                     </div>`;
                 return;
             }
 
             filtered.forEach(story => {
                 container.innerHTML += `
-                    <div class="notion-card rounded-xl overflow-hidden p-3.5 flex flex-col gap-2.5">
-                        <!-- Cover Buku Lanskap (640x360 ratio) -->
-                        <div class="relative w-full h-36 rounded-lg overflow-hidden bg-stone-950 border border-purple-950/40">
+                    <div class="taman-card rounded-2xl overflow-hidden p-3.5 flex flex-col gap-3">
+                        <!-- Cover Buku Lanskap -->
+                        <div class="relative w-full h-36 rounded-xl overflow-hidden bg-stone-950 border border-purple-500/30 shadow-inner">
                             <img src="${story.cover}" alt="Cover" class="w-full h-full object-cover opacity-90">
                             <div class="absolute top-2 left-2 flex gap-1.5">
-                                <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded bg-stone-950/80 backdrop-blur-md text-purple-300 border border-purple-900/40">${story.genre}</span>
-                                <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded bg-purple-950/80 backdrop-blur-md text-purple-200 border border-purple-800/40">${story.sub}</span>
+                                <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-stone-950/80 backdrop-blur-md text-purple-300 border border-purple-800/50">${story.genre}</span>
+                                <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-pink-950/80 backdrop-blur-md text-pink-200 border border-pink-800/50">${story.sub}</span>
                             </div>
                         </div>
                         
-                        <!-- Informasi Notion Card -->
+                        <!-- Detail Info Buku -->
                         <div class="flex flex-col gap-1 px-0.5">
                             <div class="flex items-center justify-between text-[10px] text-stone-400">
-                                <span class="text-purple-300/80 font-medium">✦ Tema: ${story.tema}</span>
-                                <span class="text-stone-500 text-[9px]">Palette: ${story.palette}</span>
+                                <span class="text-pink-300/90 font-medium">✦ Tema: ${story.tema}</span>
+                                <span class="text-purple-400/60 text-[9px]">Palette: ${story.palette}</span>
                             </div>
                             
                             <h2 class="title-font text-sm font-semibold text-stone-100 tracking-wide mt-0.5">${story.judul}</h2>
                             
-                            <!-- Blurb / Sinopsis -->
                             <p class="text-xs text-stone-300/80 font-light leading-relaxed mt-1 italic">
                                 "${story.blurb}"
                             </p>
                             
-                            <!-- Tombol Aksi Menuju Telegraph -->
-                            <div class="mt-3 pt-2.5 border-t border-purple-950/30 flex justify-between items-center">
-                                <span class="text-[9px] text-stone-500 tracking-widest uppercase">Database Arsip</span>
-                                <a href="${story.link}" target="_blank" 
-                                   class="text-[10px] tracking-widest uppercase font-medium bg-purple-950/70 hover:bg-purple-900 text-purple-200 px-3 py-1.5 rounded-lg border border-purple-800/50 transition flex items-center gap-1 shadow-sm">
-                                    📖 Baca Halaman ⟶
+                            <!-- 2 TOMBOL PILIHAN (1. Telegraph, 2. Blurb Channel) -->
+                            <div class="mt-3.5 pt-2.5 border-t border-purple-900/30 grid grid-cols-2 gap-2">
+                                <a href="${story.linkTelegraph}" target="_blank" 
+                                   class="text-[10px] tracking-wider uppercase font-medium bg-purple-950/80 hover:bg-purple-900 text-purple-200 py-2 px-3 rounded-xl border border-purple-700/50 transition text-center shadow-sm flex items-center justify-center gap-1">
+                                   📖 Baca Telegraph
+                                </a>
+                                <a href="${story.linkBlurb}" target="_blank" 
+                                   class="text-[10px] tracking-wider uppercase font-medium bg-pink-950/60 hover:bg-pink-900/80 text-pink-200 py-2 px-3 rounded-xl border border-pink-700/40 transition text-center shadow-sm flex items-center justify-center gap-1">
+                                   💬 Blurb Channel
                                 </a>
                             </div>
                         </div>
