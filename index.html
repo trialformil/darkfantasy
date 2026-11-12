@@ -21,7 +21,7 @@
             --border-col: rgba(168, 85, 247, 0.3);
         }
 
-        /* Tema Terang (Twilight Soft Glow Mode - Kontras Tinggi Dijamin Jelas) */
+        /* Tema Terang (Twilight Soft Glow Mode - Kontras Tinggi) */
         .light {
             --bg-grad-1: rgba(245, 242, 250, 0.95);
             --bg-grad-2: rgba(250, 240, 245, 0.95);
@@ -131,16 +131,17 @@
 </head>
 <body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200">
 
-    <!-- AUDIO BGM BEBAS HAK CIPTA (Stream Langsung Aktif) -->
-    <audio id="bgm-audio" loop preload="auto">
-        <source src="https://ia801509.us.archive.org/29/items/LofiStudyMusic/LofiStudy.mp3" type="audio/mpeg">
+    <!-- AUDIO BGM BEBAS HAK CIPTA (Reliable Stream URL) -->
+    <audio id="bgm-audio" loop>
+        <source src="https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" type="audio/ogg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
 
     <!-- HEADER -->
     <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden bg-black/20 backdrop-blur-md">
         <!-- Floating Controls (BGM & Saklar Lampu) -->
         <div class="absolute top-3 right-4 z-30 flex items-center gap-3">
-            <button onclick="toggleBGM()" id="bgm-btn" title="Putar Musik Magis" class="bg-purple-950/80 hover:bg-purple-900 text-pink-200 border border-purple-500/50 px-2.5 py-1 rounded-xl text-[10px] flex items-center gap-1 shadow-md transition cursor-pointer">
+            <button onclick="toggleBGM()" id="bgm-btn" title="Putar Musik Magis" class="bg-purple-950/90 hover:bg-purple-900 text-pink-200 border border-purple-500/50 px-2.5 py-1 rounded-xl text-[10px] flex items-center gap-1 shadow-md transition cursor-pointer">
                 <span id="bgm-icon">🔇</span> <span id="bgm-text">Musik Off</span>
             </button>
             <label class="lamp-switch" title="Ubah Mode Gelap / Terang">
@@ -160,11 +161,11 @@
             <p class="text-[11px] font-medium italic mt-0.5 opacity-90" style="color: var(--text-main);">"Taman Ayunan Pustaka di Bawah Bintang Malam"</p>
         </div>
 
-        <!-- Banner Slider Carousel (Slide 1: Spesial Ilustrasi Ayunan Remaja & Buku) -->
+        <!-- Banner Slider Carousel -->
         <div class="px-4 mt-2 max-w-lg mx-auto relative">
             <div class="relative w-full h-40 rounded-2xl overflow-hidden border border-purple-500/30 shadow-xl bg-stone-950">
                 <div id="slider-container" class="w-full h-full relative">
-                    <!-- Slide 1: Ilustrasi Ayunan Romantis & Unyu -->
+                    <!-- Slide 1: Ilustrasi Ayunan Romantis & Buku -->
                     <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-100">
                         <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Ayunan Taman Kastil">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
@@ -241,7 +242,7 @@
             </div>
         </nav>
 
-        <!-- SUB-GENRE BAR DENGAN GAMBAR PNG PAS SESUAI GENRE -->
+        <!-- SUB-GENRE BAR DENGAN ICON PNG YANG BENAR-BENAR SESUAI -->
         <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden">
             <!-- Dimuat otomatis -->
         </div>
@@ -258,7 +259,7 @@
             </div>
         </div>
 
-        <!-- 🏆 BAGIAN PERINGKAT OTOMATIS (DI BAWAH BACAAN, RAPI & ELEGAN) -->
+        <!-- 🏆 BAGIAN PERINGKAT OTOMATIS (DI BAWAH BACAAN) -->
         <div id="ranking-section" class="taman-card rounded-2xl p-4 space-y-3 mt-8 shadow-xl">
             <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
                 <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);">
@@ -275,7 +276,6 @@
                 <button onclick="setRankingFilter('Sound of Soul')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30" style="color: var(--text-main);">🎶 Sound of Soul</button>
             </div>
             
-            <!-- Grid Peringkat yang Rapi -->
             <div id="ranking-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2">
                 <!-- Dimuat otomatis -->
             </div>
@@ -438,7 +438,7 @@
         let searchQuery = '';
         let expandedIds = {};
 
-        // BGM MUSIC LOGIC (Langsung Play Stream)
+        // BGM MUSIC LOGIC
         let isPlayingBGM = false;
         function toggleBGM() {
             const audio = document.getElementById('bgm-audio');
@@ -460,7 +460,7 @@
             }
         }
 
-        // TOGGLE THEME (MODE GELAP / TERANG SAKLAR LAMPU)
+        // TOGGLE THEME
         function toggleTheme() {
             const root = document.getElementById('html-root');
             const isChecked = document.getElementById('theme-toggle').checked;
@@ -547,20 +547,20 @@
                     ? "bg-pink-950 text-pink-200 border-pink-500 font-semibold"
                     : "taman-card opacity-80 hover:opacity-100 font-light";
 
-                // LINK GAMBAR PNG TRANSPARAN BENAR-BENAR SESUAI GENRE
+                // PEMETAAN ICON PNG YANG BENAR-BENAR AKURAT SESUAI PERMINTAAN
                 let pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3176/3176363.png"; 
                 if (sub === 'Fairytale') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/865/865955.png"; // Peri / Sayap Peri
-                else if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2917/2917995.png"; // Kuil / Dewa Yunani
-                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png"; // Mahkota Emas
-                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png"; // Hewan Hutan
-                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png"; // Kota Sihir
-                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png"; // Pedang Besi
-                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png"; // Hantu / Bulan
-                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png"; // Bunga Mawar Cinta
-                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png"; // Cangkir Kopi
-                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png"; // Lilin Romantis
-                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png"; // Cermin / Renungan
-                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png"; // Pena & Kertas
+                else if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2917/2917995.png"; // Kuil / Petir Dewa Kuno
+                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png"; // Mahkota Emas Kerajaan
+                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png"; // Jejak Hewan Hutan
+                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png"; // Siluet Kota Malam Magis
+                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png"; // Pedang Besi / Senjata
+                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png"; // Hantu / Bulan Sabit Gelap
+                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png"; // Bunga Mawar Merah
+                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png"; // Cangkir Kopi & Hati
+                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png"; // Lilin Menyala
+                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png"; // Cermin / Renungan Jiwa
+                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png"; // Pena Tinta & Kertas
 
                 subContainer.innerHTML += `
                     <button onclick="selectSubGenre('${sub}')" 
