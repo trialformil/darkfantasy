@@ -56,7 +56,7 @@
 </head>
 <body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200">
 
-    <!-- HEADER CAROUSEL -->
+    <!-- HEADER DENGAN SLIDER BANNER (TOMBOL PANAH KIRI-KANAN) -->
     <header class="relative pt-6 pb-4 border-b border-purple-900/40 overflow-hidden bg-black/30 backdrop-blur-md">
         <div class="absolute top-0 left-1/4 w-32 h-32 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute top-4 right-1/4 w-28 h-28 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -69,32 +69,43 @@
             <p class="text-[11px] text-purple-200/80 font-light italic mt-0.5">"Taman Bacaan di Bawah Kastil Pustaka & Bintang Malam"</p>
         </div>
 
-        <div class="px-4 mt-2">
-            <div id="banner-carousel" class="flex gap-3 overflow-x-auto pb-2 custom-scroll snap-x snap-mandatory">
-                <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-purple-500/30 shadow-lg">
-                    <img src="watermarked_img_17237834058804996001.jpg" class="w-full h-full object-cover opacity-85" alt="Banner 1">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
-                    <div class="absolute bottom-2.5 left-3 right-3 text-left">
-                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/80 text-pink-300 border border-purple-700/50">Taman Pustaka</span>
-                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gema Malam Buwana Millena</h3>
+        <!-- Banner Slider Tunggal dengan Tombol Panah -->
+        <div class="px-4 mt-2 max-w-lg mx-auto relative">
+            <div class="relative w-full h-40 rounded-2xl overflow-hidden border border-purple-500/30 shadow-xl bg-stone-950">
+                <!-- Slide Item Container -->
+                <div id="slider-container" class="w-full h-full relative">
+                    <!-- Slide 1 -->
+                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-100">
+                        <img src="watermarked_img_17237834058804996001.jpg" class="w-full h-full object-cover opacity-85" alt="Banner 1">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 right-4">
+                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/85 text-pink-300 border border-purple-700/50">Taman Pustaka</span>
+                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gema Malam Buwana Millena</h3>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0">
+                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 2">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 right-4">
+                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-300 border border-pink-700/50">Sudut Starlight</span>
+                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Symphony of Starlight</h3>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 3">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 right-4">
+                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/85 text-indigo-300 border border-indigo-700/50">Kastil Mitos</span>
+                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Kisah Kerajaan & Legenda</h3>
+                        </div>
                     </div>
                 </div>
-                <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-pink-500/30 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 2">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
-                    <div class="absolute bottom-2.5 left-3 right-3 text-left">
-                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/80 text-pink-300 border border-pink-700/50">Sudut Starlight</span>
-                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Symphony of Starlight</h3>
-                    </div>
-                </div>
-                <div class="min-w-[280px] h-36 rounded-2xl relative overflow-hidden shrink-0 snap-center border border-indigo-500/30 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Banner 3">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
-                    <div class="absolute bottom-2.5 left-3 right-3 text-left">
-                        <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-700/50">Kastil Mitos</span>
-                        <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Kisah Kerajaan & Legenda</h3>
-                    </div>
-                </div>
+
+                <!-- Tombol Panah Kiri & Kanan -->
+                <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 transition text-xs z-10">❮</button>
+                <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 transition text-xs z-10">❯</button>
             </div>
         </div>
 
@@ -106,7 +117,7 @@
     </header>
 
     <!-- KONTEN UTAMA -->
-    <main class="max-w-xl mx-auto px-4 mt-5 space-y-5">
+    <main class="max-w-xl mx-auto px-4 mt-5 space-y-4">
 
         <div class="taman-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-purple-500/30">
             <div class="flex items-center gap-2.5 w-full sm:w-auto">
@@ -123,12 +134,17 @@
             </div>
         </div>
 
-        <!-- RAK KATEGORI UTAMA (Mitologi dan Kerajaan Dipisah) -->
+        <!-- RAK KATEGORI UTAMA -->
         <nav class="sticky top-0 z-20 bg-[#0d0918]/85 backdrop-blur-md py-2.5 -mx-4 px-4 border-b border-purple-900/40">
             <div id="genre-tabs" class="flex gap-2 overflow-x-auto pb-1 custom-scroll">
                 <!-- Dimuat otomatis -->
             </div>
         </nav>
+
+        <!-- SUB-GENRE BAR (Khusus muncul jika memilih Fantasy) -->
+        <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden">
+            <!-- Dimuat otomatis -->
+        </div>
 
         <div class="space-y-3">
             <div class="flex items-center justify-between px-1">
@@ -154,12 +170,13 @@
     </style>
 
     <script>
-        // DATABASE ARSIP (Mitologi dan Kerajaan Dipisah)
+        // DATABASE ARSIP (Fantasy memiliki sub-genre: Mitologi, Kerajaan, Fairytale)
         let stories = [
             {
                 id: 1,
                 judul: "The Phantom of the Hollow Echo",
                 genre: "Dark Fantasy",
+                sub: "Urban Fantasy",
                 tema: "Ethereal Night",
                 palette: "#17141f",
                 blurb: "Di antara gema malam kota yang sunyi, melodi terlupakan memanggil jiwa-jiwa yang tersesat di dalam kabut obsidian.",
@@ -172,6 +189,7 @@
                 id: 2,
                 judul: "Shadows of the Iron Bastion",
                 genre: "Dark Fantasy",
+                sub: "Grimdark",
                 tema: "Blood & Steel",
                 palette: "#1f1414",
                 blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir.",
@@ -184,6 +202,7 @@
                 id: 3,
                 judul: "A Waltz Under Starlight",
                 genre: "Romance",
+                sub: "Pure Romance",
                 tema: "Classic Ballroom",
                 palette: "#2b101f",
                 blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.",
@@ -194,8 +213,22 @@
             },
             {
                 id: 4,
+                judul: "Coffee, Cats & Chaos",
+                genre: "Romance",
+                sub: "RomCom",
+                tema: "Café Slice of Life",
+                palette: "#2b2210",
+                blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu.",
+                blurbFull: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu. Kehadiran kucing berbulu abu-abu di kafe tersebut menjadi saksi bisu perdebatan kecil yang berujung manis.",
+                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
+                linkTelegraph: "https://telegra.ph/contoh-romcom",
+                linkBlurb: "https://t.me/c/namachannel/4"
+            },
+            {
+                id: 5,
                 judul: "Whispers of the Olympus",
-                genre: "Mitologi",
+                genre: "Fantasy",
+                sub: "Mitologi",
                 tema: "Ancient Gods",
                 palette: "#10202b",
                 blurb: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern.",
@@ -205,9 +238,10 @@
                 linkBlurb: "https://t.me/c/namachannel/5"
             },
             {
-                id: 5,
+                id: 6,
                 judul: "Crown of the Sunken Kingdom",
-                genre: "Kerajaan",
+                genre: "Fantasy",
+                sub: "Kerajaan",
                 tema: "Royal Court",
                 palette: "#20102b",
                 blurb: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur.",
@@ -217,9 +251,10 @@
                 linkBlurb: "https://t.me/c/namachannel/6"
             },
             {
-                id: 6,
+                id: 7,
                 judul: "The Glass Slipper's Curse",
                 genre: "Fantasy",
+                sub: "Fairytale",
                 tema: "Dark Fairytale",
                 palette: "#20102b",
                 blurb: "Pengerjaan ulang kisah dongeng klasik dengan sentuhan misteri dan rahasia kelam di balik istana.",
@@ -229,9 +264,10 @@
                 linkBlurb: "https://t.me/c/namachannel/7"
             },
             {
-                id: 7,
+                id: 8,
                 judul: "Catatan Kaki: Menemukan Sunyi",
                 genre: "Sound of Soul",
+                sub: "Refleksi Penulis",
                 tema: "Open My Mind",
                 palette: "#151515",
                 blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.",
@@ -243,17 +279,48 @@
         ];
 
         let currentGenre = 'Semua';
+        let currentSubGenre = 'Semua';
         let searchQuery = '';
         let expandedIds = {};
 
+        // SLIDER BANNER LOGIC
+        let currentSlide = 0;
+        const slides = document.getElementsByClassName('slide-item');
+
+        function showSlide(index) {
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.opacity = '0';
+            }
+            slides[currentSlide].style.opacity = '1';
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Auto slide tiap 5 detik
+        setInterval(() => {
+            currentSlide++;
+            showSlide(currentSlide);
+        }, 5000);
+
         function initApp() {
             renderTabs();
+            renderSubGenres();
             renderStories();
         }
 
         function renderTabs() {
             const tabsContainer = document.getElementById('genre-tabs');
-            const genres = ['Semua', 'Dark Fantasy', 'Romance', 'Mitologi', 'Kerajaan', 'Fantasy', 'Sound of Soul'];
+            const genres = ['Semua', 'Dark Fantasy', 'Romance', 'Fantasy', 'Sound of Soul'];
             tabsContainer.innerHTML = '';
             
             genres.forEach(genre => {
@@ -265,8 +332,6 @@
                 let icon = "✨";
                 if(genre === 'Dark Fantasy') icon = "🗡️";
                 if(genre === 'Romance') icon = "🥀";
-                if(genre === 'Mitologi') icon = "⚡";
-                if(genre === 'Kerajaan') icon = "👑";
                 if(genre === 'Fantasy') icon = "🏰";
                 if(genre === 'Sound of Soul') icon = "🎶";
                 if(genre === 'Semua') icon = "📚";
@@ -280,10 +345,45 @@
             });
         }
 
+        function renderSubGenres() {
+            const subContainer = document.getElementById('subgenre-container');
+            
+            if (currentGenre !== 'Fantasy') {
+                subContainer.classList.add('hidden');
+                return;
+            }
+
+            subContainer.classList.remove('hidden');
+            subContainer.innerHTML = '';
+            
+            const subGenres = ['Semua', 'Mitologi', 'Kerajaan', 'Fairytale'];
+            subGenres.forEach(sub => {
+                const isActive = currentSubGenre === sub;
+                const activeClass = isActive
+                    ? "bg-pink-950 text-pink-200 border-pink-500 font-medium"
+                    : "bg-stone-950/50 text-stone-400 border-purple-950/50 hover:border-purple-700 font-light";
+
+                subContainer.innerHTML += `
+                    <button onclick="selectSubGenre('${sub}')" 
+                        class="px-3 py-1 rounded-lg text-[11px] tracking-wide border whitespace-nowrap transition-all ${activeClass}">
+                        ✦ ${sub}
+                    </button>
+                `;
+            });
+        }
+
         function selectGenre(genreName) {
             currentGenre = genreName;
+            currentSubGenre = 'Semua';
             document.getElementById('current-category-title').innerText = `✦ Koleksi: ${genreName}`;
             renderTabs();
+            renderSubGenres();
+            renderStories();
+        }
+
+        function selectSubGenre(subName) {
+            currentSubGenre = subName;
+            renderSubGenres();
             renderStories();
         }
 
@@ -303,12 +403,14 @@
 
             let filtered = stories.filter(story => {
                 const matchGenre = currentGenre === 'Semua' || story.genre === currentGenre;
+                const matchSub = currentGenre !== 'Fantasy' || currentSubGenre === 'Semua' || story.sub === currentSubGenre;
                 const matchSearch = 
                     story.judul.toLowerCase().includes(searchQuery) ||
                     story.genre.toLowerCase().includes(searchQuery) ||
+                    story.sub.toLowerCase().includes(searchQuery) ||
                     story.tema.toLowerCase().includes(searchQuery) ||
                     story.blurbFull.toLowerCase().includes(searchQuery);
-                return matchGenre && matchSearch;
+                return matchGenre && matchSub && matchSearch;
             });
 
             if (filtered.length === 0) {
@@ -329,8 +431,9 @@
                         <div>
                             <div class="relative w-full h-36 rounded-xl overflow-hidden bg-stone-950 border border-purple-500/30 shadow-inner">
                                 <img src="${story.cover}" alt="Cover" class="w-full h-full object-cover opacity-90">
-                                <div class="absolute top-2 left-2">
+                                <div class="absolute top-2 left-2 flex gap-1">
                                     <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-stone-950/80 backdrop-blur-md text-pink-300 border border-purple-800/50">${story.genre}</span>
+                                    ${story.genre === 'Fantasy' ? `<span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-purple-950/80 backdrop-blur-md text-indigo-300 border border-indigo-800/50">${story.sub}</span>` : ''}
                                 </div>
                             </div>
                             
