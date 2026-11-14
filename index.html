@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buwana Millena // Taman Bacaan Mini</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
         .dark { --bg-grad-1: rgba(8,16,12,0.90); --bg-grad-2: rgba(18,12,32,0.87); --bg-grad-3: rgba(10,8,22,0.90); --card-bg: rgba(22,17,36,0.78); --card-hover: rgba(30,23,48,0.88); --text-main: #e2e8f0; --text-sub: #f472b6; --border-col: rgba(168,85,247,0.3); }
@@ -120,8 +119,8 @@
         </div>
         <div id="ranking-section" class="taman-card rounded-2xl p-4 space-y-3 mt-8 shadow-xl">
             <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
-                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>🪐</span> Top 5 Paling Laris (🧬)</h3>
-                <span class="text-[9px] italic opacity-85" style="color: var(--text-main);">Klik Channel</span>
+                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>🏆</span> Top 5 Paling Laris</h3>
+                <span class="text-[9px] italic opacity-85" style="color: var(--text-main);">Statistik Klik</span>
             </div>
             <div id="ranking-tabs" class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar pt-1">
                 <button onclick="setRankingFilter('Semua')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] bg-amber-500/20 text-amber-500 border border-amber-500/50 font-bold">✨ Semua</button>
@@ -146,14 +145,17 @@
                 </div>
             </div>
             <form onsubmit="submitGuestbook(event)" class="space-y-3 bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Identitas Pengirim:</label>
-                        <select id="guest-identity-mode" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                            <option value="telegram">🤖 Akun Telegram (Otomatis)</option>
-                            <option value="anonim">🕵️ Anonim (Nomor Seri)</option>
-                        </select>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama Pengunjung / Penulis <span class="text-pink-500">*</span></label>
+                        <input type="text" id="guest-input-name" required placeholder="Tuliskan namamu..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
                     </div>
+                    <div>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Username Telegram <span class="text-pink-500">*</span></label>
+                        <input type="text" id="guest-input-username" required placeholder="@username_kamu" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
                         <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pilih Mood Suka:</label>
                         <select id="guest-mood" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
@@ -241,19 +243,11 @@
 
         let telegraphClicks = JSON.parse(localStorage.getItem('story_telegraph_clicks')) || {};
         let channelClicks = JSON.parse(localStorage.getItem('story_channel_clicks')) || {};
-        let storyLikes = JSON.parse(localStorage.getItem('story_likes')) || {};
+        
+        let storyLikes = {};
+        localStorage.removeItem('story_likes');
+
         let guestbookMessages = JSON.parse(localStorage.getItem('guestbook_messages')) || [];
-
-        let telegramUser = { uid: "author_millena", name: "Inti Rafiqa Ayu Millena", username: "@buwanamillena" };
-
-        function initTelegramUser() {
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-                const u = window.Telegram.WebApp.initDataUnsafe.user;
-                telegramUser.uid = u.id.toString();
-                telegramUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
-                telegramUser.username = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
-            }
-        }
 
         function recordTelegraphClick(id, title) { 
             telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; 
@@ -287,33 +281,25 @@
         function submitGuestbook(e) {
             e.preventDefault();
             const text = document.getElementById('guest-message').value.trim();
-            if(!text) return;
-            const mode = document.getElementById('guest-identity-mode').value;
+            const inputName = document.getElementById('guest-input-name').value.trim();
+            let inputUsername = document.getElementById('guest-input-username').value.trim();
+            if(!text || !inputName) return;
+
+            if(!inputUsername.startsWith('@')) {
+                inputUsername = '@' + inputUsername;
+            }
+
             const mood = document.getElementById('guest-mood').value;
             const rating = parseInt(document.getElementById('guest-rating').value);
 
-            let finalName, finalUsername, finalUid, isAuthor;
-            if(mode === 'telegram') {
-                finalName = telegramUser.name;
-                finalUsername = telegramUser.username;
-                finalUid = telegramUser.uid;
-                isAuthor = (finalUsername === '@buwanamillena' || finalUid === 'author_millena');
-            } else {
-                let randomSerial = Math.floor(1000 + Math.random() * 9000);
-                finalName = `Anonim #${randomSerial}`;
-                finalUsername = `@tamu_${randomSerial}`;
-                finalUid = 'anon_serial_' + randomSerial;
-                isAuthor = false;
-            }
-
-            // Ambil riwayat bacaan naskah (kecuali penulis)
+            const isAuthor = (inputUsername.toLowerCase() === '@buwanamillena' || inputName.toLowerCase().includes('millena'));
             let readStory = isAuthor ? null : localStorage.getItem('last_read_story');
 
             guestbookMessages.unshift({
                 id: 'msg_' + Date.now(),
-                uid: finalUid,
-                name: finalName,
-                username: finalUsername,
+                uid: 'user_' + Math.random().toString(36).substr(2,9),
+                name: inputName,
+                username: inputUsername,
                 mood: mood,
                 rating: rating,
                 text: text,
@@ -324,6 +310,8 @@
             });
             localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
             document.getElementById('guest-message').value = '';
+            document.getElementById('guest-input-name').value = '';
+            document.getElementById('guest-input-username').value = '';
             renderGuestbook();
             showToast("Ulasan tamu berhasil dikirim! 💌");
         }
@@ -370,13 +358,12 @@
             const m = guestbookMessages.find(item => item.id === id);
             if(m) {
                 if(!m.replies) m.replies = [];
-                const isAuth = (telegramUser.username === '@buwanamillena');
                 m.replies.push({
-                    name: telegramUser.name,
-                    username: telegramUser.username,
+                    name: m.name,
+                    username: m.username,
                     text: text,
                     date: new Date().toISOString(),
-                    isAuthor: isAuth
+                    isAuthor: m.isAuthor
                 });
                 localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
                 renderGuestbook();
@@ -405,7 +392,6 @@
             }
 
             sorted.forEach(msg => {
-                const isOwner = msg.uid === telegramUser.uid;
                 const dateStr = new Date(msg.date).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
                 const stars = '⭐'.repeat(msg.rating || 5);
                 const roleBadge = msg.isAuthor 
@@ -447,10 +433,7 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${dateStr}</span>
-                                ${isOwner ? `
-                                    <button onclick="openEditModal('${msg.id}')" title="Edit" class="text-pink-400">✏️</button>
-                                    <button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>
-                                ` : ''}
+                                <button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>
                             </div>
                         </div>
                         <div class="flex items-center gap-2 text-[10px]">
@@ -481,6 +464,7 @@
             t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
         }
 
+        // BGM STABLE AUDIO SOURCES
         const playlist = [
             { id: 0, title: "🌧️ Hujan Kastil & Petir", src: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", genre: "Dark Fantasy" },
             { id: 1, title: "☕ Starlight Café Lofi", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3", genre: "Romance" },
@@ -538,7 +522,7 @@
         function closeAuthorModal() { document.getElementById('author-modal').classList.add('hidden'); }
 
         function initApp() {
-            initTelegramUser(); initAudio(); updateReadBadge(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderGuestbook();
+            initAudio(); updateReadBadge(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderGuestbook();
         }
 
         function renderTabs() {
@@ -573,7 +557,7 @@
 
         function renderRanking() {
             const rc = document.getElementById('ranking-container'); rc.innerHTML = '';
-            let r = [...defaultStories].sort((a,b) => (channelClicks[b.id]||0) - (channelClicks[a.id]||0));
+            let r = [...defaultStories].sort((a,b) => (telegraphClicks[b.id]||0) - (telegraphClicks[a.id]||0));
             if(rankingFilter !== 'Semua') r = r.filter(x => x.genre === rankingFilter);
             r = r.slice(0,5);
             if(r.length === 0) { rc.innerHTML = `<p class="text-xs italic py-2 text-center col-span-5 opacity-70" style="color:var(--text-main);">Belum ada data klik.</p>`; return; }
@@ -587,7 +571,7 @@
                             <div class="flex flex-col gap-0.5 overflow-hidden">
                                 <span class="text-[9px] text-amber-500 truncate font-semibold">${st.genre}</span>
                                 <h4 class="title-font text-xs font-semibold truncate" style="color:var(--text-main);">${st.judul}</h4>
-                                <div class="flex gap-2 text-[8px] opacity-80" style="color:var(--text-main);"><span>🪐 🧬 ${channelClicks[st.id]||0}x klik channel</span></div>
+                                <div class="flex gap-2 text-[8px] opacity-80" style="color:var(--text-main);"><span>📖 ${telegraphClicks[st.id]||0}x baca</span> | <span>🪐 🧬 ${channelClicks[st.id]||0}x ch</span></div>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-1">
