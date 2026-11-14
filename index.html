@@ -48,11 +48,8 @@
             }
         });
     </script>
-    <audio id="bgm-audio" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3" type="audio/mpeg">
-    </audio>
     <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden bg-black/20 backdrop-blur-md z-20">
-        <!-- TOP RIGHT: MUSIC PLAYER & THEME TOGGLE (BERSEBELAHAN) -->
+        <!-- TOP RIGHT: TOMBOL MUSIK & SAKLAR GELAP TERANG BERSEBELAHAN -->
         <div class="absolute top-3 right-4 z-30 flex items-center gap-2.5">
             <button onclick="toggleBGM()" id="bgm-btn" title="Putar Musik Lofi Study" class="floral-frame shrink-0 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition"><span id="bgm-icon" class="text-xs">▶</span></button>
             <label class="lamp-switch" title="Ubah Mode"><input type="checkbox" id="theme-toggle" onclick="toggleTheme()"><span class="slider-saklar"></span></label>
@@ -125,13 +122,14 @@
             <div id="ranking-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2"></div>
         </div>
 
-        <!-- KARTU MANTRA KILASAN MALAM & CHANNEL DISKUSI -->
+        <!-- KARTU MANTRA KILASAN MALAM & SHARE KUTIPAN BERUBAH DINAMIS -->
         <div class="taman-card rounded-2xl p-5 space-y-3 mt-8 shadow-xl text-center">
             <span class="text-2xl">✨📖✨</span>
-            <h3 class="title-font text-xs font-bold tracking-wider uppercase" style="color: var(--text-sub);">Mantra Kilasan Malam</h3>
+            <h3 id="quote-card-title" class="title-font text-xs font-bold tracking-wider uppercase" style="color: var(--text-sub);">Mantra Kilasan Malam</h3>
             <p id="daily-quote" class="text-xs italic font-light px-4 opacity-90" style="color: var(--text-main);">"Di bawah taburan bintang kastil pustaka, setiap kata yang terukir adalah detak jiwa yang abadi."</p>
-            <div class="pt-3 border-t border-purple-500/20">
-                <p class="text-[10px] italic opacity-85" style="color: var(--text-main);">💬 Ingin memberikan ulasan atau diskusi mendalam?<br>Silakan bergabung di <a href="https://t.me/forbuwanamillena" target="_blank" class="text-pink-400 underline font-semibold">@forbuwanamillena</a> pada masing-masing topik naskah!</p>
+            <div class="pt-3 border-t border-purple-500/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-[10px] italic opacity-85 text-center sm:text-left" style="color: var(--text-main);">💬 Diskusi & ulasan naskah di <a href="https://t.me/forbuwanamillena" target="_blank" class="text-pink-400 underline font-semibold">@forbuwanamillena</a></p>
+                <button onclick="shareActiveQuote()" class="floral-frame bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[10px] font-semibold px-4 py-2 rounded-xl shadow-md transition cursor-pointer shrink-0">🔗 Share Kutipan</button>
             </div>
         </div>
     </main>
@@ -167,16 +165,32 @@
         let storyLikes = {};
         localStorage.removeItem('story_likes');
 
-        let quotes = [
+        let defaultQuotes = [
             "\"Di bawah taburan bintang kastil pustaka, setiap kata yang terukir adalah detak jiwa yang abadi.\"",
             "\"Membaca adalah seni meminjam sayap untuk terbang ke dunia lain.\"",
             "\"Kesunyian malam membawa kisah-kisah magis yang hanya terdengar oleh mereka yang mau mendengarkan.\"",
             "\"Merajut fantasi dan meresapi sunyi di antara lembaran naskah malam.\""
         ];
 
-        function recordTelegraphClick(id, title, genre) { 
+        let currentActiveQuote = {
+            title: "Mantra Kilasan Malam",
+            text: defaultQuotes[Math.floor(Math.random() * defaultQuotes.length)],
+            genre: "Sanctuary"
+        };
+
+        function recordTelegraphClick(id, title, genre, blurb) { 
             telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; 
             localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks)); 
+            
+            // Update active quote dynamically based on clicked story!
+            currentActiveQuote = {
+                title: title,
+                text: `"${blurb}"`,
+                genre: genre
+            };
+            document.getElementById('quote-card-title').innerText = `✦ Sedang Dibaca: ${title}`;
+            document.getElementById('daily-quote').innerText = currentActiveQuote.text;
+
             renderRanking(); 
         }
 
@@ -193,6 +207,15 @@
             showToast("Terima kasih apresiasi hatinya! ❤️"); 
         }
 
+        function shareActiveQuote() {
+            const shareText = `📖 Naskah: "${currentActiveQuote.title}" (${currentActiveQuote.genre})\n✨ Kutipan:\n${currentActiveQuote.text}\n\n🌟 Yuk jelajahi naskah lainnya di Buwana Millena Sanctuary!`;
+            if(navigator.share) {
+                navigator.share({ title: currentActiveQuote.title, text: shareText }).catch(()=>{});
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => showToast("Kutipan & info bacaan disalin ke clipboard! 📋"));
+            }
+        }
+
         let currentGenre = 'Semua', currentSubGenre = 'Semua', rankingFilter = 'Semua', searchQuery = '', sortOrder = 'default', expandedIds = {};
 
         function handleSort() { sortOrder = document.getElementById('sort-select').value; renderStories(); }
@@ -206,20 +229,29 @@
             t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
         }
 
+        let bgmAudio = null;
         let isPlayingBGM = false;
+
         function toggleBGM() {
-            const a = document.getElementById('bgm-audio'), i = document.getElementById('bgm-icon');
-            if(isPlayingBGM) { 
-                a.pause(); 
-                i.innerText = "▶"; 
-                isPlayingBGM = false; 
-            } else { 
-                a.play().then(()=>{ 
-                    i.innerText = "⏸"; 
-                    isPlayingBGM = true; 
-                }).catch(()=>{
-                    showToast("Ketuk tombol play sekali lagi untuk audio.");
-                }); 
+            const icon = document.getElementById('bgm-icon');
+            if (!bgmAudio) {
+                bgmAudio = new Audio('https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3');
+                bgmAudio.loop = true;
+                bgmAudio.volume = 0.6;
+            }
+
+            if (isPlayingBGM) {
+                bgmAudio.pause();
+                icon.innerText = "▶";
+                isPlayingBGM = false;
+            } else {
+                bgmAudio.play().then(() => {
+                    icon.innerText = "⏸";
+                    isPlayingBGM = true;
+                }).catch(err => {
+                    console.log("Audio play blocked/error:", err);
+                    showToast("Ketuk tombol play sekali lagi untuk memutar musik.");
+                });
             }
         }
 
@@ -242,12 +274,13 @@
         function closeAuthorModal() { document.getElementById('author-modal').classList.add('hidden'); }
 
         function initApp() {
-            document.getElementById('daily-quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('daily-quote').innerText = currentActiveQuote.text;
             renderTabs(); renderSubGenres(); renderRanking(); renderStories();
         }
 
         function renderTabs() {
             const c = document.getElementById('genre-tabs'), genres = ['Semua', 'Dark Fantasy', 'Romance', 'Fantasy', 'Sound of Soul'];
+            if(!c) return;
             c.innerHTML = '';
             genres.forEach(g => {
                 const act = currentGenre === g;
@@ -258,6 +291,7 @@
 
         function renderSubGenres() {
             const sc = document.getElementById('subgenre-container');
+            if(!sc) return;
             let subs = [];
             if(currentGenre==='Dark Fantasy') subs=['Semua','Urban Fantasy','Grimdark','Dark Paranormal','Survival Adventure'];
             if(currentGenre==='Romance') subs=['Semua','Pure Romance','RomCom','Slow Burn'];
@@ -277,7 +311,7 @@
         function setRankingFilter(f) { rankingFilter = f; renderRanking(); }
 
         function renderRanking() {
-            const rc = document.getElementById('ranking-container'); rc.innerHTML = '';
+            const rc = document.getElementById('ranking-container'); if(!rc) return; rc.innerHTML = '';
             let r = [...defaultStories].sort((a,b) => (telegraphClicks[b.id]||0) - (telegraphClicks[a.id]||0));
             if(rankingFilter !== 'Semua') r = r.filter(x => x.genre === rankingFilter);
             r = r.slice(0,5);
@@ -296,7 +330,7 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-1">
-                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}', '${st.genre}')" class="text-[8px] text-center bg-amber-500/10 text-amber-500 py-1 rounded border border-amber-500/30">Telegraph</a>
+                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}', '${st.genre}', '${st.blurb.replace(/'/g, "\\'")}')" class="text-[8px] text-center bg-amber-500/10 text-amber-500 py-1 rounded border border-amber-500/30">Telegraph</a>
                             <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[8px] text-center bg-pink-500/10 text-pink-500 py-1 rounded border border-pink-500/30">Channel</a>
                         </div>
                     </div>`;
@@ -307,7 +341,7 @@
         function toggleExpand(id) { expandedIds[id] = !expandedIds[id]; renderStories(); }
 
         function renderStories() {
-            const sc = document.getElementById('story-container'); sc.innerHTML = '';
+            const sc = document.getElementById('story-container'); if(!sc) return; sc.innerHTML = '';
             let f = defaultStories.filter(st => {
                 const mg = currentGenre === 'Semua' || st.genre === currentGenre;
                 const ms = currentGenre === 'Semua' || currentSubGenre === 'Semua' || st.sub === currentSubGenre;
@@ -341,7 +375,7 @@
                             </div>
                         </div>
                         <div class="mt-4 pt-2.5 border-t border-purple-900/30 grid grid-cols-3 gap-1.5">
-                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}', '${st.genre}')" class="text-[9px] uppercase font-medium bg-purple-950/40 py-2 px-1 rounded-xl border border-purple-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">📖 Baca</a>
+                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}', '${st.genre}', '${st.blurb.replace(/'/g, "\\'")}')" class="text-[9px] uppercase font-medium bg-purple-950/40 py-2 px-1 rounded-xl border border-purple-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">📖 Baca</a>
                             <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[9px] uppercase font-medium bg-pink-950/30 py-2 px-1 rounded-xl border border-pink-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">💬 Channel</a>
                             <button onclick="shareStory('${st.judul.replace(/'/g, "\\'")}', '${st.linkTelegraph}')" class="text-[9px] uppercase font-medium bg-amber-950/30 py-2 px-1 rounded-xl border border-amber-500/40 text-center flex items-center justify-center cursor-pointer" style="color:var(--text-main);">🔗 Share</button>
                         </div>
