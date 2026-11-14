@@ -19,12 +19,12 @@
         .taman-card:hover { border-color: rgba(236,72,153,0.6); background: var(--card-hover); transform: translateY(-2px); }
         .floral-frame { background: linear-gradient(135deg, #ec4899, #a855f7, #f43f5e); padding: 2px; border-radius: 9999px; box-shadow: 0 0 12px rgba(236,72,153,0.5); transition: all 0.3s; }
         .floral-frame:hover { transform: scale(1.05); box-shadow: 0 0 18px rgba(236,72,153,0.8); }
-        .lamp-switch { position: relative; display: inline-block; width: 48px; height: 24px; }
+        .lamp-switch { position: relative; display: inline-block; width: 44px; height: 22px; }
         .lamp-switch input { opacity: 0; width: 0; height: 0; }
-        .slider-saklar { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1a102f; transition: .4s; border-radius: 24px; border: 1px solid rgba(168,85,247,0.5); }
-        .slider-saklar:before { position: absolute; content: "🌙"; height: 18px; width: 18px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; text-align: center; font-size: 10px; line-height: 18px; }
+        .slider-saklar { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1a102f; transition: .4s; border-radius: 22px; border: 1px solid rgba(168,85,247,0.5); }
+        .slider-saklar:before { position: absolute; content: "🌙"; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; text-align: center; font-size: 9px; line-height: 16px; }
         input:checked + .slider-saklar { background-color: #f472b6; }
-        input:checked + .slider-saklar:before { transform: translateX(24px); content: "☀️"; }
+        input:checked + .slider-saklar:before { transform: translateX(22px); content: "☀️"; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .custom-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
@@ -52,7 +52,9 @@
         <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3" type="audio/mpeg">
     </audio>
     <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden bg-black/20 backdrop-blur-md z-20">
-        <div class="absolute top-3 right-4 z-30 flex items-center gap-3">
+        <!-- TOP RIGHT: MUSIC PLAYER & THEME TOGGLE -->
+        <div class="absolute top-3 right-4 z-30 flex items-center gap-2.5">
+            <button onclick="toggleBGM()" id="bgm-btn" title="Putar Musik Lofi Study" class="floral-frame shrink-0 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition"><span id="bgm-icon" class="text-xs">▶</span></button>
             <label class="lamp-switch" title="Ubah Mode"><input type="checkbox" id="theme-toggle" onclick="toggleTheme()"><span class="slider-saklar"></span></label>
         </div>
         <div class="text-center px-4 mb-3 relative z-10 pt-4 sm:pt-0">
@@ -73,16 +75,6 @@
         </div>
         <div class="mt-3 bg-purple-950/40 border-y border-purple-800/30 py-1.5 overflow-hidden whitespace-nowrap backdrop-blur-sm">
             <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] font-medium tracking-wider opacity-90" style="color: var(--text-main);">🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di ayunan taman, pilih rak genre dan sub-genre naskahmu • ✨ Nikmati suasana kastil pustaka di bawah taburan bintang •</div>
-        </div>
-        <div class="mt-3 mx-4 max-w-lg mx-auto taman-card rounded-2xl p-2.5 flex items-center justify-between gap-2 shadow-lg border-purple-500/40 relative z-20">
-            <div class="flex items-center gap-2.5 overflow-hidden">
-                <button onclick="toggleBGM()" id="bgm-btn" class="floral-frame shrink-0 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition"><span id="bgm-icon">▶</span></button>
-                <div class="overflow-hidden">
-                    <div class="text-[9px] uppercase tracking-wider font-semibold" style="color: var(--text-sub);">🎵 Musik Lofi Kastil</div>
-                    <div id="current-track-title" class="text-[11px] font-medium truncate" style="color: var(--text-main);">✨ Starlight Chill & Ambient</div>
-                </div>
-            </div>
-            <span class="text-[10px] italic px-2 py-1 bg-purple-950/40 rounded-xl border border-purple-500/30" style="color: var(--text-sub);">🌙 Atmosfer Magis</span>
         </div>
     </header>
     <main class="max-w-xl mx-auto px-4 mt-5 space-y-4 relative z-10">
@@ -133,48 +125,13 @@
             <div id="ranking-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2"></div>
         </div>
 
-        <!-- REAL-TIME DATABASE PERPUSTAKAAN (BUKU TAMU OTOMATIS) -->
-        <div class="taman-card rounded-2xl p-5 space-y-4 mt-8 shadow-xl">
-            <div class="border-b border-purple-500/20 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>📚</span> Real-Time Database Perpustakaan</h3>
-                <span class="text-[9px] italic opacity-85" style="color: var(--text-main);">Log Aktivitas Kunjungan & Bacaan</span>
-            </div>
-            
-            <div class="bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30 space-y-3">
-                <div class="text-[11px] font-medium" style="color: var(--text-main);">📖 Catat Kehadiran Bacaanmu:</div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Identitas:</label>
-                        <select id="db-identity-mode" onchange="toggleDbIdentityMode()" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                            <option value="telegram">🤖 Akun Telegram</option>
-                            <option value="anonim">🕵️ Anonim (Nomor Seri)</option>
-                        </select>
-                    </div>
-                    <div id="db-name-box">
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama / Username Telegram:</label>
-                        <input type="text" id="db-input-name" placeholder="@Aebil atau Millena" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Rating Bacaan:</label>
-                        <div id="star-rating-picker" class="flex gap-1 py-1 cursor-pointer">
-                            <span onclick="setRating(1)" class="star-btn text-base opacity-40">⭐</span>
-                            <span onclick="setRating(2)" class="star-btn text-base opacity-40">⭐</span>
-                            <span onclick="setRating(3)" class="star-btn text-base opacity-40">⭐</span>
-                            <span onclick="setRating(4)" class="star-btn text-base opacity-40">⭐</span>
-                            <span onclick="setRating(5)" class="star-btn text-base opacity-40 text-amber-400">⭐</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between text-[10px] pt-1">
-                    <span id="db-current-read" class="italic font-semibold text-pink-300">📖 Bacaan: Belum ada</span>
-                    <button onclick="logVisitorRead()" class="bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-90 text-white text-[10px] font-semibold px-4 py-1.5 rounded-xl shadow-md transition cursor-pointer">✨ Catat ke Database</button>
-                </div>
-            </div>
-
-            <div id="database-log-list" class="space-y-2.5 max-h-64 overflow-y-auto custom-scroll pr-1 pt-1"></div>
-
-            <div class="text-center pt-2 border-t border-purple-500/20">
-                <p class="text-[10px] italic opacity-85" style="color: var(--text-main);">💬 Ingin memberikan komentar atau diskusi mendalam?<br>Silakan bergabung di <a href="https://t.me/forbuwanamillena" target="_blank" class="text-pink-400 underline font-semibold">@forbuwanamillena</a> pada masing-masing topik naskah!</p>
+        <!-- PENGGANTI DATABASE: KUTIPAN MANTRA & DISKUSI CHANNEL -->
+        <div class="taman-card rounded-2xl p-5 space-y-3 mt-8 shadow-xl text-center">
+            <span class="text-2xl">✨📖✨</span>
+            <h3 class="title-font text-xs font-bold tracking-wider uppercase" style="color: var(--text-sub);">Mantra Kilasan Malam</h3>
+            <p id="daily-quote" class="text-xs italic font-light px-4 opacity-90" style="color: var(--text-main);">"Di bawah taburan bintang kastil pustaka, setiap kata yang terukir adalah detak jiwa yang abadi."</p>
+            <div class="pt-3 border-t border-purple-500/20">
+                <p class="text-[10px] italic opacity-85" style="color: var(--text-main);">💬 Ingin memberikan ulasan atau diskusi mendalam?<br>Silakan bergabung di <a href="https://t.me/forbuwanamillena" target="_blank" class="text-pink-400 underline font-semibold">@forbuwanamillena</a> pada masing-masing topik naskah!</p>
             </div>
         </div>
     </main>
@@ -207,49 +164,19 @@
 
         let telegraphClicks = JSON.parse(localStorage.getItem('story_telegraph_clicks')) || {};
         let channelClicks = JSON.parse(localStorage.getItem('story_channel_clicks')) || {};
-        
         let storyLikes = {};
         localStorage.removeItem('story_likes');
 
-        // Reset library database logs
-        let libraryDatabase = [];
-        localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
-
-        let currentSelectedRating = 5;
-
-        let telegramUser = { name: "Millena", username: "@Aebil" };
-        function initTelegramUser() {
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-                const u = window.Telegram.WebApp.initDataUnsafe.user;
-                if(u.id.toString() === "author_millena" || (u.username && u.username.toLowerCase() === 'aebil')) {
-                    telegramUser.name = "Millena";
-                    telegramUser.username = "@Aebil";
-                } else {
-                    telegramUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
-                    telegramUser.username = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
-                }
-            }
-        }
-
-        function isAuthor(nameOrUsername) {
-            if(!nameOrUsername) return false;
-            const clean = nameOrUsername.toLowerCase().trim();
-            return clean === 'millena' || clean === 'buwana millena' || clean === '@aebil' || clean === 'aebil';
-        }
-
-        function isCurrentVisitorAuthor(inputName, inputUsername) {
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-                const u = window.Telegram.WebApp.initDataUnsafe.user;
-                if(u.username && u.username.toLowerCase() === 'aebil') return true;
-            }
-            return isAuthor(inputName) || isAuthor(inputUsername);
-        }
+        let quotes = [
+            "\"Di bawah taburan bintang kastil pustaka, setiap kata yang terukir adalah detak jiwa yang abadi.\"",
+            "\"Membaca adalah seni meminjam sayap untuk terbang ke dunia lain.\"",
+            "\"Kesunyian malam membawa kisah-kisah magis yang hanya terdengar oleh mereka yang mau mendengarkan.\"",
+            "\"Merajut fantasi dan meresapi sunyi di antara lembaran naskah malam.\""
+        ];
 
         function recordTelegraphClick(id, title, genre) { 
             telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; 
             localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks)); 
-            localStorage.setItem('last_read_story_data', JSON.stringify({ title, genre }));
-            updateDbReadDisplay();
             renderRanking(); 
         }
 
@@ -264,146 +191,6 @@
             localStorage.setItem('story_likes', JSON.stringify(storyLikes)); 
             renderStories(); 
             showToast("Terima kasih apresiasi hatinya! ❤️"); 
-        }
-
-        function updateDbReadDisplay() {
-            const dataStr = localStorage.getItem('last_read_story_data');
-            const display = document.getElementById('db-current-read');
-            if(dataStr && display) {
-                const item = JSON.parse(dataStr);
-                display.innerText = `📖 Bacaan: "${item.title}" (${item.genre})`;
-            }
-        }
-
-        function toggleDbIdentityMode() {
-            const mode = document.getElementById('db-identity-mode').value;
-            const nameBox = document.getElementById('db-name-box');
-            if(mode === 'anonim') {
-                nameBox.style.display = 'none';
-            } else {
-                nameBox.style.display = 'block';
-            }
-        }
-
-        function setRating(r) {
-            currentSelectedRating = r;
-            const stars = document.querySelectorAll('#star-rating-picker span');
-            stars.forEach((s, idx) => {
-                if(idx < r) s.classList.remove('opacity-40');
-                else s.classList.add('opacity-40');
-            });
-        }
-
-        function logVisitorRead() {
-            const lastReadData = localStorage.getItem('last_read_story_data');
-            if(!lastReadData) {
-                showToast("Silakan klik 'Baca' salah satu naskah terlebih dahulu! 📖");
-                return;
-            }
-            const storyInfo = JSON.parse(lastReadData);
-            const mode = document.getElementById('db-identity-mode').value;
-
-            let finalName, finalUsername, authStatus;
-            if(mode === 'anonim') {
-                let serial = Math.floor(1000 + Math.random() * 9000);
-                finalName = `Anonim #${serial}`;
-                finalUsername = `@tamu_${serial}`;
-                authStatus = false;
-            } else {
-                let input = document.getElementById('db-input-name').value.trim();
-                if(!input) {
-                    finalName = telegramUser.name;
-                    finalUsername = telegramUser.username;
-                } else {
-                    if(isAuthor(input)) {
-                        finalName = "Millena";
-                        finalUsername = "@Aebil";
-                    } else {
-                        if(!input.startsWith('@') && !input.includes(' ')) {
-                            finalUsername = '@' + input;
-                            finalName = input;
-                        } else {
-                            finalName = input;
-                            finalUsername = input.startsWith('@') ? input : '@' + input.toLowerCase().replace(/\s+/g,'_');
-                        }
-                    }
-                }
-                authStatus = isCurrentVisitorAuthor(finalName, finalUsername);
-            }
-
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
-            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-
-            libraryDatabase.unshift({
-                id: 'log_' + Date.now(),
-                name: finalName,
-                username: finalUsername,
-                title: storyInfo.title,
-                genre: storyInfo.genre,
-                rating: currentSelectedRating,
-                date: `${dateStr} • ${timeStr}`,
-                isAuthor: authStatus
-            });
-
-            localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
-            renderLibraryDatabase();
-            showToast("Aktivitas baca berhasil dicatat ke Database! ✨");
-        }
-
-        function deleteLibraryLog(id) {
-            libraryDatabase = libraryDatabase.filter(item => item.id !== id);
-            localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
-            renderLibraryDatabase();
-            showToast("Log/rating berhasil dihapus oleh Penulis! 🗑️");
-        }
-
-        function renderLibraryDatabase() {
-            const container = document.getElementById('database-log-list');
-            if(!container) return;
-            container.innerHTML = '';
-
-            if(libraryDatabase.length === 0) {
-                container.innerHTML = `<p class="text-xs italic text-center opacity-70 py-2" style="color: var(--text-main);">Belum ada catatan pembaca. Jadilah yang pertama mencatat bacaan!</p>`;
-                return;
-            }
-
-            // Check if current user is author
-            const isUserAuthor = isCurrentVisitorAuthor(telegramUser.name, telegramUser.username);
-
-            libraryDatabase.forEach(log => {
-                const stars = '⭐'.repeat(log.rating || 5);
-                const isAuth = log.isAuthor || isAuthor(log.name) || isAuthor(log.username);
-                
-                const roleBadge = isAuth 
-                    ? `<span class="bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-sm ml-1.5">✒️ Penulis</span>`
-                    : `<span class="bg-purple-900/40 text-purple-200 text-[8px] px-2 py-0.5 rounded-full border border-purple-500/30 ml-1.5">📖 Pembaca</span>`;
-
-                let nameDisplay = `<span class="font-bold" style="color: var(--text-sub);">${log.name}</span>`;
-                if(log.username && log.username !== log.name && !log.name.includes(log.username)) {
-                    nameDisplay += ` <span class="opacity-60 text-[9px]" style="color: var(--text-main);">(${log.username})</span>`;
-                }
-
-                // Author can delete any log/rating
-                let deleteBtnHtml = isUserAuthor ? `<button onclick="deleteLibraryLog('${log.id}')" title="Hapus oleh Penulis" class="text-red-400 hover:text-red-300 ml-2">🗑️</button>` : '';
-
-                container.innerHTML += `
-                    <div class="bg-black/30 border border-purple-500/20 rounded-xl p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px]">
-                        <div class="flex flex-col gap-0.5">
-                            <div class="flex items-center flex-wrap gap-1">
-                                ${nameDisplay}
-                                ${roleBadge}
-                            </div>
-                            <span class="font-medium text-pink-200">📖 Membaca: "${log.title}" <span class="text-[9px] opacity-80">(${log.genre})</span></span>
-                        </div>
-                        <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0">
-                            <span>${stars}</span>
-                            <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${log.date}</span>
-                            ${deleteBtnHtml}
-                        </div>
-                    </div>
-                `;
-            });
         }
 
         let currentGenre = 'Semua', currentSubGenre = 'Semua', rankingFilter = 'Semua', searchQuery = '', sortOrder = 'default', expandedIds = {};
@@ -455,7 +242,8 @@
         function closeAuthorModal() { document.getElementById('author-modal').classList.add('hidden'); }
 
         function initApp() {
-            initTelegramUser(); updateDbReadDisplay(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderLibraryDatabase();
+            document.getElementById('daily-quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            renderTabs(); renderSubGenres(); renderRanking(); renderStories();
         }
 
         function renderTabs() {
