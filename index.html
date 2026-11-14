@@ -76,11 +76,11 @@
             <div class="flex items-center gap-2.5 overflow-hidden">
                 <button onclick="toggleBGM()" id="bgm-btn" class="floral-frame shrink-0 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition"><span id="bgm-icon">▶</span></button>
                 <div class="overflow-hidden">
-                    <div class="text-[9px] uppercase tracking-wider font-semibold" style="color: var(--text-sub);">🎵 Musik Tema Kastil</div>
-                    <div id="current-track-title" class="text-[11px] font-medium truncate" style="color: var(--text-main);">🌧️ Hujan Kastil & Petir</div>
+                    <div class="text-[9px] uppercase tracking-wider font-semibold" style="color: var(--text-sub);">🎵 Musik Lofi Kastil</div>
+                    <div id="current-track-title" class="text-[11px] font-medium truncate" style="color: var(--text-main);">✨ Starlight Chill & Ambient</div>
                 </div>
             </div>
-            <span class="text-[10px] italic px-2 py-1 bg-purple-950/40 rounded-xl border border-purple-500/30" style="color: var(--text-sub);">✨ Atmosfer Magis</span>
+            <span class="text-[10px] italic px-2 py-1 bg-purple-950/40 rounded-xl border border-purple-500/30" style="color: var(--text-sub);">🌙 Atmosfer Magis</span>
         </div>
     </header>
     <main class="max-w-xl mx-auto px-4 mt-5 space-y-4 relative z-10">
@@ -131,95 +131,51 @@
             <div id="ranking-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2"></div>
         </div>
 
-        <!-- BUKU TAMU & KESAN PESAN -->
+        <!-- REAL-TIME DATABASE PERPUSTAKAAN (BUKU TAMU OTOMATIS) -->
         <div class="taman-card rounded-2xl p-5 space-y-4 mt-8 shadow-xl">
             <div class="border-b border-purple-500/20 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>💌</span> Buku Tamu & Kesan Pustaka</h3>
-                <div class="flex items-center gap-2">
-                    <select id="guestbook-sort" onchange="renderGuestbook()" class="bg-black/40 border border-purple-500/40 text-[10px] rounded-lg px-2 py-1 focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                        <option value="newest">🕒 Terbaru</option>
-                        <option value="oldest">⏳ Terlama</option>
-                        <option value="rating">⭐ Rating Terbaik</option>
-                    </select>
-                </div>
+                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>📚</span> Real-Time Database Perpustakaan</h3>
+                <span class="text-[9px] italic opacity-85" style="color: var(--text-main);">Log Aktivitas Kunjungan & Bacaan</span>
             </div>
-            <form onsubmit="submitGuestbook(event)" class="space-y-3 bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30">
+            
+            <div class="bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30 space-y-3">
+                <div class="text-[11px] font-medium" style="color: var(--text-main);">📖 Catat Kehadiran Bacaanmu:</div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Mode Identitas:</label>
-                        <select id="guest-identity-mode" onchange="toggleIdentityMode()" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                            <option value="manual">✍️ Ketik Nama Sendiri</option>
-                            <option value="anonim">🕵️ Anonim (#Nomor Seri)</option>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Identitas:</label>
+                        <select id="db-identity-mode" onchange="toggleDbIdentityMode()" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                            <option value="telegram">🤖 Akun Telegram</option>
+                            <option value="anonim">🕵️ Anonim (Nomor Seri)</option>
                         </select>
                     </div>
-                    <div id="field-name-box">
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama Pengunjung <span class="text-pink-500">*</span></label>
-                        <input type="text" id="guest-input-name" placeholder="Tuliskan namamu..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                    </div>
-                    <div id="field-username-box">
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Username Telegram <span class="text-pink-500">*</span></label>
-                        <input type="text" id="guest-input-username" placeholder="@username_kamu" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pilih Mood Suka:</label>
-                        <select id="guest-mood" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                            <option value="✨ Bahagia & Terpesona">✨ Bahagia & Terpesona</option>
-                            <option value="🌙 Tenang & Damai">🌙 Tenang & Damai</option>
-                            <option value="💖 Sangat Menyentuh Hati">💖 Sangat Menyentuh Hati</option>
-                            <option value="📖 Terinspirasi Jiwa">📖 Terinspirasi Jiwa</option>
-                        </select>
+                    <div id="db-name-box">
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama / Username Telegram:</label>
+                        <input type="text" id="db-input-name" placeholder="@username_kamu" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
                     </div>
                     <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Rating Taman:</label>
-                        <select id="guest-rating" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
-                            <option value="5">⭐⭐⭐⭐⭐ (Sempurna & Magis)</option>
-                            <option value="4">⭐⭐⭐⭐ (Sangat Indah)</option>
-                            <option value="3">⭐⭐⭐ (Cukup Nyaman)</option>
-                            <option value="2">⭐⭐ (Biasa)</option>
-                            <option value="1">⭐ (Perlu Perbaikan)</option>
-                        </select>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Rating Bacaan:</label>
+                        <div id="star-rating-picker" class="flex gap-1 py-1 cursor-pointer">
+                            <span onclick="setRating(1)" class="star-btn text-base opacity-40">⭐</span>
+                            <span onclick="setRating(2)" class="star-btn text-base opacity-40">⭐</span>
+                            <span onclick="setRating(3)" class="star-btn text-base opacity-40">⭐</span>
+                            <span onclick="setRating(4)" class="star-btn text-base opacity-40">⭐</span>
+                            <span onclick="setRating(5)" class="star-btn text-base opacity-40 text-amber-400">⭐</span>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pesan & Kesan / Ulasan <span class="text-pink-500">*</span></label>
-                    <textarea id="guest-message" rows="2" required placeholder="Tuliskan ulasan atau kesan naskah di taman ini..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
                 </div>
                 <div class="flex items-center justify-between text-[10px] pt-1">
-                    <span id="current-read-badge" class="italic opacity-80" style="color: var(--text-sub);">📖 Naskah terakhir dibaca: Belum ada</span>
-                    <button type="submit" class="bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-90 text-white text-[10px] font-semibold px-4 py-1.5 rounded-xl shadow-md transition cursor-pointer">✨ Kirim Ulasan Tamu</button>
+                    <span id="db-current-read" class="italic font-semibold text-pink-300">📖 Bacaan: Belum ada</span>
+                    <button onclick="logVisitorRead()" class="bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-90 text-white text-[10px] font-semibold px-4 py-1.5 rounded-xl shadow-md transition cursor-pointer">✨ Catat ke Database</button>
                 </div>
-            </form>
-            <div id="guestbook-list" class="space-y-3 max-h-72 overflow-y-auto custom-scroll pr-1 pt-1"></div>
+            </div>
+
+            <div id="database-log-list" class="space-y-2.5 max-h-64 overflow-y-auto custom-scroll pr-1 pt-1"></div>
+
+            <div class="text-center pt-2 border-t border-purple-500/20">
+                <p class="text-[10px] italic opacity-85" style="color: var(--text-main);">💬 Ingin memberikan komentar atau diskusi mendalam?<br>Silakan bergabung di <a href="https://t.me/forbuwanamillena" target="_blank" class="text-pink-400 underline font-semibold">@forbuwanamillena</a> pada masing-masing topik naskah!</p>
+            </div>
         </div>
     </main>
-
-    <!-- MODAL EDIT PESAN -->
-    <div id="edit-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="taman-card rounded-2xl p-5 flex flex-col gap-3 w-full max-w-sm relative shadow-2xl">
-            <h3 class="title-font text-xs font-bold uppercase" style="color: var(--text-sub);">✏️ Edit Ulasan Buku Tamu</h3>
-            <input type="hidden" id="edit-index">
-            <textarea id="edit-message-text" rows="3" class="w-full px-3 py-2 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
-            <div class="flex justify-end gap-2 pt-1">
-                <button onclick="closeEditModal()" class="px-3 py-1 bg-stone-800 text-stone-300 rounded-lg text-[10px]">Batal</button>
-                <button onclick="saveEditedMessage()" class="px-3 py-1 bg-pink-600 text-white rounded-lg text-[10px] font-semibold">Simpan</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL BALAS PESAN -->
-    <div id="reply-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="taman-card rounded-2xl p-5 flex flex-col gap-3 w-full max-w-sm relative shadow-2xl">
-            <h3 class="title-font text-xs font-bold uppercase" style="color: var(--text-sub);">💬 Balas Ulasan Tamu</h3>
-            <input type="hidden" id="reply-target-id">
-            <textarea id="reply-message-text" rows="3" placeholder="Tulis balasan..." class="w-full px-3 py-2 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
-            <div class="flex justify-end gap-2 pt-1">
-                <button onclick="closeReplyModal()" class="px-3 py-1 bg-stone-800 text-stone-300 rounded-lg text-[10px]">Batal</button>
-                <button onclick="saveReplyMessage()" class="px-3 py-1 bg-purple-600 text-white rounded-lg text-[10px] font-semibold">Kirim Balasan</button>
-            </div>
-        </div>
-    </div>
 
     <!-- MODAL PROFIL PENULIS -->
     <div id="author-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
@@ -249,32 +205,33 @@
 
         let telegraphClicks = JSON.parse(localStorage.getItem('story_telegraph_clicks')) || {};
         let channelClicks = JSON.parse(localStorage.getItem('story_channel_clicks')) || {};
+        
+        // Reset Kanola stats (id 2)
+        telegraphClicks[2] = 0;
+        channelClicks[2] = 0;
+        localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks));
+        localStorage.setItem('story_channel_clicks', JSON.stringify(channelClicks));
+
         let storyLikes = {};
         localStorage.removeItem('story_likes');
-        let guestbookMessages = JSON.parse(localStorage.getItem('guestbook_messages')) || [];
 
-        // Unique Visitor Session ID for strict comment ownership
-        let visitorUid = localStorage.getItem('visitor_unique_uid');
-        if(!visitorUid) {
-            visitorUid = 'visitor_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('visitor_unique_uid', visitorUid);
-        }
+        let libraryDatabase = JSON.parse(localStorage.getItem('library_database_logs')) || [];
+        let currentSelectedRating = 5;
 
-        // Telegram / Author Configuration
-        let authorUser = { uid: "author_millena", name: "Buwana Millena", username: "@buwanamillena" };
-        function isUserAuthor(username, uid) {
+        let telegramUser = { name: "Pengunjung", username: "@tamu" };
+        function initTelegramUser() {
             if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
                 const u = window.Telegram.WebApp.initDataUnsafe.user;
-                if(u.id.toString() === "author_millena" || (u.username && u.username.toLowerCase() === 'buwanamillena')) return true;
+                telegramUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
+                telegramUser.username = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
             }
-            return (username && username.toLowerCase() === '@buwanamillena') || (uid === 'author_millena');
         }
 
-        function recordTelegraphClick(id, title) { 
+        function recordTelegraphClick(id, title, genre) { 
             telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; 
             localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks)); 
-            localStorage.setItem('last_read_story', title);
-            updateReadBadge();
+            localStorage.setItem('last_read_story_data', JSON.stringify({ title, genre }));
+            updateDbReadDisplay();
             renderRanking(); 
         }
 
@@ -291,218 +248,104 @@
             showToast("Terima kasih apresiasi hatinya! ❤️"); 
         }
 
-        function updateReadBadge() {
-            const lastRead = localStorage.getItem('last_read_story');
-            const badge = document.getElementById('current-read-badge');
-            if(badge) {
-                badge.innerText = lastRead ? `📖 Naskah terakhir dibaca: "${lastRead}"` : `📖 Naskah terakhir dibaca: Belum ada`;
+        function updateDbReadDisplay() {
+            const dataStr = localStorage.getItem('last_read_story_data');
+            const display = document.getElementById('db-current-read');
+            if(dataStr && display) {
+                const item = JSON.parse(dataStr);
+                display.innerText = `📖 Bacaan: "${item.title}" (${item.genre})`;
             }
         }
 
-        function toggleIdentityMode() {
-            const mode = document.getElementById('guest-identity-mode').value;
-            const nameBox = document.getElementById('field-name-box');
-            const usernameBox = document.getElementById('field-username-box');
+        function toggleDbIdentityMode() {
+            const mode = document.getElementById('db-identity-mode').value;
+            const nameBox = document.getElementById('db-name-box');
             if(mode === 'anonim') {
                 nameBox.style.display = 'none';
-                usernameBox.style.display = 'none';
             } else {
                 nameBox.style.display = 'block';
-                usernameBox.style.display = 'block';
             }
         }
 
-        function submitGuestbook(e) {
-            e.preventDefault();
-            const text = document.getElementById('guest-message').value.trim();
-            const mode = document.getElementById('guest-identity-mode').value;
-            if(!text) return;
+        function setRating(r) {
+            currentSelectedRating = r;
+            const stars = document.querySelectorAll('#star-rating-picker span');
+            stars.forEach((s, idx) => {
+                if(idx < r) s.classList.remove('opacity-40');
+                else s.classList.add('opacity-40');
+            });
+        }
 
-            let finalName, finalUsername, isAuthor;
+        function logVisitorRead() {
+            const lastReadData = localStorage.getItem('last_read_story_data');
+            if(!lastReadData) {
+                showToast("Silakan klik 'Baca' salah satu naskah terlebih dahulu! 📖");
+                return;
+            }
+            const storyInfo = JSON.parse(lastReadData);
+            const mode = document.getElementById('db-identity-mode').value;
+
+            let finalName, finalUsername;
             if(mode === 'anonim') {
-                let randomSerial = Math.floor(1000 + Math.random() * 9000);
-                finalName = `Anonim #${randomSerial}`;
-                finalUsername = `@tamu_${randomSerial}`;
-                isAuthor = false;
+                let serial = Math.floor(1000 + Math.random() * 9000);
+                finalName = `Anonim #${serial}`;
+                finalUsername = `@tamu_${serial}`;
             } else {
-                finalName = document.getElementById('guest-input-name').value.trim();
-                let uInput = document.getElementById('guest-input-username').value.trim();
-                if(!finalName || !uInput) return;
-                if(!uInput.startsWith('@')) uInput = '@' + uInput;
-                finalUsername = uInput;
-                isAuthor = isUserAuthor(finalUsername, visitorUid);
+                let input = document.getElementById('db-input-name').value.trim();
+                if(!input) {
+                    finalName = telegramUser.name;
+                    finalUsername = telegramUser.username;
+                } else {
+                    if(!input.startsWith('@')) input = '@' + input;
+                    finalName = input;
+                    finalUsername = input;
+                }
             }
 
-            const mood = document.getElementById('guest-mood').value;
-            const rating = parseInt(document.getElementById('guest-rating').value);
-            let readStory = isAuthor ? null : localStorage.getItem('last_read_story');
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
 
-            guestbookMessages.unshift({
-                id: 'msg_' + Date.now(),
-                uid: visitorUid,
+            libraryDatabase.unshift({
+                id: 'log_' + Date.now(),
                 name: finalName,
                 username: finalUsername,
-                mood: mood,
-                rating: rating,
-                text: text,
-                readStory: readStory,
-                date: new Date().toISOString(),
-                isAuthor: isAuthor,
-                replies: []
+                title: storyInfo.title,
+                genre: storyInfo.genre,
+                rating: currentSelectedRating,
+                date: `${dateStr} • ${timeStr}`
             });
-            localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
-            document.getElementById('guest-message').value = '';
-            if(document.getElementById('guest-input-name')) document.getElementById('guest-input-name').value = '';
-            if(document.getElementById('guest-input-username')) document.getElementById('guest-input-username').value = '';
-            renderGuestbook();
-            showToast("Ulasan tamu berhasil dikirim! 💌");
+
+            localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
+            renderLibraryDatabase();
+            showToast("Aktivitas baca berhasil dicatat ke Database! ✨");
         }
 
-        function deleteGuestMessage(id) {
-            const m = guestbookMessages.find(item => item.id === id);
-            if(!m) return;
-            const isAuth = isUserAuthor(m.username, m.uid) || (m.uid === visitorUid && m.isAuthor);
-            // Strict permission: Only message owner or author can delete
-            if(m.uid === visitorUid || isAuth) {
-                guestbookMessages = guestbookMessages.filter(item => item.id !== id);
-                localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
-                renderGuestbook();
-                showToast("Ulasan dihapus! 🗑️");
-            } else {
-                showToast("Kamu hanya bisa menghapus ulasan buatanmu sendiri! ⚠️");
-            }
-        }
-
-        function openEditModal(id) {
-            const m = guestbookMessages.find(item => item.id === id);
-            if(!m || m.uid !== visitorUid) {
-                showToast("Kamu hanya bisa mengedit ulasan buatanmu sendiri! ⚠️");
-                return;
-            }
-            document.getElementById('edit-index').value = id;
-            document.getElementById('edit-message-text').value = m.text;
-            document.getElementById('edit-modal').classList.remove('hidden');
-        }
-        function closeEditModal() { document.getElementById('edit-modal').classList.add('hidden'); }
-        function saveEditedMessage() {
-            const id = document.getElementById('edit-index').value;
-            const newText = document.getElementById('edit-message-text').value.trim();
-            if(!newText) return;
-            const m = guestbookMessages.find(item => item.id === id);
-            if(m && m.uid === visitorUid) {
-                m.text = newText;
-                localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
-                renderGuestbook();
-                closeEditModal();
-                showToast("Ulasan diperbarui! ✏️");
-            }
-        }
-
-        function openReplyModal(id) {
-            document.getElementById('reply-target-id').value = id;
-            document.getElementById('reply-message-text').value = '';
-            document.getElementById('reply-modal').classList.remove('hidden');
-        }
-        function closeReplyModal() { document.getElementById('reply-modal').classList.add('hidden'); }
-        function saveReplyMessage() {
-            const id = document.getElementById('reply-target-id').value;
-            const text = document.getElementById('reply-message-text').value.trim();
-            if(!text) return;
-            const m = guestbookMessages.find(item => item.id === id);
-            if(m) {
-                if(!m.replies) m.replies = [];
-                const isAuth = isUserAuthor(null, visitorUid);
-                m.replies.push({
-                    name: isAuth ? "Buwana Millena" : "Pengunjung Taman",
-                    username: isAuth ? "@buwanamillena" : "@tamu",
-                    text: text,
-                    date: new Date().toISOString(),
-                    isAuthor: isAuth
-                });
-                localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
-                renderGuestbook();
-                closeReplyModal();
-                showToast("Balasan terkirim! 💬");
-            }
-        }
-
-        function renderGuestbook() {
-            const container = document.getElementById('guestbook-list');
-            const sortVal = document.getElementById('guestbook-sort').value;
+        function renderLibraryDatabase() {
+            const container = document.getElementById('database-log-list');
+            if(!container) return;
             container.innerHTML = '';
 
-            let sorted = [...guestbookMessages];
-            if(sortVal === 'oldest') {
-                sorted.sort((a,b) => new Date(a.date) - new Date(b.date));
-            } else if(sortVal === 'rating') {
-                sorted.sort((a,b) => b.rating - a.rating);
-            } else {
-                sorted.sort((a,b) => new Date(b.date) - new Date(a.date));
-            }
-
-            if(sorted.length === 0) {
-                container.innerHTML = `<p class="text-xs italic text-center opacity-70 py-2" style="color: var(--text-main);">Belum ada ulasan.</p>`;
+            if(libraryDatabase.length === 0) {
+                container.innerHTML = `<p class="text-xs italic text-center opacity-70 py-2" style="color: var(--text-main);">Belum ada catatan pembaca hari ini. Jadilah yang pertama!</p>`;
                 return;
             }
 
-            sorted.forEach(msg => {
-                const isOwner = msg.uid === visitorUid;
-                const isAuth = msg.isAuthor || isUserAuthor(msg.username, msg.uid);
-                const dateStr = new Date(msg.date).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
-                const stars = '⭐'.repeat(msg.rating || 5);
-                const roleBadge = isAuth 
-                    ? `<span class="bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-sm ml-1.5">✒️ Penulis</span>`
-                    : `<span class="bg-purple-900/40 text-purple-200 text-[8px] px-2 py-0.5 rounded-full border border-purple-500/30 ml-1.5">📖 Pembaca</span>`;
-
-                let storyBadgeHtml = '';
-                if(msg.readStory && !isAuth) {
-                    storyBadgeHtml = `<div class="text-[9px] bg-purple-950/40 text-pink-300 px-2 py-0.5 rounded-lg border border-purple-500/30 inline-block w-fit">📚 Membaca: "${msg.readStory}"</div>`;
-                }
-
-                let repliesHtml = '';
-                if(msg.replies && msg.replies.length > 0) {
-                    msg.replies.forEach(r => {
-                        const rDate = new Date(r.date).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
-                        const rBadge = r.isAuthor 
-                            ? `<span class="bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full ml-1">✒️ Penulis</span>`
-                            : `<span class="bg-purple-900/40 text-purple-200 text-[7px] px-1.5 py-0.5 rounded-full ml-1">📖 Pembaca</span>`;
-                        
-                        repliesHtml += `
-                            <div class="ml-4 mt-2 pl-3 border-l-2 border-purple-500/30 text-[10px] space-y-0.5">
-                                <div class="flex justify-between font-semibold" style="color: var(--text-sub);">
-                                    <span>↪ ${r.name} <span class="opacity-70 font-normal">(${r.username})</span> ${rBadge}</span>
-                                    <span class="opacity-50 text-[9px]" style="color: var(--text-main);">${rDate}</span>
-                                </div>
-                                <p class="italic opacity-90" style="color: var(--text-main);">"${r.text}"</p>
-                            </div>
-                        `;
-                    });
-                }
-
+            libraryDatabase.forEach(log => {
+                const stars = '⭐'.repeat(log.rating || 5);
                 container.innerHTML += `
-                    <div class="bg-black/30 border border-purple-500/20 rounded-xl p-3 flex flex-col gap-1.5">
-                        <div class="flex items-center justify-between text-[10px]">
-                            <div class="flex items-center flex-wrap gap-1">
-                                <span class="font-semibold" style="color: var(--text-sub);">${msg.name}</span>
-                                <span class="opacity-70 text-[9px]" style="color: var(--text-main);">(${msg.username})</span>
-                                ${roleBadge}
+                    <div class="bg-black/30 border border-purple-500/20 rounded-xl p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px]">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold" style="color: var(--text-sub);">${log.name}</span>
+                                <span class="opacity-60 text-[9px]" style="color: var(--text-main);">(${log.username})</span>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${dateStr}</span>
-                                ${isOwner ? `<button onclick="openEditModal('${msg.id}')" title="Edit" class="text-pink-400">✏️</button>` : ''}
-                                ${(isOwner || isUserAuthor(null, visitorUid)) ? `<button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>` : ''}
-                            </div>
+                            <span class="font-medium text-pink-200">📖 Membaca: "${log.title}" <span class="text-[9px] opacity-80">(${log.genre})</span></span>
                         </div>
-                        <div class="flex items-center gap-2 text-[10px]">
-                            <span class="bg-purple-900/40 px-2 py-0.5 rounded text-pink-200 border border-purple-500/30">${msg.mood || '✨ Bahagia'}</span>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0">
                             <span>${stars}</span>
+                            <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${log.date}</span>
                         </div>
-                        ${storyBadgeHtml}
-                        <p class="text-xs font-light italic opacity-90" style="color: var(--text-main);">"${msg.text}"</p>
-                        <div class="pt-1 flex justify-end">
-                            <button onclick="openReplyModal('${msg.id}')" class="text-[9px] text-purple-300 hover:underline">💬 Balas Ulasan</button>
-                        </div>
-                        ${repliesHtml}
                     </div>
                 `;
             });
@@ -521,11 +364,11 @@
             t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
         }
 
-        // STABLE SINGLE BGM AUDIO
+        // STABLE BACKGROUND MUSIC PLAYER (Pixabay Ambient Lofi)
         let isPlayingBGM = false;
         function initAudio() { 
             const a = document.getElementById('bgm-audio');
-            a.src = "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg";
+            a.src = "https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3";
         }
         function toggleBGM() {
             const a = document.getElementById('bgm-audio'), i = document.getElementById('bgm-icon');
@@ -562,7 +405,7 @@
         function closeAuthorModal() { document.getElementById('author-modal').classList.add('hidden'); }
 
         function initApp() {
-            initAudio(); updateReadBadge(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderGuestbook();
+            initTelegramUser(); initAudio(); updateDbReadDisplay(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderLibraryDatabase();
         }
 
         function renderTabs() {
@@ -615,7 +458,7 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-1">
-                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}')" class="text-[8px] text-center bg-amber-500/10 text-amber-500 py-1 rounded border border-amber-500/30">Telegraph</a>
+                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}', '${st.genre}')" class="text-[8px] text-center bg-amber-500/10 text-amber-500 py-1 rounded border border-amber-500/30">Telegraph</a>
                             <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[8px] text-center bg-pink-500/10 text-pink-500 py-1 rounded border border-pink-500/30">Channel</a>
                         </div>
                     </div>`;
@@ -660,7 +503,7 @@
                             </div>
                         </div>
                         <div class="mt-4 pt-2.5 border-t border-purple-900/30 grid grid-cols-3 gap-1.5">
-                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}')" class="text-[9px] uppercase font-medium bg-purple-950/40 py-2 px-1 rounded-xl border border-purple-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">📖 Baca</a>
+                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id}, '${st.judul.replace(/'/g, "\\'")}', '${st.genre}')" class="text-[9px] uppercase font-medium bg-purple-950/40 py-2 px-1 rounded-xl border border-purple-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">📖 Baca</a>
                             <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[9px] uppercase font-medium bg-pink-950/30 py-2 px-1 rounded-xl border border-pink-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">💬 Channel</a>
                             <button onclick="shareStory('${st.judul.replace(/'/g, "\\'")}', '${st.linkTelegraph}')" class="text-[9px] uppercase font-medium bg-amber-950/30 py-2 px-1 rounded-xl border border-amber-500/40 text-center flex items-center justify-center cursor-pointer" style="color:var(--text-main);">🔗 Share</button>
                         </div>
