@@ -265,7 +265,7 @@
                 <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);">
                     <span>🏆</span> Peringkat Paling Laris (Top 5 Otomatis)
                 </h3>
-                <span class="text-[9px] italic opacity-80" style="color: var(--text-main);">Berdasarkan klik pengunjung</span>
+                <span class="text-[9px] italic opacity-80" style="color: var(--text-main);">Berdasarkan jumlah klik baca</span>
             </div>
             
             <div id="ranking-tabs" class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar pt-1">
@@ -324,7 +324,6 @@
                 genre: "Fantasy",
                 sub: "Fabel",
                 tema: "Labirin",
-                score: 95,
                 blurb: "Di antara ribuan kunci labirin yang menyesatkan, jawaban yang ia cari ternyata tersembunyi di balik beban terberat yang ia pikul.",
                 blurbFull: "Di tengah labirin yang menyesatkan, Bubu terjebak dalam pencarian ribuan kunci yang ia sangka jalan keluar, sementara teman-temannya meninggalkannya dalam kesendirian. Saat berada di titik terendah dan kehabisan bekal, ia tak sengaja memecahkan benda terberat yang selalu ia pikul di tasnya: sebuah hati yang terlalu indah untuk dibuka. Konon, kunci utama tidak pernah ada di dalam peti harta karun, melainkan tersimpan rapat di lapisan terdalam hati yang selama ini ia bawa sendiri.",
                 cover: "https://raw.githubusercontent.com/trialformil/darkfantasy/refs/heads/main/Source%20Image%20Blurb/IMG_20261115_021352_126.jpg", 
@@ -337,7 +336,6 @@
                 genre: "Dark Fantasy",
                 sub: "Grimdark",
                 tema: "Blood & Steel",
-                score: 88,
                 blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup.",
                 blurbFull: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir. Ketika pasukan kegelapan mengepung dinding besi, seorang ksatria harus memilih.",
                 cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
@@ -350,7 +348,6 @@
                 genre: "Romance",
                 sub: "Pure Romance",
                 tema: "Classic Ballroom",
-                score: 98,
                 blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.",
                 blurbFull: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian. Di tengah pesta dansa bangsawan yang megah, dua insan berdansa tanpa mengetahui rahasia masing-masing.",
                 cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
@@ -363,7 +360,6 @@
                 genre: "Romance",
                 sub: "RomCom",
                 tema: "Café Slice of Life",
-                score: 90,
                 blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang salah pesan menu.",
                 blurbFull: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu. Kehadiran kucing abu-abu menjadi saksi perdebatan kecil yang berujung manis.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
@@ -376,7 +372,6 @@
                 genre: "Fantasy",
                 sub: "Mitologi",
                 tema: "Ancient Gods",
-                score: 92,
                 blurb: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern.",
                 blurbFull: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern ketika batas antara alam manusia dan kahyangan mulai menipis.",
                 cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
@@ -389,7 +384,6 @@
                 genre: "Fantasy",
                 sub: "Kerajaan",
                 tema: "Royal Court",
-                score: 85,
                 blurb: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan.",
                 blurbFull: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur kerajaan. Di sana, rahasia istana masa lalu terbongkar.",
                 cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
@@ -402,7 +396,6 @@
                 genre: "Fantasy",
                 sub: "Fabel",
                 tema: "Moral Tale",
-                score: 82,
                 blurb: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan.",
                 blurbFull: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan malam. Sebuah fabel magis yang menyisipkan renungan hangat bagi jiwa.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
@@ -415,7 +408,6 @@
                 genre: "Sound of Soul",
                 sub: "Refleksi Diri",
                 tema: "Open My Mind",
-                score: 96,
                 blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.",
                 blurbFull: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis di tengah bisingnya ekspektasi dunia modern. Sebuah catatan jujur dari sudut meja kerja penulis.",
                 cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
@@ -427,6 +419,7 @@
         let clickCounts = JSON.parse(localStorage.getItem('story_clicks')) || {};
 
         function recordClick(id) {
+            // Tambahkan jumlah klik secara kumulatif setiap kali tombol Baca diklik
             clickCounts[id] = (clickCounts[id] || 0) + 1;
             localStorage.setItem('story_clicks', JSON.stringify(clickCounts));
             renderRanking();
@@ -603,10 +596,11 @@
             const container = document.getElementById('ranking-container');
             container.innerHTML = '';
 
+            // LOGIKA PERINGKAT DINAMIS: Diurutkan murni berdasarkan seberapa sering tombol Telegraph/Baca diklik
             let rankedStories = [...defaultStories].sort((a, b) => {
-                let countA = clickCounts[a.id] || (100 - a.id);
-                let countB = clickCounts[b.id] || (100 - b.id);
-                return countB - countA;
+                let countA = clickCounts[a.id] || 0;
+                let countB = clickCounts[b.id] || 0;
+                return countB - countA; // Urutkan dari jumlah klik terbanyak ke terendah
             });
 
             if (rankingFilter !== 'Semua') {
@@ -626,6 +620,8 @@
                 if(index === 1) medal = "🥈";
                 if(index === 2) medal = "🥉";
 
+                let totalClicks = clickCounts[story.id] || 0;
+
                 container.innerHTML += `
                     <div class="taman-card rounded-xl p-3 flex flex-col justify-between relative border-amber-500/30 gap-2">
                         <span class="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-[10px] font-bold flex items-center justify-center shadow">${medal}</span>
@@ -636,6 +632,7 @@
                             <div class="flex flex-col gap-0.5 overflow-hidden">
                                 <span class="text-[9px] text-amber-500 truncate font-semibold">${story.genre}</span>
                                 <h4 class="title-font text-xs font-semibold truncate" style="color: var(--text-main);">${story.judul}</h4>
+                                <span class="text-[8px] opacity-70" style="color: var(--text-main);">🔥 ${totalClicks}x dibaca</span>
                             </div>
                         </div>
                         <a href="${story.linkTelegraph}" target="_blank" onclick="recordClick(${story.id})" 
