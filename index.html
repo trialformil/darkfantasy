@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buwana Millena // Taman Bacaan Mini</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
         .dark { --bg-grad-1: rgba(8,16,12,0.90); --bg-grad-2: rgba(18,12,32,0.87); --bg-grad-3: rgba(10,8,22,0.90); --card-bg: rgba(22,17,36,0.78); --card-hover: rgba(30,23,48,0.88); --text-main: #e2e8f0; --text-sub: #f472b6; --border-col: rgba(168,85,247,0.3); }
@@ -75,13 +76,11 @@
             <div class="flex items-center gap-2.5 overflow-hidden">
                 <button onclick="toggleBGM()" id="bgm-btn" class="floral-frame shrink-0 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition"><span id="bgm-icon">▶</span></button>
                 <div class="overflow-hidden">
-                    <div class="text-[9px] uppercase tracking-wider font-semibold" style="color: var(--text-sub);">🎵 Musik Sesuai Tema</div>
+                    <div class="text-[9px] uppercase tracking-wider font-semibold" style="color: var(--text-sub);">🎵 Musik Tema Kastil</div>
                     <div id="current-track-title" class="text-[11px] font-medium truncate" style="color: var(--text-main);">🌧️ Hujan Kastil & Petir</div>
                 </div>
             </div>
-            <select id="bgm-selector" onchange="changeTrack(this.value)" class="bg-black/40 border border-purple-500/40 text-[10px] rounded-xl px-2 py-1.5 focus:outline-none focus:border-pink-500 cursor-pointer" style="color: var(--text-main);">
-                <option value="0">🌧️ Dark Fantasy</option><option value="1">☕ Romance</option><option value="2">🏰 Fantasy</option><option value="3">🌙 Sound of Soul</option><option value="4">✨ Semua</option>
-            </select>
+            <span class="text-[10px] italic px-2 py-1 bg-purple-950/40 rounded-xl border border-purple-500/30" style="color: var(--text-sub);">✨ Atmosfer Magis</span>
         </div>
     </header>
     <main class="max-w-xl mx-auto px-4 mt-5 space-y-4 relative z-10">
@@ -145,14 +144,21 @@
                 </div>
             </div>
             <form onsubmit="submitGuestbook(event)" class="space-y-3 bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama Pengunjung / Penulis <span class="text-pink-500">*</span></label>
-                        <input type="text" id="guest-input-name" required placeholder="Tuliskan namamu..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Mode Identitas:</label>
+                        <select id="guest-identity-mode" onchange="toggleIdentityMode()" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                            <option value="manual">✍️ Ketik Nama Sendiri</option>
+                            <option value="anonim">🕵️ Anonim (#Nomor Seri)</option>
+                        </select>
                     </div>
-                    <div>
+                    <div id="field-name-box">
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama Pengunjung <span class="text-pink-500">*</span></label>
+                        <input type="text" id="guest-input-name" placeholder="Tuliskan namamu..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                    </div>
+                    <div id="field-username-box">
                         <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Username Telegram <span class="text-pink-500">*</span></label>
-                        <input type="text" id="guest-input-username" required placeholder="@username_kamu" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                        <input type="text" id="guest-input-username" placeholder="@username_kamu" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -243,11 +249,26 @@
 
         let telegraphClicks = JSON.parse(localStorage.getItem('story_telegraph_clicks')) || {};
         let channelClicks = JSON.parse(localStorage.getItem('story_channel_clicks')) || {};
-        
         let storyLikes = {};
         localStorage.removeItem('story_likes');
-
         let guestbookMessages = JSON.parse(localStorage.getItem('guestbook_messages')) || [];
+
+        // Unique Visitor Session ID for strict comment ownership
+        let visitorUid = localStorage.getItem('visitor_unique_uid');
+        if(!visitorUid) {
+            visitorUid = 'visitor_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('visitor_unique_uid', visitorUid);
+        }
+
+        // Telegram / Author Configuration
+        let authorUser = { uid: "author_millena", name: "Buwana Millena", username: "@buwanamillena" };
+        function isUserAuthor(username, uid) {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+                const u = window.Telegram.WebApp.initDataUnsafe.user;
+                if(u.id.toString() === "author_millena" || (u.username && u.username.toLowerCase() === 'buwanamillena')) return true;
+            }
+            return (username && username.toLowerCase() === '@buwanamillena') || (uid === 'author_millena');
+        }
 
         function recordTelegraphClick(id, title) { 
             telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; 
@@ -278,28 +299,49 @@
             }
         }
 
+        function toggleIdentityMode() {
+            const mode = document.getElementById('guest-identity-mode').value;
+            const nameBox = document.getElementById('field-name-box');
+            const usernameBox = document.getElementById('field-username-box');
+            if(mode === 'anonim') {
+                nameBox.style.display = 'none';
+                usernameBox.style.display = 'none';
+            } else {
+                nameBox.style.display = 'block';
+                usernameBox.style.display = 'block';
+            }
+        }
+
         function submitGuestbook(e) {
             e.preventDefault();
             const text = document.getElementById('guest-message').value.trim();
-            const inputName = document.getElementById('guest-input-name').value.trim();
-            let inputUsername = document.getElementById('guest-input-username').value.trim();
-            if(!text || !inputName) return;
+            const mode = document.getElementById('guest-identity-mode').value;
+            if(!text) return;
 
-            if(!inputUsername.startsWith('@')) {
-                inputUsername = '@' + inputUsername;
+            let finalName, finalUsername, isAuthor;
+            if(mode === 'anonim') {
+                let randomSerial = Math.floor(1000 + Math.random() * 9000);
+                finalName = `Anonim #${randomSerial}`;
+                finalUsername = `@tamu_${randomSerial}`;
+                isAuthor = false;
+            } else {
+                finalName = document.getElementById('guest-input-name').value.trim();
+                let uInput = document.getElementById('guest-input-username').value.trim();
+                if(!finalName || !uInput) return;
+                if(!uInput.startsWith('@')) uInput = '@' + uInput;
+                finalUsername = uInput;
+                isAuthor = isUserAuthor(finalUsername, visitorUid);
             }
 
             const mood = document.getElementById('guest-mood').value;
             const rating = parseInt(document.getElementById('guest-rating').value);
-
-            const isAuthor = (inputUsername.toLowerCase() === '@buwanamillena' || inputName.toLowerCase().includes('millena'));
             let readStory = isAuthor ? null : localStorage.getItem('last_read_story');
 
             guestbookMessages.unshift({
                 id: 'msg_' + Date.now(),
-                uid: 'user_' + Math.random().toString(36).substr(2,9),
-                name: inputName,
-                username: inputUsername,
+                uid: visitorUid,
+                name: finalName,
+                username: finalUsername,
                 mood: mood,
                 rating: rating,
                 text: text,
@@ -310,22 +352,33 @@
             });
             localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
             document.getElementById('guest-message').value = '';
-            document.getElementById('guest-input-name').value = '';
-            document.getElementById('guest-input-username').value = '';
+            if(document.getElementById('guest-input-name')) document.getElementById('guest-input-name').value = '';
+            if(document.getElementById('guest-input-username')) document.getElementById('guest-input-username').value = '';
             renderGuestbook();
             showToast("Ulasan tamu berhasil dikirim! 💌");
         }
 
         function deleteGuestMessage(id) {
-            guestbookMessages = guestbookMessages.filter(m => m.id !== id);
-            localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
-            renderGuestbook();
-            showToast("Ulasan dihapus! 🗑️");
+            const m = guestbookMessages.find(item => item.id === id);
+            if(!m) return;
+            const isAuth = isUserAuthor(m.username, m.uid) || (m.uid === visitorUid && m.isAuthor);
+            // Strict permission: Only message owner or author can delete
+            if(m.uid === visitorUid || isAuth) {
+                guestbookMessages = guestbookMessages.filter(item => item.id !== id);
+                localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
+                renderGuestbook();
+                showToast("Ulasan dihapus! 🗑️");
+            } else {
+                showToast("Kamu hanya bisa menghapus ulasan buatanmu sendiri! ⚠️");
+            }
         }
 
         function openEditModal(id) {
             const m = guestbookMessages.find(item => item.id === id);
-            if(!m) return;
+            if(!m || m.uid !== visitorUid) {
+                showToast("Kamu hanya bisa mengedit ulasan buatanmu sendiri! ⚠️");
+                return;
+            }
             document.getElementById('edit-index').value = id;
             document.getElementById('edit-message-text').value = m.text;
             document.getElementById('edit-modal').classList.remove('hidden');
@@ -336,7 +389,7 @@
             const newText = document.getElementById('edit-message-text').value.trim();
             if(!newText) return;
             const m = guestbookMessages.find(item => item.id === id);
-            if(m) {
+            if(m && m.uid === visitorUid) {
                 m.text = newText;
                 localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
                 renderGuestbook();
@@ -358,12 +411,13 @@
             const m = guestbookMessages.find(item => item.id === id);
             if(m) {
                 if(!m.replies) m.replies = [];
+                const isAuth = isUserAuthor(null, visitorUid);
                 m.replies.push({
-                    name: m.name,
-                    username: m.username,
+                    name: isAuth ? "Buwana Millena" : "Pengunjung Taman",
+                    username: isAuth ? "@buwanamillena" : "@tamu",
                     text: text,
                     date: new Date().toISOString(),
-                    isAuthor: m.isAuthor
+                    isAuthor: isAuth
                 });
                 localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
                 renderGuestbook();
@@ -392,14 +446,16 @@
             }
 
             sorted.forEach(msg => {
+                const isOwner = msg.uid === visitorUid;
+                const isAuth = msg.isAuthor || isUserAuthor(msg.username, msg.uid);
                 const dateStr = new Date(msg.date).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
                 const stars = '⭐'.repeat(msg.rating || 5);
-                const roleBadge = msg.isAuthor 
+                const roleBadge = isAuth 
                     ? `<span class="bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-sm ml-1.5">✒️ Penulis</span>`
                     : `<span class="bg-purple-900/40 text-purple-200 text-[8px] px-2 py-0.5 rounded-full border border-purple-500/30 ml-1.5">📖 Pembaca</span>`;
 
                 let storyBadgeHtml = '';
-                if(msg.readStory && !msg.isAuthor) {
+                if(msg.readStory && !isAuth) {
                     storyBadgeHtml = `<div class="text-[9px] bg-purple-950/40 text-pink-300 px-2 py-0.5 rounded-lg border border-purple-500/30 inline-block w-fit">📚 Membaca: "${msg.readStory}"</div>`;
                 }
 
@@ -433,7 +489,8 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${dateStr}</span>
-                                <button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>
+                                ${isOwner ? `<button onclick="openEditModal('${msg.id}')" title="Edit" class="text-pink-400">✏️</button>` : ''}
+                                ${(isOwner || isUserAuthor(null, visitorUid)) ? `<button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>` : ''}
                             </div>
                         </div>
                         <div class="flex items-center gap-2 text-[10px]">
@@ -464,19 +521,11 @@
             t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
         }
 
-        // BGM STABLE AUDIO SOURCES
-        const playlist = [
-            { id: 0, title: "🌧️ Hujan Kastil & Petir", src: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", genre: "Dark Fantasy" },
-            { id: 1, title: "☕ Starlight Café Lofi", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3", genre: "Romance" },
-            { id: 2, title: "🏰 Bisikan Hutan Magis", src: "https://actions.google.com/sounds/v1/ambiences/wind_gust.ogg", genre: "Fantasy" },
-            { id: 3, title: "🌙 Malam Sunyi Pustaka", src: "https://actions.google.com/sounds/v1/ambiences/night_forest.ogg", genre: "Sound of Soul" },
-            { id: 4, title: "✨ Sanctuary Starlight Chill", src: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3", genre: "Semua" }
-        ];
-        let currentTrackIndex = 0, isPlayingBGM = false;
+        // STABLE SINGLE BGM AUDIO
+        let isPlayingBGM = false;
         function initAudio() { 
             const a = document.getElementById('bgm-audio');
-            a.src = playlist[currentTrackIndex].src;
-            document.getElementById('current-track-title').innerText = playlist[currentTrackIndex].title; 
+            a.src = "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg";
         }
         function toggleBGM() {
             const a = document.getElementById('bgm-audio'), i = document.getElementById('bgm-icon');
@@ -493,15 +542,6 @@
                 }); 
             }
         }
-        function changeTrack(idx) {
-            currentTrackIndex = parseInt(idx);
-            const a = document.getElementById('bgm-audio'), t = playlist[currentTrackIndex];
-            a.src = t.src; 
-            document.getElementById('current-track-title').innerText = t.title;
-            document.getElementById('bgm-selector').value = currentTrackIndex;
-            if(isPlayingBGM) a.play().catch(()=>{});
-        }
-        function autoSwitchTrack(g) { let m = playlist.find(x => x.genre === g) || playlist[4]; changeTrack(m.id); }
 
         function toggleTheme() {
             const r = document.getElementById('html-root');
@@ -551,7 +591,7 @@
             });
         }
 
-        function selectGenre(g) { currentGenre = g; currentSubGenre = 'Semua'; document.getElementById('current-category-title').innerText = `✦ Koleksi: ${g}`; renderTabs(); renderSubGenres(); renderStories(); autoSwitchTrack(g); }
+        function selectGenre(g) { currentGenre = g; currentSubGenre = 'Semua'; document.getElementById('current-category-title').innerText = `✦ Koleksi: ${g}`; renderTabs(); renderSubGenres(); renderStories(); }
         function selectSubGenre(s) { currentSubGenre = s; renderSubGenres(); renderStories(); }
         function setRankingFilter(f) { rankingFilter = f; renderRanking(); }
 
