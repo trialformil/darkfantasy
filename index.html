@@ -48,7 +48,9 @@
             }
         });
     </script>
-    <audio id="bgm-audio" loop></audio>
+    <audio id="bgm-audio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3" type="audio/mpeg">
+    </audio>
     <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden bg-black/20 backdrop-blur-md z-20">
         <div class="absolute top-3 right-4 z-30 flex items-center gap-3">
             <label class="lamp-switch" title="Ubah Mode"><input type="checkbox" id="theme-toggle" onclick="toggleTheme()"><span class="slider-saklar"></span></label>
@@ -150,7 +152,7 @@
                     </div>
                     <div id="db-name-box">
                         <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Nama / Username Telegram:</label>
-                        <input type="text" id="db-input-name" placeholder="@username_kamu" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                        <input type="text" id="db-input-name" placeholder="@Aebil atau Millena" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
                     </div>
                     <div>
                         <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Rating Bacaan:</label>
@@ -182,7 +184,7 @@
         <div class="taman-card rounded-2xl p-6 flex flex-col items-center text-center gap-4 w-full max-w-sm relative shadow-2xl">
             <button onclick="closeAuthorModal()" class="absolute top-3 right-3 text-sm opacity-70 hover:opacity-100" style="color: var(--text-main);">✕</button>
             <div class="floral-frame"><div class="w-24 h-24 rounded-full overflow-hidden bg-stone-950"><img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/IMG_20261115_013241_471.jpg" class="w-full h-full object-cover"></div></div>
-            <div><h2 class="title-font text-lg font-bold" style="color: var(--text-sub);">Buwana Millena</h2><p class="text-[11px] uppercase tracking-widest mt-1 opacity-80" style="color: var(--text-main);">Penulis & Kreator Utama</p></div>
+            <div><h2 class="title-font text-lg font-bold" style="color: var(--text-sub);">Millena</h2><p class="text-[11px] uppercase tracking-widest mt-1 opacity-80" style="color: var(--text-main);">Penulis & Kreator Utama (@Aebil)</p></div>
             <p class="text-xs font-light leading-relaxed italic px-2 opacity-90" style="color: var(--text-main);">"Menyusun gema kata di antara malam magis, merajut dunia fantasi, romansa, dan perenungan jiwa dalam setiap oneshot yang dihadirkan di ruang baca ini."</p>
             <div class="pt-2 border-t border-purple-900/30 w-full flex justify-center gap-2"><span class="text-[10px] bg-purple-950/20 px-3 py-1 rounded-full border border-purple-500/40 font-medium" style="color: var(--text-sub);">🗡️ Dark Fantasy</span><span class="text-[10px] bg-pink-950/20 px-3 py-1 rounded-full border border-pink-500/40 font-medium" style="color: var(--text-sub);">✨ Ethereal Soul</span></div>
         </div>
@@ -206,25 +208,41 @@
         let telegraphClicks = JSON.parse(localStorage.getItem('story_telegraph_clicks')) || {};
         let channelClicks = JSON.parse(localStorage.getItem('story_channel_clicks')) || {};
         
-        // Reset Kanola stats (id 2)
-        telegraphClicks[2] = 0;
-        channelClicks[2] = 0;
-        localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks));
-        localStorage.setItem('story_channel_clicks', JSON.stringify(channelClicks));
-
         let storyLikes = {};
         localStorage.removeItem('story_likes');
 
-        let libraryDatabase = JSON.parse(localStorage.getItem('library_database_logs')) || [];
+        // Reset library database logs
+        let libraryDatabase = [];
+        localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
+
         let currentSelectedRating = 5;
 
-        let telegramUser = { name: "Pengunjung", username: "@tamu" };
+        let telegramUser = { name: "Millena", username: "@Aebil" };
         function initTelegramUser() {
             if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
                 const u = window.Telegram.WebApp.initDataUnsafe.user;
-                telegramUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
-                telegramUser.username = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
+                if(u.id.toString() === "author_millena" || (u.username && u.username.toLowerCase() === 'aebil')) {
+                    telegramUser.name = "Millena";
+                    telegramUser.username = "@Aebil";
+                } else {
+                    telegramUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
+                    telegramUser.username = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
+                }
             }
+        }
+
+        function isAuthor(nameOrUsername) {
+            if(!nameOrUsername) return false;
+            const clean = nameOrUsername.toLowerCase().trim();
+            return clean === 'millena' || clean === 'buwana millena' || clean === '@aebil' || clean === 'aebil';
+        }
+
+        function isCurrentVisitorAuthor(inputName, inputUsername) {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+                const u = window.Telegram.WebApp.initDataUnsafe.user;
+                if(u.username && u.username.toLowerCase() === 'aebil') return true;
+            }
+            return isAuthor(inputName) || isAuthor(inputUsername);
         }
 
         function recordTelegraphClick(id, title, genre) { 
@@ -285,21 +303,32 @@
             const storyInfo = JSON.parse(lastReadData);
             const mode = document.getElementById('db-identity-mode').value;
 
-            let finalName, finalUsername;
+            let finalName, finalUsername, authStatus;
             if(mode === 'anonim') {
                 let serial = Math.floor(1000 + Math.random() * 9000);
                 finalName = `Anonim #${serial}`;
                 finalUsername = `@tamu_${serial}`;
+                authStatus = false;
             } else {
                 let input = document.getElementById('db-input-name').value.trim();
                 if(!input) {
                     finalName = telegramUser.name;
                     finalUsername = telegramUser.username;
                 } else {
-                    if(!input.startsWith('@')) input = '@' + input;
-                    finalName = input;
-                    finalUsername = input;
+                    if(isAuthor(input)) {
+                        finalName = "Millena";
+                        finalUsername = "@Aebil";
+                    } else {
+                        if(!input.startsWith('@') && !input.includes(' ')) {
+                            finalUsername = '@' + input;
+                            finalName = input;
+                        } else {
+                            finalName = input;
+                            finalUsername = input.startsWith('@') ? input : '@' + input.toLowerCase().replace(/\s+/g,'_');
+                        }
+                    }
                 }
+                authStatus = isCurrentVisitorAuthor(finalName, finalUsername);
             }
 
             const now = new Date();
@@ -313,12 +342,20 @@
                 title: storyInfo.title,
                 genre: storyInfo.genre,
                 rating: currentSelectedRating,
-                date: `${dateStr} • ${timeStr}`
+                date: `${dateStr} • ${timeStr}`,
+                isAuthor: authStatus
             });
 
             localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
             renderLibraryDatabase();
             showToast("Aktivitas baca berhasil dicatat ke Database! ✨");
+        }
+
+        function deleteLibraryLog(id) {
+            libraryDatabase = libraryDatabase.filter(item => item.id !== id);
+            localStorage.setItem('library_database_logs', JSON.stringify(libraryDatabase));
+            renderLibraryDatabase();
+            showToast("Log/rating berhasil dihapus oleh Penulis! 🗑️");
         }
 
         function renderLibraryDatabase() {
@@ -327,24 +364,42 @@
             container.innerHTML = '';
 
             if(libraryDatabase.length === 0) {
-                container.innerHTML = `<p class="text-xs italic text-center opacity-70 py-2" style="color: var(--text-main);">Belum ada catatan pembaca hari ini. Jadilah yang pertama!</p>`;
+                container.innerHTML = `<p class="text-xs italic text-center opacity-70 py-2" style="color: var(--text-main);">Belum ada catatan pembaca. Jadilah yang pertama mencatat bacaan!</p>`;
                 return;
             }
 
+            // Check if current user is author
+            const isUserAuthor = isCurrentVisitorAuthor(telegramUser.name, telegramUser.username);
+
             libraryDatabase.forEach(log => {
                 const stars = '⭐'.repeat(log.rating || 5);
+                const isAuth = log.isAuthor || isAuthor(log.name) || isAuthor(log.username);
+                
+                const roleBadge = isAuth 
+                    ? `<span class="bg-gradient-to-r from-pink-600 to-purple-600 text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-sm ml-1.5">✒️ Penulis</span>`
+                    : `<span class="bg-purple-900/40 text-purple-200 text-[8px] px-2 py-0.5 rounded-full border border-purple-500/30 ml-1.5">📖 Pembaca</span>`;
+
+                let nameDisplay = `<span class="font-bold" style="color: var(--text-sub);">${log.name}</span>`;
+                if(log.username && log.username !== log.name && !log.name.includes(log.username)) {
+                    nameDisplay += ` <span class="opacity-60 text-[9px]" style="color: var(--text-main);">(${log.username})</span>`;
+                }
+
+                // Author can delete any log/rating
+                let deleteBtnHtml = isUserAuthor ? `<button onclick="deleteLibraryLog('${log.id}')" title="Hapus oleh Penulis" class="text-red-400 hover:text-red-300 ml-2">🗑️</button>` : '';
+
                 container.innerHTML += `
                     <div class="bg-black/30 border border-purple-500/20 rounded-xl p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[10px]">
                         <div class="flex flex-col gap-0.5">
-                            <div class="flex items-center gap-1.5">
-                                <span class="font-bold" style="color: var(--text-sub);">${log.name}</span>
-                                <span class="opacity-60 text-[9px]" style="color: var(--text-main);">(${log.username})</span>
+                            <div class="flex items-center flex-wrap gap-1">
+                                ${nameDisplay}
+                                ${roleBadge}
                             </div>
                             <span class="font-medium text-pink-200">📖 Membaca: "${log.title}" <span class="text-[9px] opacity-80">(${log.genre})</span></span>
                         </div>
                         <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0">
                             <span>${stars}</span>
                             <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${log.date}</span>
+                            ${deleteBtnHtml}
                         </div>
                     </div>
                 `;
@@ -364,12 +419,7 @@
             t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
         }
 
-        // STABLE BACKGROUND MUSIC PLAYER (Pixabay Ambient Lofi)
         let isPlayingBGM = false;
-        function initAudio() { 
-            const a = document.getElementById('bgm-audio');
-            a.src = "https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3";
-        }
         function toggleBGM() {
             const a = document.getElementById('bgm-audio'), i = document.getElementById('bgm-icon');
             if(isPlayingBGM) { 
@@ -405,7 +455,7 @@
         function closeAuthorModal() { document.getElementById('author-modal').classList.add('hidden'); }
 
         function initApp() {
-            initTelegramUser(); initAudio(); updateDbReadDisplay(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderLibraryDatabase();
+            initTelegramUser(); updateDbReadDisplay(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderLibraryDatabase();
         }
 
         function renderTabs() {
