@@ -8,208 +8,84 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
-        
-        /* Tema Gelap (Default Dark Fantasy) */
-        .dark {
-            --bg-grad-1: rgba(8, 16, 12, 0.90);
-            --bg-grad-2: rgba(18, 12, 32, 0.87);
-            --bg-grad-3: rgba(10, 8, 22, 0.90);
-            --card-bg: rgba(22, 17, 36, 0.78);
-            --card-hover: rgba(30, 23, 48, 0.88);
-            --text-main: #e2e8f0;
-            --text-sub: #f472b6;
-            --border-col: rgba(168, 85, 247, 0.3);
-        }
-
-        /* Tema Terang (Twilight Soft Glow Mode - Kontras Tinggi) */
-        .light {
-            --bg-grad-1: rgba(245, 242, 250, 0.95);
-            --bg-grad-2: rgba(250, 240, 245, 0.95);
-            --bg-grad-3: rgba(240, 245, 252, 0.95);
-            --card-bg: rgba(255, 255, 255, 0.92);
-            --card-hover: rgba(255, 250, 255, 0.98);
-            --text-main: #1e1135;
-            --text-sub: #86198f;
-            --border-col: rgba(168, 85, 247, 0.4);
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%),
-                        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop');
-            background-blend-mode: overlay;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--text-main);
-            overflow-x: hidden;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-
-        /* Watermark Ilustrasi Ayunan Romantis */
-        body::before {
-            content: "";
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000&auto=format&fit=crop') no-repeat bottom left;
-            background-size: 450px;
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .title-font {
-            font-family: 'Cinzel', serif;
-        }
-        .taman-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(14px);
-            border: 1px solid var(--border-col);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-            transition: all 0.3s ease;
-        }
-        .taman-card:hover {
-            border-color: rgba(236, 72, 153, 0.6);
-            background: var(--card-hover);
-            transform: translateY(-2px);
-        }
-        
-        .floral-frame {
-            background: linear-gradient(135deg, #ec4899, #a855f7, #f43f5e);
-            padding: 2px;
-            border-radius: 9999px;
-            box-shadow: 0 0 12px rgba(236, 72, 153, 0.5);
-            transition: all 0.3s ease;
-        }
-        .floral-frame:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 18px rgba(236, 72, 153, 0.8);
-        }
-
-        /* Toggle Switch Model Saklar Lampu Estetik */
-        .lamp-switch {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 24px;
-        }
+        .dark { --bg-grad-1: rgba(8,16,12,0.90); --bg-grad-2: rgba(18,12,32,0.87); --bg-grad-3: rgba(10,8,22,0.90); --card-bg: rgba(22,17,36,0.78); --card-hover: rgba(30,23,48,0.88); --text-main: #e2e8f0; --text-sub: #f472b6; --border-col: rgba(168,85,247,0.3); }
+        .light { --bg-grad-1: rgba(245,242,250,0.95); --bg-grad-2: rgba(250,240,245,0.95); --bg-grad-3: rgba(240,245,252,0.95); --card-bg: rgba(255,255,255,0.92); --card-hover: rgba(255,250,255,0.98); --text-main: #1e1135; --text-sub: #86198f; --border-col: rgba(168,85,247,0.4); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop'); background-blend-mode: overlay; background-size: cover; background-position: center; background-attachment: fixed; color: var(--text-main); overflow-x: hidden; transition: background 0.5s, color 0.5s; position: relative; }
+        body::before { content: ""; position: fixed; bottom: 0; left: 0; width: 100vw; height: 100vh; background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000&auto=format&fit=crop') no-repeat bottom left; background-size: 450px; opacity: 0.12; pointer-events: none; z-index: -1; }
+        .star-particle { position: fixed; background: white; border-radius: 50%; pointer-events: none; animation: fall linear infinite; opacity: 0.8; z-index: 0; }
+        @keyframes fall { 0% { transform: translateY(-10px) translateX(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(105vh) translateX(50px); opacity: 0; } }
+        .title-font { font-family: 'Cinzel', serif; }
+        .taman-card { background: var(--card-bg); backdrop-filter: blur(14px); border: 1px solid var(--border-col); box-shadow: 0 8px 32px rgba(0,0,0,0.25); transition: all 0.3s ease; position: relative; z-index: 10; }
+        .taman-card:hover { border-color: rgba(236,72,153,0.6); background: var(--card-hover); transform: translateY(-2px); }
+        .floral-frame { background: linear-gradient(135deg, #ec4899, #a855f7, #f43f5e); padding: 2px; border-radius: 9999px; box-shadow: 0 0 12px rgba(236,72,153,0.5); transition: all 0.3s; }
+        .floral-frame:hover { transform: scale(1.05); box-shadow: 0 0 18px rgba(236,72,153,0.8); }
+        .lamp-switch { position: relative; display: inline-block; width: 48px; height: 24px; }
         .lamp-switch input { opacity: 0; width: 0; height: 0; }
-        .slider-saklar {
-            position: absolute; cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #1a102f;
-            transition: .4s;
-            border-radius: 24px;
-            border: 1px solid rgba(168, 85, 247, 0.5);
-        }
-        .slider-saklar:before {
-            position: absolute; content: "🌙";
-            height: 18px; width: 18px;
-            left: 2px; bottom: 2px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 10px;
-            line-height: 18px;
-        }
+        .slider-saklar { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1a102f; transition: .4s; border-radius: 24px; border: 1px solid rgba(168,85,247,0.5); }
+        .slider-saklar:before { position: absolute; content: "🌙"; height: 18px; width: 18px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; text-align: center; font-size: 10px; line-height: 18px; }
         input:checked + .slider-saklar { background-color: #f472b6; }
-        input:checked + .slider-saklar:before {
-            transform: translateX(24px);
-            content: "☀️";
-        }
-
+        input:checked + .slider-saklar:before { transform: translateX(24px); content: "☀️"; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .custom-scroll::-webkit-scrollbar { height: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 11, 26, 0.2); border-radius: 10px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.4); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(15,11,26,0.2); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.4); border-radius: 10px; }
     </style>
 </head>
 <body class="min-h-screen pb-20 selection:bg-purple-900 selection:text-purple-200">
-
-    <!-- AUDIO BGM BEBAS HAK CIPTA -->
-    <audio id="bgm-audio" loop>
-        <source src="https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg" type="audio/ogg">
-        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- HEADER -->
-    <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden bg-black/20 backdrop-blur-md">
-        <!-- Floating Controls (BGM & Saklar Lampu) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            for (let i = 0; i < 30; i++) {
+                const s = document.createElement('div');
+                s.className = 'star-particle';
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.top = -20 + 'px';
+                const sz = Math.random() * 3 + 1;
+                s.style.width = sz + 'px'; s.style.height = sz + 'px';
+                s.style.animationDuration = (Math.random() * 8 + 5) + 's';
+                s.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(s);
+            }
+        });
+    </script>
+    <audio id="bgm-audio" loop></audio>
+    <header class="relative pt-6 pb-4 border-b border-purple-900/30 overflow-hidden bg-black/20 backdrop-blur-md z-20">
         <div class="absolute top-3 right-4 z-30 flex items-center gap-3">
-            <button onclick="toggleBGM()" id="bgm-btn" title="Putar Musik Magis" class="bg-purple-950/90 hover:bg-purple-900 text-pink-200 border border-purple-500/50 px-2.5 py-1 rounded-xl text-[10px] flex items-center gap-1 shadow-md transition cursor-pointer">
-                <span id="bgm-icon">🔇</span> <span id="bgm-text">Musik Off</span>
-            </button>
-            <label class="lamp-switch" title="Ubah Mode Gelap / Terang">
-                <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
-                <span class="slider-saklar"></span>
-            </label>
+            <label class="lamp-switch" title="Ubah Mode"><input type="checkbox" id="theme-toggle" onclick="toggleTheme()"><span class="slider-saklar"></span></label>
         </div>
-
-        <div class="absolute top-0 left-1/4 w-32 h-32 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-4 right-1/4 w-28 h-28 bg-pink-600/15 rounded-full blur-3xl pointer-events-none"></div>
-
         <div class="text-center px-4 mb-3 relative z-10 pt-4 sm:pt-0">
             <span class="text-[10px] tracking-widest uppercase font-semibold opacity-80" style="color: var(--text-sub);">✦ Sanctuary of Ethereal Oneshots ✦</span>
-            <h1 class="title-font text-xl font-bold tracking-wider mt-0.5 drop-shadow-sm" style="color: var(--text-main);">
-                BUWANA MILLENA
-            </h1>
+            <h1 class="title-font text-xl font-bold tracking-wider mt-0.5" style="color: var(--text-main);">BUWANA MILLENA</h1>
             <p class="text-[11px] font-medium italic mt-0.5 opacity-90" style="color: var(--text-main);">"Taman Ayunan Pustaka di Bawah Bintang Malam"</p>
         </div>
-
-        <!-- Banner Slider Carousel -->
         <div class="px-4 mt-2 max-w-lg mx-auto relative">
             <div class="relative w-full h-40 rounded-2xl overflow-hidden border border-purple-500/30 shadow-xl bg-stone-950">
                 <div id="slider-container" class="w-full h-full relative">
-                    <!-- Slide 1: GIF Animasi dari GitHub -->
-                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-100">
-                        <img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/gemini_generated_video_8c892a4d.gif" class="w-full h-full object-cover opacity-85" alt="Ayunan Taman Kastil">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
-                        <div class="absolute bottom-3 left-4 right-4">
-                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-200 border border-pink-700/50">✨ Ayunan Starlight</span>
-                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Duduk Santai Membaca di Ayunan Taman</h3>
-                        </div>
-                    </div>
-                    <!-- Slide 2: Kastil Pustaka -->
-                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Kastil Pustaka">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
-                        <div class="absolute bottom-3 left-4 right-4">
-                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/85 text-pink-300 border border-purple-700/50">Kastil Pustaka</span>
-                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gerbang Utama Taman Bacaan</h3>
-                        </div>
-                    </div>
-                    <!-- Slide 3: Lorong Rak Buku -->
-                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0">
-                        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85" alt="Lorong Rak Buku">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div>
-                        <div class="absolute bottom-3 left-4 right-4">
-                            <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-300 border border-pink-700/50">Lorong Pustaka</span>
-                            <h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Jelajahi Lorong Rak Buku Magis</h3>
-                        </div>
-                    </div>
+                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-100"><img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/gemini_generated_video_8c892a4d.gif" class="w-full h-full object-cover opacity-85"><div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div><div class="absolute bottom-3 left-4 right-4"><span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-200 border border-pink-700/50">✨ Ayunan Starlight</span><h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Duduk Santai Membaca di Ayunan Taman</h3></div></div>
+                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85"><div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div><div class="absolute bottom-3 left-4 right-4"><span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-purple-950/85 text-pink-300 border border-purple-700/50">Kastil Pustaka</span><h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Gerbang Utama Taman Bacaan</h3></div></div>
+                    <div class="slide-item absolute inset-0 transition-opacity duration-700 opacity-0"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-85"><div class="absolute inset-0 bg-gradient-to-t from-[#0d0918] via-transparent to-transparent"></div><div class="absolute bottom-3 left-4 right-4"><span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-pink-950/85 text-pink-300 border border-pink-700/50">Lorong Pustaka</span><h3 class="title-font text-xs font-semibold text-purple-100 mt-1">Jelajahi Lorong Rak Buku Magis</h3></div></div>
                 </div>
-
-                <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 transition text-xs z-10">❮</button>
-                <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 transition text-xs z-10">❯</button>
+                <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/85 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 text-xs z-10">❮</button>
+                <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/85 text-white w-7 h-7 rounded-full flex items-center justify-center border border-purple-500/40 text-xs z-10">❯</button>
             </div>
         </div>
-
         <div class="mt-3 bg-purple-950/40 border-y border-purple-800/30 py-1.5 overflow-hidden whitespace-nowrap backdrop-blur-sm">
-            <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] font-medium tracking-wider opacity-90" style="color: var(--text-main);">
-                🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di ayunan taman, pilih rak genre dan sub-genre naskahmu • ✨ Nikmati suasana kastil pustaka di bawah taburan bintang •
+            <div class="inline-block animate-[marquee_25s_linear_infinite] text-[11px] font-medium tracking-wider opacity-90" style="color: var(--text-main);">🌙 Selamat datang di Taman Bacaan Buwana Millena • Silakan duduk di ayunan taman, pilih rak genre dan sub-genre naskahmu • ✨ Nikmati suasana kastil pustaka di bawah taburan bintang •</div>
+        </div>
+        <div class="mt-3 mx-4 max-w-lg mx-auto taman-card rounded-2xl p-2.5 flex items-center justify-between gap-2 shadow-lg border-purple-500/40 relative z-20">
+            <div class="flex items-center gap-2.5 overflow-hidden">
+                <button onclick="toggleBGM()" id="bgm-btn" class="floral-frame shrink-0 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition"><span id="bgm-icon">▶</span></button>
+                <div class="overflow-hidden">
+                    <div class="text-[9px] uppercase tracking-wider font-semibold" style="color: var(--text-sub);">🎵 Musik Sesuai Tema</div>
+                    <div id="current-track-title" class="text-[11px] font-medium truncate" style="color: var(--text-main);">🌧️ Hujan Kastil & Petir</div>
+                </div>
             </div>
+            <select id="bgm-selector" onchange="changeTrack(this.value)" class="bg-black/40 border border-purple-500/40 text-[10px] rounded-xl px-2 py-1.5 focus:outline-none focus:border-pink-500 cursor-pointer" style="color: var(--text-main);">
+                <option value="0">🌧️ Dark Fantasy</option><option value="1">☕ Romance</option><option value="2">🏰 Fantasy</option><option value="3">🌙 Sound of Soul</option><option value="4">✨ Semua</option>
+            </select>
         </div>
     </header>
-
-    <!-- KONTEN UTAMA -->
-    <main class="max-w-xl mx-auto px-4 mt-5 space-y-4">
-
-        <!-- Sudut Ayunan, Search Bar & Avatar Penulis -->
+    <main class="max-w-xl mx-auto px-4 mt-5 space-y-4 relative z-10">
         <div class="taman-card rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 relative overflow-hidden">
             <div class="absolute right-2 -bottom-2 opacity-15 pointer-events-none text-4xl">🪑📚✨</div>
             <div class="flex items-center gap-2.5 w-full sm:w-auto relative z-10">
@@ -219,528 +95,473 @@
                     <p class="text-[10px] opacity-80" style="color: var(--text-main);">Pilih naskah dan dukung cerita favoritmu!</p>
                 </div>
             </div>
-
             <div class="flex items-center gap-2 w-full sm:w-auto z-10">
                 <div class="relative w-full sm:w-44">
-                    <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul..." 
-                        class="w-full pl-7 pr-3 py-1.5 bg-black/30 border border-purple-500/40 rounded-xl text-[11px] placeholder-stone-400 focus:outline-none focus:border-pink-500 transition" style="color: var(--text-main);">
+                    <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cari judul..." class="w-full pl-7 pr-3 py-1.5 bg-black/30 border border-purple-500/40 rounded-xl text-[11px] placeholder-stone-400 focus:outline-none focus:border-pink-500 transition" style="color: var(--text-main);">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-[10px]" style="color: var(--text-sub);">🔍</span>
                 </div>
-
-                <button onclick="openAuthorModal()" title="Profil Penulis" class="floral-frame shrink-0 cursor-pointer">
-                    <div class="w-9 h-9 rounded-full overflow-hidden bg-stone-950">
-                        <img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/IMG_20261115_013241_471.jpg" class="w-full h-full object-cover">
-                    </div>
-                </button>
+                <button onclick="openAuthorModal()" title="Profil Penulis" class="floral-frame shrink-0 cursor-pointer"><div class="w-9 h-9 rounded-full overflow-hidden bg-stone-950"><img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/IMG_20261115_013241_471.jpg" class="w-full h-full object-cover"></div></button>
             </div>
         </div>
-
-        <!-- RAK KATEGORI UTAMA -->
-        <nav class="sticky top-0 z-20 backdrop-blur-md py-2.5 -mx-4 px-4 border-b border-purple-900/30" style="background: var(--bg-grad-1);">
-            <div id="genre-tabs" class="flex gap-2 overflow-x-auto pb-1 custom-scroll">
-                <!-- Dimuat otomatis -->
-            </div>
+        <nav class="sticky top-0 z-25 backdrop-blur-md py-2.5 -mx-4 px-4 border-b border-purple-900/30" style="background: var(--bg-grad-1);">
+            <div id="genre-tabs" class="flex gap-2 overflow-x-auto pb-1 custom-scroll"></div>
         </nav>
-
-        <!-- SUB-GENRE BAR -->
-        <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden">
-            <!-- Dimuat otomatis -->
-        </div>
-
-        <!-- KONTEN DINAMIS UTAMA -->
+        <div id="subgenre-container" class="flex gap-1.5 overflow-x-auto pb-1 custom-scroll items-center hidden"></div>
         <div id="dynamic-content-area" class="space-y-3 pt-2">
-            <div class="flex items-center justify-between px-1" id="section-title-bar">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-1 gap-2" id="section-title-bar">
                 <h3 id="current-category-title" class="title-font text-xs font-semibold tracking-wider uppercase" style="color: var(--text-sub);">✦ Koleksi Naskah</h3>
-                <span class="text-[10px] italic opacity-80" style="color: var(--text-main);">↔ Geser kanan-kiri untuk melihat lebih banyak</span>
+                <div class="flex items-center gap-2">
+                    <select id="sort-select" onchange="handleSort()" class="bg-black/40 border border-purple-500/40 text-[10px] rounded-lg px-2 py-1.5 focus:outline-none focus:border-pink-500 cursor-pointer" style="color: var(--text-main);">
+                        <option value="default">🗂️ Default</option><option value="az">🔤 Abjad A-Z</option><option value="za">🔤 Abjad Z-A</option>
+                    </select>
+                </div>
             </div>
-
-            <div id="story-container" class="flex gap-4 overflow-x-auto pb-4 pt-1 px-1 custom-scroll snap-x">
-                <!-- List buku menyamping -->
-            </div>
+            <div id="story-container" class="flex gap-4 overflow-x-auto pb-4 pt-1 px-1 custom-scroll snap-x"></div>
         </div>
-
-        <!-- 🏆 BAGIAN PERINGKAT OTOMATIS -->
         <div id="ranking-section" class="taman-card rounded-2xl p-4 space-y-3 mt-8 shadow-xl">
             <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
-                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);">
-                    <span>🏆</span> Peringkat Paling Laris (Top 5 Otomatis)
-                </h3>
-                <span class="text-[9px] italic opacity-80" style="color: var(--text-main);">Berdasarkan klik pengunjung</span>
+                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>🏆</span> Top 5 Paling Laris</h3>
+                <span class="text-[9px] italic opacity-85" style="color: var(--text-main);">Klik pengunjung</span>
             </div>
-            
             <div id="ranking-tabs" class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar pt-1">
-                <button onclick="setRankingFilter('Semua')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] bg-amber-500/20 text-amber-500 border border-amber-500/50 font-bold">✨ Semua Top</button>
+                <button onclick="setRankingFilter('Semua')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] bg-amber-500/20 text-amber-500 border border-amber-500/50 font-bold">✨ Semua</button>
                 <button onclick="setRankingFilter('Dark Fantasy')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30" style="color: var(--text-main);">🗡️ Dark Fantasy</button>
                 <button onclick="setRankingFilter('Romance')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30" style="color: var(--text-main);">🥀 Romance</button>
                 <button onclick="setRankingFilter('Fantasy')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30" style="color: var(--text-main);">🏰 Fantasy</button>
-                <button onclick="setRankingFilter('Sound of Soul')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30" style="color: var(--text-main);">🎶 Sound of Soul</button>
+                <button onclick="setRankingFilter('Sound of Soul')" class="ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30" style="color: var(--text-main);">🎶 Soul</button>
             </div>
-            
-            <div id="ranking-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2">
-                <!-- Dimuat otomatis -->
+            <div id="ranking-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2"></div>
+        </div>
+
+        <!-- BUKU TAMU & KESAN PESAN -->
+        <div class="taman-card rounded-2xl p-5 space-y-4 mt-8 shadow-xl">
+            <div class="border-b border-purple-500/20 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <h3 class="title-font text-xs font-bold tracking-wider uppercase flex items-center gap-2" style="color: var(--text-sub);"><span>💌</span> Buku Tamu & Kesan Pustaka</h3>
+                <div class="flex items-center gap-2">
+                    <select id="guestbook-sort" onchange="renderGuestbook()" class="bg-black/40 border border-purple-500/40 text-[10px] rounded-lg px-2 py-1 focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                        <option value="newest">🕒 Terbaru</option>
+                        <option value="oldest">⏳ Terlama</option>
+                        <option value="rating">⭐ Rating Terbaik</option>
+                    </select>
+                    <span id="telegram-status-badge" class="text-[9px] px-2 py-0.5 rounded-full bg-purple-900/40 text-pink-300 border border-purple-500/40">🤖 Telegram</span>
+                </div>
             </div>
+            <form onsubmit="submitGuestbook(event)" class="space-y-3 bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pilih Mood Suka:</label>
+                        <select id="guest-mood" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                            <option value="✨ Bahagia & Terpesona">✨ Bahagia & Terpesona</option>
+                            <option value="🌙 Tenang & Damai">🌙 Tenang & Damai</option>
+                            <option value="💖 Sangat Menyentuh Hati">💖 Sangat Menyentuh Hati</option>
+                            <option value="📖 Terinspirasi Jiwa">📖 Terinspirasi Jiwa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Berikan Rating Taman:</label>
+                        <select id="guest-rating" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                            <option value="5">⭐⭐⭐⭐⭐ (Sempurna & Magis)</option>
+                            <option value="4">⭐⭐⭐⭐ (Sangat Indah)</option>
+                            <option value="3">⭐⭐⭐ (Cukup Nyaman)</option>
+                            <option value="2">⭐⭐ (Biasa)</option>
+                            <option value="1">⭐ (Perlu Perbaikan)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pesan & Kesan / Ulasan <span class="text-pink-500">*</span></label>
+                    <textarea id="guest-message" rows="2" required placeholder="Tuliskan ulasan atau kesan naskah di taman ini..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
+                </div>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[10px] opacity-80" style="color: var(--text-main);">
+                    <span id="auto-user-preview">👤 Memuat identitas Telegram...</span>
+                    <button type="submit" class="bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-90 text-white text-[10px] font-semibold px-4 py-1.5 rounded-xl shadow-md transition cursor-pointer">✨ Kirim Ulasan Tamu</button>
+                </div>
+            </form>
+            <div id="guestbook-list" class="space-y-3 max-h-72 overflow-y-auto custom-scroll pr-1 pt-1"></div>
         </div>
     </main>
+
+    <!-- MODAL EDIT PESAN -->
+    <div id="edit-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="taman-card rounded-2xl p-5 flex flex-col gap-3 w-full max-w-sm relative shadow-2xl">
+            <h3 class="title-font text-xs font-bold uppercase" style="color: var(--text-sub);">✏️ Edit Ulasan Buku Tamu</h3>
+            <input type="hidden" id="edit-index">
+            <textarea id="edit-message-text" rows="3" class="w-full px-3 py-2 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
+            <div class="flex justify-end gap-2 pt-1">
+                <button onclick="closeEditModal()" class="px-3 py-1 bg-stone-800 text-stone-300 rounded-lg text-[10px]">Batal</button>
+                <button onclick="saveEditedMessage()" class="px-3 py-1 bg-pink-600 text-white rounded-lg text-[10px] font-semibold">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL BALAS PESAN -->
+    <div id="reply-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="taman-card rounded-2xl p-5 flex flex-col gap-3 w-full max-w-sm relative shadow-2xl">
+            <h3 class="title-font text-xs font-bold uppercase" style="color: var(--text-sub);">💬 Balas Ulasan Tamu</h3>
+            <input type="hidden" id="reply-target-id">
+            <textarea id="reply-message-text" rows="3" placeholder="Tulis balasan..." class="w-full px-3 py-2 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
+            <div class="flex justify-end gap-2 pt-1">
+                <button onclick="closeReplyModal()" class="px-3 py-1 bg-stone-800 text-stone-300 rounded-lg text-[10px]">Batal</button>
+                <button onclick="saveReplyMessage()" class="px-3 py-1 bg-purple-600 text-white rounded-lg text-[10px] font-semibold">Kirim Balasan</button>
+            </div>
+        </div>
+    </div>
 
     <!-- MODAL PROFIL PENULIS -->
     <div id="author-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="taman-card rounded-2xl p-6 flex flex-col items-center text-center gap-4 w-full max-w-sm relative shadow-2xl">
             <button onclick="closeAuthorModal()" class="absolute top-3 right-3 text-sm opacity-70 hover:opacity-100" style="color: var(--text-main);">✕</button>
-            <div class="floral-frame">
-                <div class="w-24 h-24 rounded-full overflow-hidden bg-stone-950">
-                    <img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/IMG_20261115_013241_471.jpg" class="w-full h-full object-cover">
-                </div>
-            </div>
-            <div>
-                <h2 class="title-font text-lg font-bold" style="color: var(--text-sub);">Buwana Millena</h2>
-                <p class="text-[11px] uppercase tracking-widest mt-1 opacity-80" style="color: var(--text-main);">Penulis & Kreator Utama</p>
-            </div>
-            <p class="text-xs font-light leading-relaxed italic px-2 opacity-90" style="color: var(--text-main);">
-                "Menyusun gema kata di antara malam magis, merajut dunia fantasi, romansa, dan perenungan jiwa dalam setiap oneshot yang dihadirkan di ruang baca ini."
-            </p>
-            <div class="pt-2 border-t border-purple-900/30 w-full flex justify-center gap-2">
-                <span class="text-[10px] bg-purple-950/20 px-3 py-1 rounded-full border border-purple-500/40 font-medium" style="color: var(--text-sub);">🗡️ Dark Fantasy</span>
-                <span class="text-[10px] bg-pink-950/20 px-3 py-1 rounded-full border border-pink-500/40 font-medium" style="color: var(--text-sub);">✨ Ethereal Soul</span>
-            </div>
+            <div class="floral-frame"><div class="w-24 h-24 rounded-full overflow-hidden bg-stone-950"><img src="https://raw.githubusercontent.com/trialformil/darkfantasy/main/IMG_20261115_013241_471.jpg" class="w-full h-full object-cover"></div></div>
+            <div><h2 class="title-font text-lg font-bold" style="color: var(--text-sub);">Buwana Millena</h2><p class="text-[11px] uppercase tracking-widest mt-1 opacity-80" style="color: var(--text-main);">Penulis & Kreator Utama</p></div>
+            <p class="text-xs font-light leading-relaxed italic px-2 opacity-90" style="color: var(--text-main);">"Menyusun gema kata di antara malam magis, merajut dunia fantasi, romansa, dan perenungan jiwa dalam setiap oneshot yang dihadirkan di ruang baca ini."</p>
+            <div class="pt-2 border-t border-purple-900/30 w-full flex justify-center gap-2"><span class="text-[10px] bg-purple-950/20 px-3 py-1 rounded-full border border-purple-500/40 font-medium" style="color: var(--text-sub);">🗡️ Dark Fantasy</span><span class="text-[10px] bg-pink-950/20 px-3 py-1 rounded-full border border-pink-500/40 font-medium" style="color: var(--text-sub);">✨ Ethereal Soul</span></div>
         </div>
     </div>
 
-    <footer class="text-center text-[10px] mt-20 tracking-widest uppercase font-light opacity-60" style="color: var(--text-main);">
-        Buwana Millena Sanctuary • Kastil Pustaka Malam
-    </footer>
-
-    <style>
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-    </style>
+    <footer class="text-center text-[10px] mt-20 tracking-widest uppercase font-light opacity-60 relative z-10" style="color: var(--text-main);">Buwana Millena Sanctuary • Kastil Pustaka Malam</footer>
+    <style>@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }</style>
 
     <script>
         let defaultStories = [
-            {
-                id: 1,
-                judul: "Labirin & Hati 💞 yang Tersembunyi",
-                genre: "Fantasy",
-                sub: "Fabel",
-                tema: "Labirin",
-                score: 95,
-                blurb: "Di antara ribuan kunci labirin yang menyesatkan, jawaban yang ia cari ternyata tersembunyi di balik beban terberat yang ia pikul.",
-                blurbFull: "Di tengah labirin yang menyesatkan, Bubu terjebak dalam pencarian ribuan kunci yang ia sangka jalan keluar, sementara teman-temannya meninggalkannya dalam kesendirian. Saat berada di titik terendah dan kehabisan bekal, ia tak sengaja memecahkan benda terberat yang selalu ia pikul di tasnya: sebuah hati yang terlalu indah untuk dibuka. Konon, kunci utama tidak pernah ada di dalam peti harta karun, melainkan tersimpan rapat di lapisan terdalam hati yang selama ini ia bawa sendiri.",
-                cover: "https://raw.githubusercontent.com/trialformil/darkfantasy/refs/heads/main/Source%20Image%20Blurb/IMG_20261115_021352_126.jpg", 
-                linkTelegraph: "https://telegra.ph/Labirin-dan--yang-Berat-11-14",
-                linkBlurb: "https://t.me/buwanamillena/7"
-            },
-            {
-                id: 2,
-                judul: "Shadows of the Iron Bastion",
-                genre: "Dark Fantasy",
-                sub: "Grimdark",
-                tema: "Blood & Steel",
-                score: 88,
-                blurb: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup.",
-                blurbFull: "Kisah di dunia tanpa ampun, di mana moralitas dikorbankan demi bertahan hidup di benteng terakhir. Ketika pasukan kegelapan mengepung dinding besi, seorang ksatria harus memilih.",
-                cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-grimdark",
-                linkBlurb: "https://t.me/c/namachannel/2"
-            },
-            {
-                id: 3,
-                judul: "A Waltz Under Starlight",
-                genre: "Romance",
-                sub: "Pure Romance",
-                tema: "Classic Ballroom",
-                score: 98,
-                blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.",
-                blurbFull: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian. Di tengah pesta dansa bangsawan yang megah, dua insan berdansa tanpa mengetahui rahasia masing-masing.",
-                cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-2",
-                linkBlurb: "https://t.me/c/namachannel/3"
-            },
-            {
-                id: 4,
-                judul: "Coffee, Cats & Chaos",
-                genre: "Romance",
-                sub: "RomCom",
-                tema: "Café Slice of Life",
-                score: 90,
-                blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang salah pesan menu.",
-                blurbFull: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang selalu salah memesan menu. Kehadiran kucing abu-abu menjadi saksi perdebatan kecil yang berujung manis.",
-                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-romcom",
-                linkBlurb: "https://t.me/c/namachannel/4"
-            },
-            {
-                id: 5,
-                judul: "Whispers of the Olympus",
-                genre: "Fantasy",
-                sub: "Mitologi",
-                tema: "Ancient Gods",
-                score: 92,
-                blurb: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern.",
-                blurbFull: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern ketika batas antara alam manusia dan kahyangan mulai menipis.",
-                cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-mitologi",
-                linkBlurb: "https://t.me/c/namachannel/5"
-            },
-            {
-                id: 6,
-                judul: "Crown of the Sunken Kingdom",
-                genre: "Fantasy",
-                sub: "Kerajaan",
-                tema: "Royal Court",
-                score: 85,
-                blurb: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan.",
-                blurbFull: "Pewaris takhta terakhir yang harus menyelam ke dalam kuil bawah air demi memulihkan kutukan leluhur kerajaan. Di sana, rahasia istana masa lalu terbongkar.",
-                cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-kerajaan",
-                linkBlurb: "https://t.me/c/namachannel/6"
-            },
-            {
-                id: 7,
-                judul: "The Wise Owl & The Starlight",
-                genre: "Fantasy",
-                sub: "Fabel",
-                tema: "Moral Tale",
-                score: 82,
-                blurb: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan.",
-                blurbFull: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan malam. Sebuah fabel magis yang menyisipkan renungan hangat bagi jiwa.",
-                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-fabel",
-                linkBlurb: "https://t.me/c/namachannel/7"
-            },
-            {
-                id: 8,
-                judul: "Catatan Kaki: Menemukan Sunyi",
-                genre: "Sound of Soul",
-                sub: "Refleksi Diri",
-                tema: "Open My Mind",
-                score: 96,
-                blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.",
-                blurbFull: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis di tengah bisingnya ekspektasi dunia modern. Sebuah catatan jujur dari sudut meja kerja penulis.",
-                cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop",
-                linkTelegraph: "https://telegra.ph/contoh-sos",
-                linkBlurb: "https://t.me/c/namachannel/8"
-            }
+            { id: 1, judul: "Labirin & Hati 💞 yang Tersembunyi", genre: "Fantasy", sub: "Fabel", tema: "Labirin", blurb: "Di antara ribuan kunci labirin yang menyesatkan, jawaban yang ia cari ternyata tersembunyi di balik beban terberat.", blurbFull: "Di tengah labirin yang menyesatkan, Bubu terjebak dalam pencarian ribuan kunci yang ia sangka jalan keluar... Konon, kunci utama tersimpan rapat di lapisan terdalam hati.", cover: "https://raw.githubusercontent.com/trialformil/darkfantasy/refs/heads/main/Source%20Image%20Blurb/IMG_20261115_021352_126.jpg", linkTelegraph: "https://telegra.ph/Labirin-dan--yang-Berat-11-14", linkBlurb: "https://t.me/buwanamillena/7" },
+            { id: 2, judul: "Kanola", isNew: true, genre: "Dark Fantasy", sub: "Survival Adventure", tema: "Penyintas Kerajaan", blurb: "Bertahan seorang diri di tengah hutan kanola yang mematikan, Aris mempertaruhkan nyawa demi menagih janji penguasa.", blurbFull: "Ditinggal teman-temannya dan dikhianati anggaran istana, Aris memilih bertahan sendirian di hutan kanola purba hingga akhir perjuangannya.", cover: "https://raw.githubusercontent.com/trialformil/darkfantasy/refs/heads/main/Source%20Image%20Blurb/Image_j6afg5j6afg5j6af.jpeg", linkTelegraph: "https://telegra.ph/Kanola-11-14", linkBlurb: "https://t.me/buwanamillena/32" },
+            { id: 3, judul: "A Waltz Under Starlight", genre: "Romance", sub: "Pure Romance", tema: "Classic Ballroom", blurb: "Pertemuan singkat di bawah taburan bintang yang mengubah arti sebuah kesendirian.", blurbFull: "Di tengah pesta dansa bangsawan yang megah, dua insan berdansa tanpa mengetahui rahasia masing-masing di bawah bintang.", cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop", linkTelegraph: "https://telegra.ph/contoh-2", linkBlurb: "https://t.me/c/namachannel/3" },
+            { id: 4, judul: "Coffee, Cats & Chaos", genre: "Romance", sub: "RomCom", tema: "Café Slice of Life", blurb: "Kisah cinta kocak antara barista pemarah dan pelanggan misterius yang salah pesan menu.", blurbFull: "Kisah cinta kocak barista dan pelanggan misterius. Kehadiran kucing abu-abu menjadi saksi perdebatan kecil berujung manis.", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop", linkTelegraph: "https://telegra.ph/contoh-romcom", linkBlurb: "https://t.me/c/namachannel/4" },
+            { id: 5, judul: "Whispers of the Olympus", genre: "Fantasy", sub: "Mitologi", tema: "Ancient Gods", blurb: "Kisah para dewa kuno dan makhluk mitikal yang kembali menampakkan diri di era modern.", blurbFull: "Dewa kuno kembali menampakkan diri di era modern ketika batas alam manusia dan kahyangan mulai menipis.", cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=640&auto=format&fit=crop", linkTelegraph: "https://telegra.ph/contoh-mitologi", linkBlurb: "https://t.me/c/namachannel/5" },
+            { id: 6, judul: "Crown of the Sunken Kingdom", genre: "Fantasy", sub: "Kerajaan", tema: "Royal Court", blurb: "Pewaris takhta terakhir yang harus menyelam ke kuil bawah air demi memulihkan kutukan.", blurbFull: "Pewaris takhta terakhir menyelam ke kuil bawah air demi memulihkan kutukan leluhur kerajaan dan membongkar rahasia masa lalu.", cover: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=640&auto=format&fit=crop", linkTelegraph: "https://telegra.ph/contoh-kerajaan", linkBlurb: "https://t.me/c/namachannel/6" },
+            { id: 7, judul: "The Wise Owl & The Starlight", genre: "Fantasy", sub: "Fabel", tema: "Moral Tale", blurb: "Kisah burung hantu bijak yang mengajari penghuni hutan tentang arti cahaya di kegelapan.", blurbFull: "Burung hantu bijak mengajari penghuni hutan tentang arti cahaya di kegelapan malam. Fabel magis dengan renungan hangat.", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop", linkTelegraph: "https://telegra.ph/contoh-fabel", linkBlurb: "https://t.me/c/namachannel/7" },
+            { id: 8, judul: "Catatan Kaki: Menemukan Sunyi", genre: "Sound of Soul", sub: "Refleksi Diri", tema: "Open My Mind", blurb: "Refleksi pribadi mengenai proses kreatif, suara-suara batin, dan arti ketenangan dalam menulis.", blurbFull: "Refleksi kreatif dan ketenangan jiwa di tengah bisingnya ekspektasi dunia modern. Catatan jujur dari meja penulis.", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=640&auto=format&fit=crop", linkTelegraph: "https://telegra.ph/contoh-sos", linkBlurb: "https://t.me/c/namachannel/8" }
         ];
 
         let telegraphClicks = JSON.parse(localStorage.getItem('story_telegraph_clicks')) || {};
         let channelClicks = JSON.parse(localStorage.getItem('story_channel_clicks')) || {};
+        let storyLikes = JSON.parse(localStorage.getItem('story_likes')) || {};
+        let guestbookMessages = JSON.parse(localStorage.getItem('guestbook_messages')) || [
+            { id: "msg_1", uid: "sys", name: "Millena", telegram: "@buwanamillena", mood: "✨ Bahagia & Terpesona", rating: 5, text: "Selamat datang di taman bacaan! Semoga naskah-naskah ini memberi kehangatan di malammu.", date: new Date().toISOString(), replies: [] }
+        ];
 
-        function recordTelegraphClick(id) {
-            telegraphClicks[id] = (telegraphClicks[id] || 0) + 1;
-            localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks));
-            renderRanking();
-        }
+        let currentUser = { uid: "anon_" + Math.random().toString(36).substr(2,9), name: "Anonim 🌿", telegram: "@tamu_rahasia" };
 
-        function recordChannelClick(id) {
-            channelClicks[id] = (channelClicks[id] || 0) + 1;
-            localStorage.setItem('story_channel_clicks', JSON.stringify(channelClicks));
-            renderRanking();
-        }
-
-        let currentGenre = 'Semua';
-        let currentSubGenre = 'Semua';
-        let rankingFilter = 'Semua';
-        let searchQuery = '';
-        let expandedIds = {};
-
-        // BGM MUSIC LOGIC
-        let isPlayingBGM = false;
-        function toggleBGM() {
-            const audio = document.getElementById('bgm-audio');
-            const btnText = document.getElementById('bgm-text');
-            const btnIcon = document.getElementById('bgm-icon');
-            if (isPlayingBGM) {
-                audio.pause();
-                btnText.innerText = "Musik Off";
-                btnIcon.innerText = "🔇";
-                isPlayingBGM = false;
+        function initTelegramUser() {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+                const u = window.Telegram.WebApp.initDataUnsafe.user;
+                currentUser.uid = u.id.toString();
+                currentUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
+                currentUser.telegram = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
+                document.getElementById('telegram-status-badge').innerText = "🤖 " + currentUser.name;
             } else {
-                audio.play().then(() => {
-                    btnText.innerText = "Musik On";
-                    btnIcon.innerText = "🎶";
-                    isPlayingBGM = true;
-                }).catch(e => {
-                    alert("Ketuk layar sekali lagi untuk mengaktifkan audio.");
+                document.getElementById('telegram-status-badge').innerText = "💻 Browser Tamu";
+            }
+            document.getElementById('auto-user-preview').innerText = `👤 Akun: ${currentUser.name} (${currentUser.telegram})`;
+        }
+
+        function recordTelegraphClick(id) { telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks)); renderRanking(); }
+        function recordChannelClick(id) { channelClicks[id] = (channelClicks[id] || 0) + 1; localStorage.setItem('story_channel_clicks', JSON.stringify(channelClicks)); renderRanking(); }
+        function toggleLike(id) { storyLikes[id] = (storyLikes[id] || 0) + 1; localStorage.setItem('story_likes', JSON.stringify(storyLikes)); renderStories(); showToast("Terima kasih apresiasi hatinya! ❤️"); }
+
+        function submitGuestbook(e) {
+            e.preventDefault();
+            const text = document.getElementById('guest-message').value.trim();
+            if(!text) return;
+            const mood = document.getElementById('guest-mood').value;
+            const rating = parseInt(document.getElementById('guest-rating').value);
+
+            guestbookMessages.unshift({
+                id: 'msg_' + Date.now(),
+                uid: currentUser.uid,
+                name: currentUser.name,
+                telegram: currentUser.telegram,
+                mood: mood,
+                rating: rating,
+                text: text,
+                date: new Date().toISOString(),
+                replies: []
+            });
+            localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
+            document.getElementById('guest-message').value = '';
+            renderGuestbook();
+            showToast("Ulasan tamu berhasil dikirim! 💌");
+        }
+
+        function deleteGuestMessage(id) {
+            guestbookMessages = guestbookMessages.filter(m => m.id !== id);
+            localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
+            renderGuestbook();
+            showToast("Ulasan dihapus! 🗑️");
+        }
+
+        function openEditModal(id) {
+            const m = guestbookMessages.find(item => item.id === id);
+            if(!m) return;
+            document.getElementById('edit-index').value = id;
+            document.getElementById('edit-message-text').value = m.text;
+            document.getElementById('edit-modal').classList.remove('hidden');
+        }
+        function closeEditModal() { document.getElementById('edit-modal').classList.add('hidden'); }
+        function saveEditedMessage() {
+            const id = document.getElementById('edit-index').value;
+            const newText = document.getElementById('edit-message-text').value.trim();
+            if(!newText) return;
+            const m = guestbookMessages.find(item => item.id === id);
+            if(m) {
+                m.text = newText;
+                localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
+                renderGuestbook();
+                closeEditModal();
+                showToast("Ulasan diperbarui! ✏️");
+            }
+        }
+
+        function openReplyModal(id) {
+            document.getElementById('reply-target-id').value = id;
+            document.getElementById('reply-message-text').value = '';
+            document.getElementById('reply-modal').classList.remove('hidden');
+        }
+        function closeReplyModal() { document.getElementById('reply-modal').classList.add('hidden'); }
+        function saveReplyMessage() {
+            const id = document.getElementById('reply-target-id').value;
+            const text = document.getElementById('reply-message-text').value.trim();
+            if(!text) return;
+            const m = guestbookMessages.find(item => item.id === id);
+            if(m) {
+                if(!m.replies) m.replies = [];
+                m.replies.push({
+                    name: currentUser.name,
+                    telegram: currentUser.telegram,
+                    text: text,
+                    date: new Date().toISOString()
                 });
+                localStorage.setItem('guestbook_messages', JSON.stringify(guestbookMessages));
+                renderGuestbook();
+                closeReplyModal();
+                showToast("Balasan terkirim! 💬");
             }
         }
 
-        // TOGGLE THEME
-        function toggleTheme() {
-            const root = document.getElementById('html-root');
-            const isChecked = document.getElementById('theme-toggle').checked;
-            if (isChecked) {
-                root.className = "light";
+        function renderGuestbook() {
+            const container = document.getElementById('guestbook-list');
+            const sortVal = document.getElementById('guestbook-sort').value;
+            container.innerHTML = '';
+
+            let sorted = [...guestbookMessages];
+            if(sortVal === 'oldest') {
+                sorted.sort((a,b) => new Date(a.date) - new Date(b.date));
+            } else if(sortVal === 'rating') {
+                sorted.sort((a,b) => b.rating - a.rating);
             } else {
-                root.className = "dark";
+                sorted.sort((a,b) => new Date(b.date) - new Date(a.date));
             }
+
+            if(sorted.length === 0) {
+                container.innerHTML = `<p class="text-xs italic text-center opacity-70 py-2" style="color: var(--text-main);">Belum ada ulasan.</p>`;
+                return;
+            }
+
+            sorted.forEach(msg => {
+                const isOwner = msg.uid === currentUser.uid;
+                const dateStr = new Date(msg.date).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+                const stars = '⭐'.repeat(msg.rating || 5);
+
+                let repliesHtml = '';
+                if(msg.replies && msg.replies.length > 0) {
+                    msg.replies.forEach(r => {
+                        const rDate = new Date(r.date).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
+                        repliesHtml += `
+                            <div class="ml-4 mt-2 pl-3 border-l-2 border-purple-500/30 text-[10px] space-y-0.5">
+                                <div class="flex justify-between font-semibold" style="color: var(--text-sub);">
+                                    <span>↪ ${r.name} <span class="opacity-70 font-normal">(${r.telegram})</span></span>
+                                    <span class="opacity-50 text-[9px]" style="color: var(--text-main);">${rDate}</span>
+                                </div>
+                                <p class="italic opacity-90" style="color: var(--text-main);">"${r.text}"</p>
+                            </div>
+                        `;
+                    });
+                }
+
+                container.innerHTML += `
+                    <div class="bg-black/30 border border-purple-500/20 rounded-xl p-3 flex flex-col gap-1.5">
+                        <div class="flex items-center justify-between text-[10px]">
+                            <span class="font-semibold" style="color: var(--text-sub);">${msg.name} <span class="opacity-70 font-normal">(${msg.telegram})</span></span>
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${dateStr}</span>
+                                ${isOwner ? `
+                                    <button onclick="openEditModal('${msg.id}')" title="Edit" class="text-pink-400">✏️</button>
+                                    <button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>
+                                ` : ''}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-[10px]">
+                            <span class="bg-purple-900/40 px-2 py-0.5 rounded text-pink-200 border border-purple-500/30">${msg.mood || '✨ Bahagia'}</span>
+                            <span>${stars}</span>
+                        </div>
+                        <p class="text-xs font-light italic opacity-90" style="color: var(--text-main);">"${msg.text}"</p>
+                        <div class="pt-1 flex justify-end">
+                            <button onclick="openReplyModal('${msg.id}')" class="text-[9px] text-purple-300 hover:underline">💬 Balas Ulasan</button>
+                        </div>
+                        ${repliesHtml}
+                    </div>
+                `;
+            });
         }
 
-        // SLIDER BANNER LOGIC
-        let currentSlide = 0;
-        const slides = document.getElementsByClassName('slide-item');
+        let currentGenre = 'Semua', currentSubGenre = 'Semua', rankingFilter = 'Semua', searchQuery = '', sortOrder = 'default', expandedIds = {};
 
-        function showSlide(index) {
-            if (index >= slides.length) currentSlide = 0;
-            if (index < 0) currentSlide = slides.length - 1;
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.opacity = '0';
-            }
+        function handleSort() { sortOrder = document.getElementById('sort-select').value; renderStories(); }
+        function shareStory(title, url) {
+            if(navigator.share) { navigator.share({ title: title, text: `Baca "${title}" di Buwana Millena Sanctuary:`, url: url }).catch(()=>{}); }
+            else { navigator.clipboard.writeText(url).then(() => showToast(`Tautan disalin! 📋`)); }
+        }
+        function showToast(msg) {
+            let t = document.getElementById('toast-notif');
+            if(!t) { t = document.createElement('div'); t.id = 'toast-notif'; t.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-purple-950 text-pink-200 border border-pink-500/60 px-4 py-2 rounded-2xl text-xs shadow-2xl backdrop-blur-md transition-all duration-300 opacity-0'; document.body.appendChild(t); }
+            t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
+        }
+
+        const playlist = [
+            { id: 0, title: "🌧️ Hujan Kastil & Petir", src: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", genre: "Dark Fantasy" },
+            { id: 1, title: "☕ Starlight Café Lofi", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3", genre: "Romance" },
+            { id: 2, title: "🏰 Bisikan Hutan Magis", src: "https://actions.google.com/sounds/v1/ambiences/wind_gust.ogg", genre: "Fantasy" },
+            { id: 3, title: "🌙 Malam Sunyi Pustaka", src: "https://actions.google.com/sounds/v1/ambiences/night_forest.ogg", genre: "Sound of Soul" },
+            { id: 4, title: "✨ Sanctuary Starlight Chill", src: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3", genre: "Semua" }
+        ];
+        let currentTrackIndex = 0, isPlayingBGM = false;
+        function initAudio() { document.getElementById('bgm-audio').src = playlist[currentTrackIndex].src; document.getElementById('current-track-title').innerText = playlist[currentTrackIndex].title; }
+        function toggleBGM() {
+            const a = document.getElementById('bgm-audio'), i = document.getElementById('bgm-icon');
+            if(isPlayingBGM) { a.pause(); i.innerText = "▶"; isPlayingBGM = false; }
+            else { if(!a.src) a.src = playlist[currentTrackIndex].src; a.play().then(()=>{ i.innerText = "⏸"; isPlayingBGM = true; }).catch(()=>showToast("Ketuk sekali lagi untuk audio.")); }
+        }
+        function changeTrack(idx) {
+            currentTrackIndex = parseInt(idx);
+            const a = document.getElementById('bgm-audio'), t = playlist[currentTrackIndex];
+            a.src = t.src; document.getElementById('current-track-title').innerText = t.title;
+            document.getElementById('bgm-selector').value = currentTrackIndex;
+            if(isPlayingBGM) a.play().catch(()=>{});
+        }
+        function autoSwitchTrack(g) { let m = playlist.find(x => x.genre === g) || playlist[4]; changeTrack(m.id); }
+
+        function toggleTheme() {
+            const r = document.getElementById('html-root');
+            r.className = document.getElementById('theme-toggle').checked ? "light" : "dark";
+        }
+
+        let currentSlide = 0, slides = document.getElementsByClassName('slide-item');
+        function showSlide(i) {
+            if(i >= slides.length) currentSlide = 0; if(i < 0) currentSlide = slides.length - 1;
+            for(let x=0; x<slides.length; x++) slides[x].style.opacity = '0';
             slides[currentSlide].style.opacity = '1';
         }
-
         function nextSlide() { currentSlide++; showSlide(currentSlide); }
         function prevSlide() { currentSlide--; showSlide(currentSlide); }
-        setInterval(() => { currentSlide++; showSlide(currentSlide); }, 5000);
+        setInterval(()=>{ currentSlide++; showSlide(currentSlide); }, 5000);
 
         function openAuthorModal() { document.getElementById('author-modal').classList.remove('hidden'); }
         function closeAuthorModal() { document.getElementById('author-modal').classList.add('hidden'); }
 
         function initApp() {
-            renderTabs();
-            renderSubGenres();
-            renderRanking();
-            renderStories();
+            initTelegramUser(); initAudio(); renderTabs(); renderSubGenres(); renderRanking(); renderStories(); renderGuestbook();
         }
 
         function renderTabs() {
-            const tabsContainer = document.getElementById('genre-tabs');
-            const genres = ['Semua', 'Dark Fantasy', 'Romance', 'Fantasy', 'Sound of Soul'];
-            tabsContainer.innerHTML = '';
-            
-            genres.forEach(genre => {
-                const isActive = currentGenre === genre;
-                const activeClass = isActive 
-                    ? "bg-purple-900/90 text-pink-100 border-pink-500/60 shadow-[0_0_12px_rgba(236,72,153,0.3)] font-medium" 
-                    : "taman-card opacity-80 hover:opacity-100 font-light";
-
-                let icon = "✨";
-                if(genre === 'Dark Fantasy') icon = "🗡️";
-                if(genre === 'Romance') icon = "🥀";
-                if(genre === 'Fantasy') icon = "🏰";
-                if(genre === 'Sound of Soul') icon = "🎶";
-                if(genre === 'Semua') icon = "📚";
-
-                tabsContainer.innerHTML += `
-                    <button onclick="selectGenre('${genre}')" 
-                        class="px-3.5 py-1.5 rounded-xl text-xs tracking-wide border whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 shrink-0 ${activeClass}" style="${isActive ? '' : 'color: var(--text-main);'}">
-                        <span>${icon}</span> ${genre}
-                    </button>
-                `;
+            const c = document.getElementById('genre-tabs'), genres = ['Semua', 'Dark Fantasy', 'Romance', 'Fantasy', 'Sound of Soul'];
+            c.innerHTML = '';
+            genres.forEach(g => {
+                const act = currentGenre === g;
+                let ic = "✨"; if(g==='Dark Fantasy') ic="🗡️"; else if(g==='Romance') ic="🥀"; else if(g==='Fantasy') ic="🏰"; else if(g==='Sound of Soul') ic="🎶"; else if(g==='Semua') ic="📚";
+                c.innerHTML += `<button onclick="selectGenre('${g}')" class="px-3.5 py-1.5 rounded-xl text-xs tracking-wide border whitespace-nowrap transition flex items-center gap-1.5 shrink-0 ${act ? "bg-purple-900/90 text-pink-100 border-pink-500/60 font-medium" : "taman-card opacity-80"}" style="${act?'':'color:var(--text-main);'}"><span>${ic}</span> ${g}</button>`;
             });
         }
 
         function renderSubGenres() {
-            const subContainer = document.getElementById('subgenre-container');
-            let subList = [];
-            if (currentGenre === 'Dark Fantasy') subList = ['Semua', 'Urban Fantasy', 'Grimdark', 'Dark Paranormal'];
-            if (currentGenre === 'Romance') subList = ['Semua', 'Pure Romance', 'RomCom', 'Slow Burn'];
-            if (currentGenre === 'Fantasy') subList = ['Semua', 'Mitologi', 'Kerajaan', 'Fairytale', 'Fabel'];
-            if (currentGenre === 'Sound of Soul') subList = ['Semua', 'Refleksi Diri', 'Catatan Penulis'];
+            const sc = document.getElementById('subgenre-container');
+            let subs = [];
+            if(currentGenre==='Dark Fantasy') subs=['Semua','Urban Fantasy','Grimdark','Dark Paranormal','Survival Adventure'];
+            if(currentGenre==='Romance') subs=['Semua','Pure Romance','RomCom','Slow Burn'];
+            if(currentGenre==='Fantasy') subs=['Semua','Mitologi','Kerajaan','Fairytale','Fabel'];
+            if(currentGenre==='Sound of Soul') subs=['Semua','Refleksi Diri','Catatan Penulis'];
 
-            if (subList.length === 0) {
-                subContainer.classList.add('hidden');
-                return;
-            }
-
-            subContainer.classList.remove('hidden');
-            subContainer.innerHTML = '';
-            
-            subList.forEach(sub => {
-                const isActive = currentSubGenre === sub;
-                const activeClass = isActive
-                    ? "bg-pink-950 text-pink-200 border-pink-500 font-semibold"
-                    : "taman-card opacity-80 hover:opacity-100 font-light";
-
-                let pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3176/3176363.png";
-                if (sub === 'Mitologi') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3067/3067428.png";
-                else if (sub === 'Kerajaan') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2541/2541989.png";
-                else if (sub === 'Fairytale') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3039/3039398.png";
-                else if (sub === 'Grimdark') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3233/3233497.png";
-                else if (sub === 'Fabel') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3069/3069186.png";
-                else if (sub === 'Urban Fantasy') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921222.png";
-                else if (sub === 'Dark Paranormal') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2933/2933116.png";
-                else if (sub === 'Pure Romance') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/1077/1077035.png";
-                else if (sub === 'RomCom') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3076/3076848.png";
-                else if (sub === 'Slow Burn') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2928/2928839.png";
-                else if (sub === 'Refleksi Diri') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/3209/3209265.png";
-                else if (sub === 'Catatan Penulis') pngIconUrl = "https://cdn-icons-png.flaticon.com/512/2921/2921226.png";
-
-                subContainer.innerHTML += `
-                    <button onclick="selectSubGenre('${sub}')" 
-                        class="px-3 py-1.5 rounded-lg text-[11px] tracking-wide border whitespace-nowrap transition-all flex items-center gap-2 ${activeClass}" style="${isActive ? '' : 'color: var(--text-main);'}">
-                        <span>✦ ${sub}</span> 
-                        <img src="${pngIconUrl}" alt="${sub}" class="w-4 h-4 object-contain inline-block filter drop-shadow-[0_0_3px_rgba(236,72,153,0.5)]">
-                    </button>
-                `;
+            if(subs.length===0) { sc.classList.add('hidden'); return; }
+            sc.classList.remove('hidden'); sc.innerHTML = '';
+            subs.forEach(s => {
+                const act = currentSubGenre === s;
+                sc.innerHTML += `<button onclick="selectSubGenre('${s}')" class="px-3 py-1.5 rounded-lg text-[11px] border whitespace-nowrap transition flex items-center gap-1.5 ${act ? "bg-pink-950 text-pink-200 border-pink-500 font-semibold" : "taman-card opacity-80"}" style="${act?'':'color:var(--text-main);'}">✦ ${s}</button>`;
             });
         }
 
-        function selectGenre(genreName) {
-            currentGenre = genreName;
-            currentSubGenre = 'Semua';
-            document.getElementById('current-category-title').innerText = `✦ Koleksi: ${genreName}`;
-            renderTabs();
-            renderSubGenres();
-            renderStories();
-        }
-
-        function selectSubGenre(subName) {
-            currentSubGenre = subName;
-            renderSubGenres();
-            renderStories();
-        }
-
-        function setRankingFilter(filterName) {
-            rankingFilter = filterName;
-            const tabs = document.querySelectorAll('.ranking-tab');
-            tabs.forEach(tab => {
-                if (tab.innerText.includes(filterName)) {
-                    tab.className = "ranking-tab px-3 py-1 rounded-lg text-[10px] bg-amber-500/20 text-amber-500 border border-amber-500/50 font-bold";
-                } else {
-                    tab.className = "ranking-tab px-3 py-1 rounded-lg text-[10px] opacity-70 border border-purple-500/30 font-light";
-                }
-            });
-            renderRanking();
-        }
+        function selectGenre(g) { currentGenre = g; currentSubGenre = 'Semua'; document.getElementById('current-category-title').innerText = `✦ Koleksi: ${g}`; renderTabs(); renderSubGenres(); renderStories(); autoSwitchTrack(g); }
+        function selectSubGenre(s) { currentSubGenre = s; renderSubGenres(); renderStories(); }
+        function setRankingFilter(f) { rankingFilter = f; renderRanking(); }
 
         function renderRanking() {
-            const container = document.getElementById('ranking-container');
-            container.innerHTML = '';
-
-            let rankedStories = [...defaultStories].sort((a, b) => {
-                let countA = telegraphClicks[a.id] || 0;
-                let countB = telegraphClicks[b.id] || 0;
-                return countB - countA;
-            });
-
-            if (rankingFilter !== 'Semua') {
-                rankedStories = rankedStories.filter(s => s.genre === rankingFilter);
-            }
-
-            rankedStories = rankedStories.slice(0, 5);
-
-            if (rankedStories.length === 0) {
-                container.innerHTML = `<p class="text-xs italic py-2 px-1 col-span-5 text-center opacity-70" style="color: var(--text-main);">Belum ada data klik di kategori ini.</p>`;
-                return;
-            }
-
-            rankedStories.forEach((story, index) => {
-                let medal = `#${index + 1}`;
-                if(index === 0) medal = "🥇";
-                if(index === 1) medal = "🥈";
-                if(index === 2) medal = "🥉";
-
-                container.innerHTML += `
+            const rc = document.getElementById('ranking-container'); rc.innerHTML = '';
+            let r = [...defaultStories].sort((a,b) => (telegraphClicks[b.id]||0) - (telegraphClicks[a.id]||0));
+            if(rankingFilter !== 'Semua') r = r.filter(x => x.genre === rankingFilter);
+            r = r.slice(0,5);
+            if(r.length === 0) { rc.innerHTML = `<p class="text-xs italic py-2 text-center col-span-5 opacity-70" style="color:var(--text-main);">Belum ada data klik.</p>`; return; }
+            r.forEach((st, idx) => {
+                let m = idx===0?"🥇":idx===1?"🥈":idx===2?"🥉":`#${idx+1}`;
+                rc.innerHTML += `
                     <div class="taman-card rounded-xl p-3 flex flex-col justify-between relative border-amber-500/30 gap-2">
-                        <span class="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-[10px] font-bold flex items-center justify-center shadow">${medal}</span>
+                        <span class="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-[10px] font-bold flex items-center justify-center shadow">${m}</span>
                         <div class="flex gap-2.5 items-center">
-                            <div class="w-12 h-14 rounded-lg overflow-hidden shrink-0 bg-stone-950 border border-purple-900">
-                                <img src="${story.cover}" class="w-full h-full object-cover">
-                            </div>
+                            <div class="w-12 h-14 rounded-lg overflow-hidden shrink-0 bg-stone-950 border border-purple-900"><img src="${st.cover}" class="w-full h-full object-cover"></div>
                             <div class="flex flex-col gap-0.5 overflow-hidden">
-                                <span class="text-[9px] text-amber-500 truncate font-semibold">${story.genre}</span>
-                                <h4 class="title-font text-xs font-semibold truncate" style="color: var(--text-main);">${story.judul}</h4>
-                                <div class="flex gap-2 text-[8px] opacity-80" style="color: var(--text-main);">
-                                    <span>📖 ${telegraphClicks[story.id] || 0}x baca</span>
-                                    <span>💬 ${channelClicks[story.id] || 0}x chat</span>
-                                </div>
+                                <span class="text-[9px] text-amber-500 truncate font-semibold">${st.genre}</span>
+                                <h4 class="title-font text-xs font-semibold truncate" style="color:var(--text-main);">${st.judul}</h4>
+                                <div class="flex gap-2 text-[8px] opacity-80" style="color:var(--text-main);"><span>📖 ${telegraphClicks[st.id]||0}x</span><span>👁️ ${channelClicks[st.id]||0}x</span></div>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-1">
-                            <a href="${story.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${story.id})" 
-                               class="text-[8px] text-center bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 py-1 rounded border border-amber-500/30 font-medium">Telegraph</a>
-                            <a href="${story.linkBlurb}" target="_blank" onclick="recordChannelClick(${story.id})" 
-                               class="text-[8px] text-center bg-pink-500/10 hover:bg-pink-500/20 text-pink-500 py-1 rounded border border-pink-500/30 font-medium">Channel</a>
+                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id})" class="text-[8px] text-center bg-amber-500/10 text-amber-500 py-1 rounded border border-amber-500/30">Telegraph</a>
+                            <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[8px] text-center bg-pink-500/10 text-pink-500 py-1 rounded border border-pink-500/30">Channel</a>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
-        function handleSearch() {
-            searchQuery = document.getElementById('search-input').value.toLowerCase();
-            renderStories();
-        }
-
-        function toggleExpand(id) {
-            expandedIds[id] = !expandedIds[id];
-            renderStories();
-        }
+        function handleSearch() { searchQuery = document.getElementById('search-input').value.toLowerCase(); renderStories(); }
+        function toggleExpand(id) { expandedIds[id] = !expandedIds[id]; renderStories(); }
 
         function renderStories() {
-            const container = document.getElementById('story-container');
-            container.innerHTML = '';
-
-            let filtered = defaultStories.filter(story => {
-                const matchGenre = currentGenre === 'Semua' || story.genre === currentGenre;
-                const matchSub = currentGenre === 'Semua' || currentSubGenre === 'Semua' || story.sub === currentSubGenre;
-                const matchSearch = 
-                    story.judul.toLowerCase().includes(searchQuery) ||
-                    story.genre.toLowerCase().includes(searchQuery) ||
-                    story.sub.toLowerCase().includes(searchQuery) ||
-                    story.tema.toLowerCase().includes(searchQuery) ||
-                    story.blurbFull.toLowerCase().includes(searchQuery);
-                return matchGenre && matchSub && matchSearch;
+            const sc = document.getElementById('story-container'); sc.innerHTML = '';
+            let f = defaultStories.filter(st => {
+                const mg = currentGenre === 'Semua' || st.genre === currentGenre;
+                const ms = currentGenre === 'Semua' || currentSubGenre === 'Semua' || st.sub === currentSubGenre;
+                const msch = st.judul.toLowerCase().includes(searchQuery) || st.genre.toLowerCase().includes(searchQuery) || st.sub.toLowerCase().includes(searchQuery);
+                return mg && ms && msch;
             });
+            if(sortOrder==='az') f.sort((a,b)=>a.judul.localeCompare(b.judul));
+            else if(sortOrder==='za') f.sort((a,b)=>b.judul.localeCompare(a.judul));
 
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-16 w-full taman-card rounded-2xl border-purple-900/30">
-                        <p class="text-xs tracking-wider font-light opacity-80" style="color: var(--text-main);">Tiada naskah di sudut taman ini...</p>
-                    </div>`;
-                return;
-            }
-
-            filtered.forEach(story => {
-                const isExpanded = expandedIds[story.id] || false;
-                const activeBlurb = isExpanded ? story.blurbFull : story.blurb;
-                const expandIcon = isExpanded ? '▲ Sembunyikan' : '▼ Selengkapnya';
-
-                container.innerHTML += `
+            if(f.length===0) { sc.innerHTML = `<div class="text-center py-16 w-full taman-card rounded-2xl"><p class="text-xs opacity-80" style="color:var(--text-main);">Tiada naskah di sudut taman ini...</p></div>`; return; }
+            f.forEach(st => {
+                const exp = expandedIds[st.id] || false, bl = exp ? st.blurbFull : st.blurb, lk = storyLikes[st.id] || 0;
+                sc.innerHTML += `
                     <div class="taman-card rounded-2xl overflow-hidden p-3.5 flex flex-col justify-between shrink-0 w-72 sm:w-80 snap-start">
                         <div>
-                            <div class="relative w-full h-36 rounded-xl overflow-hidden bg-stone-950 border border-purple-500/30 shadow-inner">
-                                <img src="${story.cover}" alt="Cover" class="w-full h-full object-cover opacity-90">
+                            <div class="relative w-full h-36 rounded-xl overflow-hidden bg-stone-950 border border-purple-500/30">
+                                <img src="${st.cover}" class="w-full h-full object-cover opacity-90">
                                 <div class="absolute top-2 left-2 flex gap-1">
-                                    <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-stone-950/80 backdrop-blur-md text-pink-300 border border-purple-800/50">${story.genre}</span>
-                                    <span class="text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full bg-purple-950/80 backdrop-blur-md text-indigo-300 border border-indigo-800/50">${story.sub}</span>
+                                    <span class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-stone-950/80 text-pink-300 border border-purple-800/50">${st.genre}</span>
                                 </div>
+                                ${st.isNew ? '<span class="absolute top-2 right-2 text-[9px] font-bold px-2 py-0.5 rounded-full bg-pink-600 text-white animate-pulse">✨ Baru</span>' : ''}
                             </div>
-                            
-                            <div class="flex flex-col gap-1 px-0.5 mt-2.5">
+                            <div class="flex flex-col gap-1 mt-2.5">
                                 <div class="flex items-center justify-between text-[10px]">
-                                    <span class="font-medium" style="color: var(--text-sub);">✦ Tema: ${story.tema}</span>
-                                    <span class="text-[9px] opacity-70" style="color: var(--text-main);">Buwana Millena</span>
+                                    <span class="font-medium" style="color:var(--text-sub);">✦ Tema: ${st.tema}</span>
+                                    <button onclick="toggleLike(${st.id})" class="flex items-center gap-1 bg-pink-950/40 px-2 py-0.5 rounded-full border border-pink-500/40 cursor-pointer" style="color:var(--text-main);"><span>❤️</span> <span class="font-bold">${lk}</span></button>
                                 </div>
-                                
-                                <h2 class="title-font text-sm font-semibold tracking-wide mt-0.5" style="color: var(--text-main);">${story.judul}</h2>
-                                
-                                <div class="mt-1">
-                                    <p class="text-xs font-light leading-relaxed italic opacity-90" style="color: var(--text-main);">
-                                        "${activeBlurb}"
-                                    </p>
-                                    <button onclick="toggleExpand(${story.id})" class="text-[10px] font-medium mt-1 transition flex items-center gap-1 focus:outline-none" style="color: var(--text-sub);">
-                                        ${expandIcon}
-                                    </button>
-                                </div>
+                                <h2 class="title-font text-sm font-semibold mt-0.5" style="color:var(--text-main);">${st.judul}</h2>
+                                <p class="text-xs font-light italic opacity-90" style="color:var(--text-main);">"${bl}"</p>
+                                <button onclick="toggleExpand(${st.id})" class="text-[10px] font-medium mt-1" style="color:var(--text-sub);">${exp ? '▲ Sembunyikan' : '▼ Selengkapnya'}</button>
                             </div>
                         </div>
-                        
-                        <div class="mt-4 pt-2.5 border-t border-purple-900/30 grid grid-cols-2 gap-2">
-                            <a href="${story.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${story.id})" 
-                               class="text-[10px] tracking-wider uppercase font-medium bg-purple-950/40 hover:bg-purple-950/70 py-2 px-2 rounded-xl border border-purple-500/40 transition text-center shadow-sm flex items-center justify-center gap-1" style="color: var(--text-main);">
-                               📖 Telegraph
-                            </a>
-                            <a href="${story.linkBlurb}" target="_blank" onclick="recordChannelClick(${story.id})" 
-                               class="text-[10px] tracking-wider uppercase font-medium bg-pink-950/30 hover:bg-pink-950/60 py-2 px-2 rounded-xl border border-pink-500/40 transition text-center shadow-sm flex items-center justify-center gap-1" style="color: var(--text-main);">
-                               💬 Channel
-                            </a>
+                        <div class="mt-4 pt-2.5 border-t border-purple-900/30 grid grid-cols-3 gap-1.5">
+                            <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id})" class="text-[9px] uppercase font-medium bg-purple-950/40 py-2 px-1 rounded-xl border border-purple-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">📖 Baca</a>
+                            <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[9px] uppercase font-medium bg-pink-950/30 py-2 px-1 rounded-xl border border-pink-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">💬 Channel</a>
+                            <button onclick="shareStory('${st.judul.replace(/'/g, "\'")}', '${st.linkTelegraph}')" class="text-[9px] uppercase font-medium bg-amber-950/30 py-2 px-1 rounded-xl border border-amber-500/40 text-center flex items-center justify-center cursor-pointer" style="color:var(--text-main);">🔗 Share</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
