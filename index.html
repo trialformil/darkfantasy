@@ -143,11 +143,17 @@
                         <option value="oldest">⏳ Terlama</option>
                         <option value="rating">⭐ Rating Terbaik</option>
                     </select>
-                    <span id="telegram-status-badge" class="text-[9px] px-2 py-0.5 rounded-full bg-purple-900/40 text-pink-300 border border-purple-500/40">🤖 Telegram</span>
                 </div>
             </div>
             <form onsubmit="submitGuestbook(event)" class="space-y-3 bg-purple-950/20 p-3.5 rounded-xl border border-purple-500/30">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Identitas Pengirim:</label>
+                        <select id="guest-identity-mode" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
+                            <option value="telegram">🤖 Akun Telegram (Otomatis)</option>
+                            <option value="anonim">🕵️ Anonim (Nomor Seri)</option>
+                        </select>
+                    </div>
                     <div>
                         <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pilih Mood Suka:</label>
                         <select id="guest-mood" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
@@ -158,7 +164,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Berikan Rating Taman:</label>
+                        <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Rating Taman:</label>
                         <select id="guest-rating" class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500" style="color: var(--text-main);">
                             <option value="5">⭐⭐⭐⭐⭐ (Sempurna & Magis)</option>
                             <option value="4">⭐⭐⭐⭐ (Sangat Indah)</option>
@@ -172,8 +178,7 @@
                     <label class="text-[10px] font-medium block mb-1 opacity-90" style="color: var(--text-main);">Pesan & Kesan / Ulasan <span class="text-pink-500">*</span></label>
                     <textarea id="guest-message" rows="2" required placeholder="Tuliskan ulasan atau kesan naskah di taman ini..." class="w-full px-3 py-1.5 bg-black/40 border border-purple-500/40 rounded-xl text-[11px] focus:outline-none focus:border-pink-500 transition resize-none" style="color: var(--text-main);"></textarea>
                 </div>
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[10px] opacity-80" style="color: var(--text-main);">
-                    <span id="auto-user-preview">👤 Memuat identitas Telegram...</span>
+                <div class="flex items-center justify-end">
                     <button type="submit" class="bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-90 text-white text-[10px] font-semibold px-4 py-1.5 rounded-xl shadow-md transition cursor-pointer">✨ Kirim Ulasan Tamu</button>
                 </div>
             </form>
@@ -240,19 +245,15 @@
             { id: "msg_1", uid: "sys", name: "Millena", telegram: "@buwanamillena", mood: "✨ Bahagia & Terpesona", rating: 5, text: "Selamat datang di taman bacaan! Semoga naskah-naskah ini memberi kehangatan di malammu.", date: new Date().toISOString(), replies: [] }
         ];
 
-        let currentUser = { uid: "anon_" + Math.random().toString(36).substr(2,9), name: "Anonim 🌿", telegram: "@tamu_rahasia" };
+        let telegramUser = { uid: "anon_" + Math.random().toString(36).substr(2,9), name: "Millena", telegram: "@buwanamillena" };
 
         function initTelegramUser() {
             if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
                 const u = window.Telegram.WebApp.initDataUnsafe.user;
-                currentUser.uid = u.id.toString();
-                currentUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
-                currentUser.telegram = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
-                document.getElementById('telegram-status-badge').innerText = "🤖 " + currentUser.name;
-            } else {
-                document.getElementById('telegram-status-badge').innerText = "💻 Browser Tamu";
+                telegramUser.uid = u.id.toString();
+                telegramUser.name = u.first_name + (u.last_name ? ' ' + u.last_name : '');
+                telegramUser.telegram = u.username ? '@' + u.username : '@' + u.first_name.toLowerCase().replace(/\s+/g,'_');
             }
-            document.getElementById('auto-user-preview').innerText = `👤 Akun: ${currentUser.name} (${currentUser.telegram})`;
         }
 
         function recordTelegraphClick(id) { telegraphClicks[id] = (telegraphClicks[id] || 0) + 1; localStorage.setItem('story_telegraph_clicks', JSON.stringify(telegraphClicks)); renderRanking(); }
@@ -263,14 +264,27 @@
             e.preventDefault();
             const text = document.getElementById('guest-message').value.trim();
             if(!text) return;
+            const mode = document.getElementById('guest-identity-mode').value;
             const mood = document.getElementById('guest-mood').value;
             const rating = parseInt(document.getElementById('guest-rating').value);
 
+            let finalName, finalTg, finalUid;
+            if(mode === 'telegram') {
+                finalName = telegramUser.name;
+                finalTg = telegramUser.telegram;
+                finalUid = telegramUser.uid;
+            } else {
+                let randomSerial = Math.floor(1000 + Math.random() * 9000);
+                finalName = `Anonim #${randomSerial}`;
+                finalTg = `@tamu_${randomSerial}`;
+                finalUid = 'anon_serial_' + randomSerial;
+            }
+
             guestbookMessages.unshift({
                 id: 'msg_' + Date.now(),
-                uid: currentUser.uid,
-                name: currentUser.name,
-                telegram: currentUser.telegram,
+                uid: finalUid,
+                name: finalName,
+                telegram: finalTg,
                 mood: mood,
                 rating: rating,
                 text: text,
@@ -326,8 +340,8 @@
             if(m) {
                 if(!m.replies) m.replies = [];
                 m.replies.push({
-                    name: currentUser.name,
-                    telegram: currentUser.telegram,
+                    name: telegramUser.name,
+                    telegram: telegramUser.telegram,
                     text: text,
                     date: new Date().toISOString()
                 });
@@ -358,7 +372,7 @@
             }
 
             sorted.forEach(msg => {
-                const isOwner = msg.uid === currentUser.uid;
+                const isOwner = msg.uid === telegramUser.uid || msg.uid === 'sys';
                 const dateStr = new Date(msg.date).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
                 const stars = '⭐'.repeat(msg.rating || 5);
 
@@ -384,7 +398,7 @@
                             <span class="font-semibold" style="color: var(--text-sub);">${msg.name} <span class="opacity-70 font-normal">(${msg.telegram})</span></span>
                             <div class="flex items-center gap-2">
                                 <span class="opacity-60 text-[9px]" style="color: var(--text-main);">${dateStr}</span>
-                                ${isOwner ? `
+                                ${isOwner && msg.uid !== 'sys' ? `
                                     <button onclick="openEditModal('${msg.id}')" title="Edit" class="text-pink-400">✏️</button>
                                     <button onclick="deleteGuestMessage('${msg.id}')" title="Hapus" class="text-red-400">🗑️</button>
                                 ` : ''}
@@ -417,6 +431,7 @@
             t.innerText = msg; setTimeout(()=>t.style.opacity='1',10); setTimeout(()=>t.style.opacity='0',3000);
         }
 
+        // BGM STABLE AUDIO SOURCES (Standard MP3/OGG CDN links)
         const playlist = [
             { id: 0, title: "🌧️ Hujan Kastil & Petir", src: "https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg", genre: "Dark Fantasy" },
             { id: 1, title: "☕ Starlight Café Lofi", src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=lofi-study-112191.mp3", genre: "Romance" },
@@ -425,16 +440,31 @@
             { id: 4, title: "✨ Sanctuary Starlight Chill", src: "https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6522fa59.mp3?filename=lofi-study-41.mp3", genre: "Semua" }
         ];
         let currentTrackIndex = 0, isPlayingBGM = false;
-        function initAudio() { document.getElementById('bgm-audio').src = playlist[currentTrackIndex].src; document.getElementById('current-track-title').innerText = playlist[currentTrackIndex].title; }
+        function initAudio() { 
+            const a = document.getElementById('bgm-audio');
+            a.src = playlist[currentTrackIndex].src;
+            document.getElementById('current-track-title').innerText = playlist[currentTrackIndex].title; 
+        }
         function toggleBGM() {
             const a = document.getElementById('bgm-audio'), i = document.getElementById('bgm-icon');
-            if(isPlayingBGM) { a.pause(); i.innerText = "▶"; isPlayingBGM = false; }
-            else { if(!a.src) a.src = playlist[currentTrackIndex].src; a.play().then(()=>{ i.innerText = "⏸"; isPlayingBGM = true; }).catch(()=>showToast("Ketuk sekali lagi untuk audio.")); }
+            if(isPlayingBGM) { 
+                a.pause(); 
+                i.innerText = "▶"; 
+                isPlayingBGM = false; 
+            } else { 
+                a.play().then(()=>{ 
+                    i.innerText = "⏸"; 
+                    isPlayingBGM = true; 
+                }).catch(()=>{
+                    showToast("Ketuk tombol play sekali lagi untuk audio.");
+                }); 
+            }
         }
         function changeTrack(idx) {
             currentTrackIndex = parseInt(idx);
             const a = document.getElementById('bgm-audio'), t = playlist[currentTrackIndex];
-            a.src = t.src; document.getElementById('current-track-title').innerText = t.title;
+            a.src = t.src; 
+            document.getElementById('current-track-title').innerText = t.title;
             document.getElementById('bgm-selector').value = currentTrackIndex;
             if(isPlayingBGM) a.play().catch(()=>{});
         }
@@ -559,7 +589,7 @@
                         <div class="mt-4 pt-2.5 border-t border-purple-900/30 grid grid-cols-3 gap-1.5">
                             <a href="${st.linkTelegraph}" target="_blank" onclick="recordTelegraphClick(${st.id})" class="text-[9px] uppercase font-medium bg-purple-950/40 py-2 px-1 rounded-xl border border-purple-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">📖 Baca</a>
                             <a href="${st.linkBlurb}" target="_blank" onclick="recordChannelClick(${st.id})" class="text-[9px] uppercase font-medium bg-pink-950/30 py-2 px-1 rounded-xl border border-pink-500/40 text-center flex items-center justify-center" style="color:var(--text-main);">💬 Channel</a>
-                            <button onclick="shareStory('${st.judul.replace(/'/g, "\'")}', '${st.linkTelegraph}')" class="text-[9px] uppercase font-medium bg-amber-950/30 py-2 px-1 rounded-xl border border-amber-500/40 text-center flex items-center justify-center cursor-pointer" style="color:var(--text-main);">🔗 Share</button>
+                            <button onclick="shareStory('${st.judul.replace(/'/g, "\\'")}', '${st.linkTelegraph}')" class="text-[9px] uppercase font-medium bg-amber-950/30 py-2 px-1 rounded-xl border border-amber-500/40 text-center flex items-center justify-center cursor-pointer" style="color:var(--text-main);">🔗 Share</a>
                         </div>
                     </div>`;
             });
